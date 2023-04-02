@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class PartyService {
+public class PartyRepository {
     private static final Map<Integer, Party> taxiStore = new HashMap<>();
     private static final Map<Integer, Party> carpoolStore = new HashMap<>();
     private static int seq = 0;
 
-    private PartyService(){}
+    private PartyRepository(){}
 
     public Party save(Party party) {
         party.setP_id(++seq);
