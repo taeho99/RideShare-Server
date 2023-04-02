@@ -44,6 +44,11 @@ GET /parties/carpools
         "startDateStr": "2023-03-31",
         "startTimeStr": "오후 04:08",
         "confirm": false
-    },
+    }
 ]
 ```
+---
+## TODO
+
+- PartyRepository에서 store 통합
+- 컨트롤러에서 등록기능 구현

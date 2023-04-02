@@ -1,7 +1,9 @@
 package com.rideshare.party.service;
 
 import com.rideshare.party.domain.Party;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,10 +37,24 @@ public class PartyRepository {
     }
 
     public Party findById(int p_id) {
-        if(taxiStore.get(p_id) != null)
+        if(taxiStore.containsKey(p_id))
             return taxiStore.get(p_id);
-        else
+        else if(carpoolStore.containsKey(p_id))
             return carpoolStore.get(p_id);
+        else
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
+    }
+
+    public Party taxiFindById(int p_id) {
+        if(!taxiStore.containsKey(p_id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
+        return taxiStore.get(p_id);
+    }
+
+    public Party carpoolFindById(int p_id) {
+        if(!carpoolStore.containsKey(p_id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
+        return carpoolStore.get(p_id);
     }
 
     public void clearAllStore() {
