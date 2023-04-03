@@ -138,3 +138,5 @@ POST /parties/carpools
 }
 ```
 ## TODO
+- SQL 테이블에서 startTime 데이터 타임을 startDate, startTime으로 변경
+- Party.java 에서 isFinish 필드 추가하기
