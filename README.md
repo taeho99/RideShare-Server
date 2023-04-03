@@ -14,6 +14,7 @@ GET /parties/taxis
 ```http
 GET /parties/carpools
 ```
+**성공**: 200 OK <br><br>
 **응답 예시(JSON)**
 ```json
 [
@@ -52,6 +53,8 @@ GET /parties/carpools
 ```http request
 GET /parties/{p_id}
 ```
+**성공**: 200 OK <br>
+**실패**: 404 NOT_FOUND <BR><br>
 **응답 예시(JSON)**
 ```json
 {
@@ -73,6 +76,7 @@ GET /parties/{p_id}
 ```http request
 POST /parties/taxis
 ```
+**성공**: 201 CREATED <br><BR>
 **요청 예시(JSON)**
 ```json
 {
@@ -83,7 +87,7 @@ POST /parties/taxis
   "startTime": "오후 04:08"
 }
 ```
-**출력 예시(JSON)**
+**응답 예시(JSON)**
 ```json
 {
     "p_id": 23,
@@ -104,6 +108,7 @@ POST /parties/taxis
 ```http request
 POST /parties/carpools
 ```
+**성공**: 201 CREATED <br><BR>
 **요청 예시(JSON)**
 ```json
 {
@@ -116,7 +121,7 @@ POST /parties/carpools
   "content": "카풀내용예제테스트asdfgh"
 }
 ```
-**출력 예시(JSON)**
+**응답 예시(JSON)**
 ```json
 {
   "p_id": 24,
