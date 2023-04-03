@@ -12,6 +12,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class TestDataInit {
     private final PartyRepository partyRepository;
+    private final DateFormatter df;
 
     /**
      * 테스트용 데이터
@@ -44,7 +45,8 @@ public class TestDataInit {
     private Party createTaxiParty(String start, String end) {
         return Party.builder()
                 .p_type("택시")
-                .startTime(new Date())
+                .startDate(df.dateToDateStr(new Date()))
+                .startTime(df.dateToTimeStr(new Date()))
                 .startPoint(start)
                 .endPoint(end)
                 .currentHeadcnt(2)
@@ -56,7 +58,8 @@ public class TestDataInit {
     private Party createCarpoolParty(String start, String end) {
         return Party.builder()
                 .p_type("카풀")
-                .startTime(new Date())
+                .startDate(df.dateToDateStr(new Date()))
+                .startTime(df.dateToTimeStr(new Date()))
                 .startPoint(start)
                 .endPoint(end)
                 .currentHeadcnt(4)

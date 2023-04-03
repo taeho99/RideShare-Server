@@ -12,8 +12,7 @@ import java.util.Map;
 
 @Repository
 public class PartyRepository {
-    private static final Map<Integer, Party> taxiStore = new HashMap<>();
-    private static final Map<Integer, Party> carpoolStore = new HashMap<>();
+    private static final Map<Integer, Party> store = new HashMap<>();
     private static int seq = 0;
 
     private PartyRepository(){}
@@ -21,30 +20,35 @@ public class PartyRepository {
     public Party save(Party party) {
         party.setP_id(++seq);
 
-        if(party.getP_type().equals("택시"))
-            taxiStore.put(party.getP_id(), party);
-        else
-            carpoolStore.put(party.getP_id(), party);
-        return party;
+        store.put(party.getP_id(), party);
+        return store.get(party.getP_id());
     }
 
     public List<Party> taxiFindAll() {
-        return new ArrayList<>(taxiStore.values());
+        List<Party> result = new ArrayList<>();
+        store.forEach((k, v) -> {
+            if (v.getP_type().equals("택시"))
+                result.add(v);
+        });
+        return result;
     }
 
     public List<Party> carpoolFindAll() {
-        return new ArrayList<>(carpoolStore.values());
+        List<Party> result = new ArrayList<>();
+        store.forEach((k, v) -> {
+            if (v.getP_type().equals("카풀"))
+                result.add(v);
+        });
+        return result;
     }
 
     public Party findById(int p_id) {
-        if(taxiStore.containsKey(p_id))
-            return taxiStore.get(p_id);
-        else if(carpoolStore.containsKey(p_id))
-            return carpoolStore.get(p_id);
-        else
+        if(!store.containsKey(p_id))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
+        return store.get(p_id);
     }
 
+    /*
     public Party taxiFindById(int p_id) {
         if(!taxiStore.containsKey(p_id))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
@@ -56,12 +60,13 @@ public class PartyRepository {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
         return carpoolStore.get(p_id);
     }
+    */
 
     public void clearAllStore() {
-        taxiStore.clear();
-        carpoolStore.clear();
+        store.clear();
     }
 
+    /*
     public void clearTaxiStore() {
         taxiStore.clear();
     }
@@ -69,4 +74,5 @@ public class PartyRepository {
     public void clearCarpoolStore() {
         carpoolStore.clear();
     }
+    */
 }
