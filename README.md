@@ -1,5 +1,4 @@
 # RideShare-Server
-- - -
 ## 실행방법(인텔리제이 기준) 
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 초기설정
@@ -7,9 +6,7 @@
 ![캡처](https://user-images.githubusercontent.com/70526479/229042932-646348cf-5152-410a-bdce-9fdc85a1b695.PNG)
 2. RideshareApplication 파일의 main() 메서드를 실행하면 됩니다.<br>
 ![캡처2](https://user-images.githubusercontent.com/70526479/229047097-cf8ed5c7-6415-4326-bfbe-928179b7b0c3.PNG)
-- - -
 ## REST API Guide
-- - -
 ### 모든 택시/카풀 리스트 반환
 ```http
 GET /parties/taxis
@@ -49,6 +46,27 @@ GET /parties/carpools
         "confirm": false
     }
 ]
+```
+- - -
+### 택시/카풀 ID로 조회
+```http request
+GET /parties/{p_id}
+```
+**응답 예시(JSON)**
+```json
+{
+    "p_id": 21,
+    "p_type": "카풀",
+    "startDate": "2023-03-31",
+    "startTime": "오후 04:08",
+    "startPoint": "기숙사",
+    "endPoint": "남춘천역",
+    "currentHeadcnt": 1,
+    "totalHeadcnt": 4,
+    "carNumber": "12가3456",
+    "content": "카풀내용예제테스트asdfgh",
+    "confirm": false
+}
 ```
 - - -
 ### 택시 파티 등록
@@ -114,5 +132,4 @@ POST /parties/carpools
   "confirm": false
 }
 ```
----
 ## TODO
