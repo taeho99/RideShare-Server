@@ -69,10 +69,13 @@ public class PartyController {
                 .startDate(inputData.get("startDate"))
                 .startTime(inputData.get("startTime"))
                 .startPoint(inputData.get("startPoint"))
+                .startLat(inputData.get("startLat"))
+                .startLng(inputData.get("startLng"))
                 .endPoint(inputData.get("endPoint"))
                 .currentHeadcnt(1)
                 .totalHeadcnt(Integer.parseInt(inputData.get("totalHeadcnt")))
                 .isConfirm(false)
+                .isFinish(false)
                 .content(inputData.get("content"))
                 .carNumber(inputData.get("carNumber"))
                 .build();

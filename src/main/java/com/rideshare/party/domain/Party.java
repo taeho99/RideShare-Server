@@ -12,10 +12,13 @@ public class Party {
     private String startDate;
     private String startTime;
     private String startPoint;
+    private String startLat;
+    private String startLng;
     private String endPoint;
     private int currentHeadcnt;
     private int totalHeadcnt;
     private boolean isConfirm;
+    private boolean isFinish;
     private String carNumber;
     private String content;
 
