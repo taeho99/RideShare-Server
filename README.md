@@ -21,30 +21,34 @@ GET /parties/carpools
     {
         "p_id": 1,
         "p_type": "택시",
-        "startTime": "2023-03-31T07:08:55.880+00:00",
+        "startDate": "2023-04-04",
+        "startTime": "오후 02:27",
         "startPoint": "기숙사",
+        "startLat": "37.865506537056945",
+        "startLng": "127.7428865998153",
         "endPoint": "남춘천역",
         "currentHeadcnt": 2,
         "totalHeadcnt": 4,
         "carNumber": null,
         "content": null,
-        "startDateStr": "2023-03-31",
-        "startTimeStr": "오후 04:08",
-        "confirm": false
+        "confirm": false,
+        "finish": false
     },
     {
         "p_id": 2,
         "p_type": "택시",
-        "startTime": "2023-03-31T07:08:55.880+00:00",
+        "startDate": "2023-04-04",
+        "startTime": "오후 02:27",
         "startPoint": "후문",
+        "startLat": "37.87254023957852",
+        "startLng": "127.7428865998153",
         "endPoint": "남춘천역",
         "currentHeadcnt": 2,
         "totalHeadcnt": 4,
         "carNumber": null,
         "content": null,
-        "startDateStr": "2023-03-31",
-        "startTimeStr": "오후 04:08",
-        "confirm": false
+        "confirm": false,
+        "finish": false
     }
 ]
 ```
@@ -58,17 +62,20 @@ GET /parties/{p_id}
 **응답 예시(JSON)**
 ```json
 {
-    "p_id": 21,
-    "p_type": "카풀",
-    "startDate": "2023-03-31",
-    "startTime": "오후 04:08",
-    "startPoint": "기숙사",
+    "p_id": 3,
+    "p_type": "택시",
+    "startDate": "2023-04-04",
+    "startTime": "오후 02:27",
+    "startPoint": "천지관",
+    "startLat": "37.87120749003905",
+    "startLng": "127.7431938775162",
     "endPoint": "남춘천역",
-    "currentHeadcnt": 1,
+    "currentHeadcnt": 2,
     "totalHeadcnt": 4,
-    "carNumber": "12가3456",
-    "content": "카풀내용예제테스트asdfgh",
-    "confirm": false
+    "carNumber": null,
+    "content": null,
+    "confirm": false,
+    "finish": false
 }
 ```
 - - -
@@ -81,26 +88,31 @@ POST /parties/taxis
 ```json
 {
   "startPoint": "기숙사",
+  "startLat": "37.87120749003905",
+  "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
   "totalHeadcnt": 4,
-  "startDate": "2023-03-31",
-  "startTime": "오후 04:08"
+  "startDate": "2023-04-04",
+  "startTime": "오후 02:30"
 }
 ```
 **응답 예시(JSON)**
 ```json
 {
-    "p_id": 23,
+    "p_id": 21,
     "p_type": "택시",
-    "startDate": "2023-03-31",
-    "startTime": "오후 04:08",
+    "startDate": "2023-04-04",
+    "startTime": "오후 02:30",
     "startPoint": "기숙사",
+    "startLat": "37.87120749003905",
+    "startLng": "127.7431938775162",
     "endPoint": "남춘천역",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
     "carNumber": null,
     "content": null,
-    "confirm": false
+    "confirm": false,
+    "finish": false
 }
 ```
 - - -
@@ -124,21 +136,29 @@ POST /parties/carpools
 **응답 예시(JSON)**
 ```json
 {
-  "p_id": 24,
-  "p_type": "카풀",
-  "startDate": "2023-03-31",
-  "startTime": "오후 04:08",
-  "startPoint": "기숙사",
-  "endPoint": "남춘천역",
-  "currentHeadcnt": 1,
-  "totalHeadcnt": 4,
-  "carNumber": "12가3456",
-  "content": "카풀내용예제테스트asdfgh",
-  "confirm": false
+    "p_id": 22,
+    "p_type": "카풀",
+    "startDate": "2023-03-31",
+    "startTime": "오후 04:08",
+    "startPoint": "기숙사",
+    "startLat": "37.87120749003905",
+    "startLng": "127.7431938775162",
+    "endPoint": "남춘천역",
+    "currentHeadcnt": 1,
+    "totalHeadcnt": 4,
+    "carNumber": "12가3456",
+    "content": "카풀내용예제테스트asdfgh",
+    "confirm": false,
+    "finish": false
 }
 ```
 ## TODO
 - SQL 테이블에서 startTime 데이터 타임을 startDate, startTime으로 변경
-- Party.java 에서 isFinish 필드 추가하기
-- 도로명주소 -> 위도, 경도 변환 api 알아보기
-- 위도, 경도 데이터베이스 스키마에 
+    
+## 참고
+- 주소 -> 위도/경도 변환
+    https://developers.kakao.com/docs/latest/ko/local/dev-guide#address-coord-request
+- 위도/경도 -> 주소 변환
+    https://developers.kakao.com/docs/latest/ko/local/dev-guide#coord-to-address
+- 위도/경도 찾기
+    https://apis.map.kakao.com/web/sample/addMapClickEventWithMarker/
