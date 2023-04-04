@@ -140,3 +140,5 @@ POST /parties/carpools
 ## TODO
 - SQL 테이블에서 startTime 데이터 타임을 startDate, startTime으로 변경
 - Party.java 에서 isFinish 필드 추가하기
+- 도로명주소 -> 위도, 경도 변환 api 알아보기
+- 위도, 경도 데이터베이스 스키마에 
