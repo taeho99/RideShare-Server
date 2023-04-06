@@ -33,18 +33,6 @@ public class PartyController {
         return partyRepository.findById(p_id);
     }
 
-    /*
-    @GetMapping("/taxis/{p_id}") //id로 택시 조회하기
-    public Party taxiSearch(@PathVariable int p_id) {
-        return partyRepository.taxiFindById(p_id);
-    }
-
-    @GetMapping("/carpools/{p_id}") //id로 택시 조회하기
-    public Party carpoolSearch(@PathVariable int p_id) {
-        return partyRepository.carpoolFindById(p_id);
-    }
-     */
-
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/taxis")
     public Party addTaxi(@RequestBody Map<String, String> inputData) {
@@ -59,8 +47,12 @@ public class PartyController {
     public Party addCarpool(@RequestBody Map<String, String> inputData) {
         inputData.forEach((k, v) -> log.info("key = " + k + ", value = " + v));
         Party addItem = getAddItem(inputData, "카풀");
-        partyRepository.save(addItem);
-        return addItem;
+        return partyRepository.save(addItem);
+    }
+
+    @DeleteMapping("/{p_id}")
+    public void delete(@PathVariable int p_id) {
+        partyRepository.removeById(p_id);
     }
 
     private Party getAddItem(Map<String, String> inputData, String type) {
