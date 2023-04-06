@@ -157,7 +157,9 @@ POST /parties/carpools
 ```
 ## TODO
 - SQL 테이블에서 startTime 데이터 타임을 startDate, startTime으로 변경
-    
+- 로그인 방식 JWT 토큰 공부
+- 삭제/수정 기능 README에 추가
+
 ## 참고
 - 주소 -> 위도/경도 변환
     https://developers.kakao.com/docs/latest/ko/local/dev-guide#address-coord-request

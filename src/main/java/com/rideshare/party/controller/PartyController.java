@@ -51,9 +51,15 @@ public class PartyController {
     }
 
     @DeleteMapping("/{p_id}")
-    public void delete(@PathVariable int p_id) {
-        partyRepository.removeById(p_id);
+    public void remove(@PathVariable int p_id) {
+        partyRepository.deleteById(p_id);
     }
+
+    @PutMapping("/{p_id}")
+    public void edit(@PathVariable int p_id, @RequestBody Map<String, String> inputData) {
+        partyRepository.updateById(p_id, inputData);
+    }
+
 
     private Party getAddItem(Map<String, String> inputData, String type) {
         return Party.builder()

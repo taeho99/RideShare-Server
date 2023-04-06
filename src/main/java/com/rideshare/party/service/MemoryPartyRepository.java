@@ -48,38 +48,40 @@ public class MemoryPartyRepository implements PartyRepository {
         return store.get(p_id);
     }
 
-    /*
-    public Party taxiFindById(int p_id) {
-        if(!taxiStore.containsKey(p_id))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
-        return taxiStore.get(p_id);
-    }
-
-    public Party carpoolFindById(int p_id) {
-        if(!carpoolStore.containsKey(p_id))
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
-        return carpoolStore.get(p_id);
-    }
-    */
-
     public void clearAllStore() {
         store.clear();
     }
 
     @Override
-    public void removeById(int p_id) {
+    public void deleteById(int p_id) {
         if(!store.containsKey(p_id))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
         store.remove(p_id);
     }
 
-    /*
-    public void clearTaxiStore() {
-        taxiStore.clear();
+    @Override
+    public void updateById(int p_id, Map<String, String> inputData) {
+        if(!store.containsKey(p_id))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
+        Party party = store.get(p_id);
+        party.setStartPoint(inputData.get("startPoint"));
+        party.setStartLat(inputData.get("startLat"));
+        party.setStartLng(inputData.get("startLng"));
+        party.setEndPoint(inputData.get("endPoint"));
+        party.setTotalHeadcnt(Integer.parseInt(inputData.get("totalHeadcnt")));
+        party.setStartDate(inputData.get("startDate"));
+        party.setStartTime(inputData.get("startTime"));
+        if (party.getP_type().equals("카풀")) {
+            party.setCarNumber(inputData.get("carNumber"));
+            party.setContent(inputData.get("content"));
+        }
     }
 
-    public void clearCarpoolStore() {
-        carpoolStore.clear();
+    public void onConfirm(int p_id) {
+        store.get(p_id).setConfirm(true);
     }
-    */
+
+    public void onFinish(int p_id) {
+        store.get(p_id).setFinish(true);
+    }
 }
