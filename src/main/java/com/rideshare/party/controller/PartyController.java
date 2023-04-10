@@ -56,8 +56,8 @@ public class PartyController {
     }
 
     @PutMapping("/{p_id}")
-    public void edit(@PathVariable int p_id, @RequestBody Map<String, String> inputData) {
-        partyRepository.updateById(p_id, inputData);
+    public Party edit(@PathVariable int p_id, @RequestBody Map<String, String> inputData) {
+        return partyRepository.updateById(p_id, inputData);
     }
 
 

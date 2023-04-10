@@ -60,7 +60,7 @@ public class MemoryPartyRepository implements PartyRepository {
     }
 
     @Override
-    public void updateById(int p_id, Map<String, String> inputData) {
+    public Party updateById(int p_id, Map<String, String> inputData) {
         if(!store.containsKey(p_id))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
         Party party = store.get(p_id);
@@ -75,6 +75,7 @@ public class MemoryPartyRepository implements PartyRepository {
             party.setCarNumber(inputData.get("carNumber"));
             party.setContent(inputData.get("content"));
         }
+        return party;
     }
 
     public void onConfirm(int p_id) {

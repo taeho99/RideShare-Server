@@ -18,5 +18,5 @@ public interface PartyRepository {
 
     void deleteById(int p_id);
 
-    void updateById(int p_id, Map<String, String> inputData);
+    Party updateById(int p_id, Map<String, String> inputData);
 }
