@@ -7,7 +7,7 @@
 2. RideshareApplication 파일의 main() 메서드를 실행하면 됩니다.<br>
 ![캡처2](https://user-images.githubusercontent.com/70526479/229047097-cf8ed5c7-6415-4326-bfbe-928179b7b0c3.PNG)
 ## ERD
-![erd](https://user-images.githubusercontent.com/70526479/229697992-525383af-66b0-4231-9ade-48ccfc007a6b.png)
+![TTaMpsp2EsLXFTaWY](https://user-images.githubusercontent.com/70526479/230904515-2c816dc1-79c1-4003-9212-42f37ab6133e.png)
 https://www.erdcloud.com/d/TTaMpsp2EsLXFTaWY
 ## REST API Guide
 ### 모든 택시/카풀 리스트 반환
@@ -155,10 +155,91 @@ POST /parties/carpools
     "finish": false
 }
 ```
+
+- - -
+### 파티 삭제
+```http request
+DELETE /parties/{p_id}
+```
+**성공**: 200 OK <br>
+**실패**: 404 NOT_FOUND <br><BR>
+
+- - -
+### 파티 수정
+**택시와 카풀 수정은 HTTP 요청 주소는 동일하나 요청하는 JSON에 차이가 있습니다.**<br>
+**카풀의 경우 "carNumber"와 "content"를 추가하여 요청해야 합니다.**
+```http request
+PUT /parties/{p_id}
+```
+**성공**: 200 OK <br>
+**실패**: 404 NOT_FOUND <br><BR>
+**택시 요청 예시(JSON)**
+```json
+{
+  "startPoint": "기숙사",
+  "startLat": "37.87120749003905",
+  "startLng": "127.7431938775162",
+  "endPoint": "남춘천역",
+  "totalHeadcnt": 4,
+  "startDate": "2023-04-19",
+  "startTime": "오후 09:10"
+}
+```
+**택시 응답 예시(JSON)**
+```json
+{
+    "p_id": 1,
+    "p_type": "택시",
+    "startDate": "2023-04-19",
+    "startTime": "오후 09:10",
+    "startPoint": "기숙사",
+    "startLat": "37.87120749003905",
+    "startLng": "127.7431938775162",
+    "endPoint": "남춘천역",
+    "currentHeadcnt": 2,
+    "totalHeadcnt": 4,
+    "carNumber": null,
+    "content": null,
+    "finish": false,
+    "confirm": false
+}
+```
+**카풀 요청 예시(JSON)**
+```json
+{
+  "startPoint": "기숙사",
+  "startLat": "37.87120749003905",
+  "startLng": "127.7431938775162",
+  "endPoint": "남춘천역",
+  "totalHeadcnt": 4,
+  "startDate": "2023-04-19",
+  "startTime": "오후 09:10",
+  "carNumber": "98가7654",
+  "content": "카풀내용수정테스트asdfgh"
+}
+```
+**카풀 응답 예시(JSON)**
+```json
+{
+    "p_id": 11,
+    "p_type": "카풀",
+    "startDate": "2023-04-19",
+    "startTime": "오후 09:10",
+    "startPoint": "기숙사",
+    "startLat": "37.87120749003905",
+    "startLng": "127.7431938775162",
+    "endPoint": "남춘천역",
+    "currentHeadcnt": 4,
+    "totalHeadcnt": 4,
+    "carNumber": "98가7654",
+    "content": "카풀내용수정테스트asdfgh",
+    "finish": true,
+    "confirm": true
+}
+```
+
 ## TODO
-- SQL 테이블에서 startTime 데이터 타임을 startDate, startTime으로 변경
 - 로그인 방식 JWT 토큰 공부
-- 삭제/수정 기능 README에 추가
 
 ## 참고
 - 주소 -> 위도/경도 변환
