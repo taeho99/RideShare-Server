@@ -128,12 +128,14 @@ POST /parties/carpools
 ```json
 {
   "startPoint": "기숙사",
+  "startLat": "37.87120749003905",
+  "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
   "totalHeadcnt": 4,
   "startDate": "2023-03-31",
   "startTime": "오후 04:08",
   "carNumber": "12가3456",
-  "content": "카풀내용예제테스트asdfgh"
+  "content": "카풀내용수정테스트asdfgh"
 }
 ```
 **응답 예시(JSON)**
