@@ -1,5 +1,6 @@
 package com.rideshare.party.controller;
 
+import com.rideshare.party.domain.CarpoolDTO;
 import com.rideshare.party.domain.Party;
 import com.rideshare.party.domain.TaxiDTO;
 import com.rideshare.party.service.PartyRepository;
@@ -38,17 +39,15 @@ public class PartyController {
     @PostMapping("/taxis")
     public Party addTaxi(@RequestBody TaxiDTO inputData) {
         Party addItem = addTaxiItem(inputData);
-        partyRepository.save(addItem);
-        return addItem;
+        return partyRepository.save(addItem);
     }
 
-    /*@ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/carpools")
-    public Party addCarpool(@RequestBody Map<String, String> inputData) {
-        inputData.forEach((k, v) -> log.info("key = " + k + ", value = " + v));
-        Party addItem = getAddItem(inputData, "카풀");
+    public Party addCarpool(@RequestBody CarpoolDTO inputData) {
+        Party addItem = addCarpoolItem(inputData);
         return partyRepository.save(addItem);
-    }*/
+    }
 
     @DeleteMapping("/{p_id}")
     public void remove(@PathVariable int p_id) {
@@ -75,6 +74,25 @@ public class PartyController {
                 inputData.getTotalHeadcnt(),
                 null,
                 null,
+                false,
+                false
+        );
+    }
+
+    private Party addCarpoolItem(CarpoolDTO inputData) {
+        return new Party(
+                0,
+                "카풀",
+                inputData.getStartDate(),
+                inputData.getStartTime(),
+                inputData.getStartPoint(),
+                inputData.getStartLat(),
+                inputData.getStartLng(),
+                inputData.getEndPoint(),
+                1, // currentHeadCnt
+                inputData.getTotalHeadcnt(),
+                inputData.getCarNumber(),
+                inputData.getContent(),
                 false,
                 false
         );
