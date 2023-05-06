@@ -1,6 +1,7 @@
 package com.rideshare.party.controller;
 
 import com.rideshare.party.domain.Party;
+import com.rideshare.party.domain.TaxiDTO;
 import com.rideshare.party.service.PartyRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,20 +36,19 @@ public class PartyController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/taxis")
-    public Party addTaxi(@RequestBody Map<String, String> inputData) {
-        inputData.forEach((k, v) -> log.info("key = " + k + ", value = " + v));
-        Party addItem = getAddItem(inputData, "택시");
+    public Party addTaxi(@RequestBody TaxiDTO inputData) {
+        Party addItem = addTaxiItem(inputData);
         partyRepository.save(addItem);
         return addItem;
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
+    /*@ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/carpools")
     public Party addCarpool(@RequestBody Map<String, String> inputData) {
         inputData.forEach((k, v) -> log.info("key = " + k + ", value = " + v));
         Party addItem = getAddItem(inputData, "카풀");
         return partyRepository.save(addItem);
-    }
+    }*/
 
     @DeleteMapping("/{p_id}")
     public void remove(@PathVariable int p_id) {
@@ -61,21 +61,22 @@ public class PartyController {
     }
 
 
-    private Party getAddItem(Map<String, String> inputData, String type) {
-        return Party.builder()
-                .p_type(type)
-                .startDate(inputData.get("startDate"))
-                .startTime(inputData.get("startTime"))
-                .startPoint(inputData.get("startPoint"))
-                .startLat(inputData.get("startLat"))
-                .startLng(inputData.get("startLng"))
-                .endPoint(inputData.get("endPoint"))
-                .currentHeadcnt(1)
-                .totalHeadcnt(Integer.parseInt(inputData.get("totalHeadcnt")))
-                .isConfirm(false)
-                .isFinish(false)
-                .content(inputData.get("content"))
-                .carNumber(inputData.get("carNumber"))
-                .build();
+    private Party addTaxiItem(TaxiDTO inputData) {
+        return new Party(
+                0,
+                "택시",
+                inputData.getStartDate(),
+                inputData.getStartTime(),
+                inputData.getStartPoint(),
+                inputData.getStartLat(),
+                inputData.getStartLng(),
+                inputData.getEndPoint(),
+                1, // currentHeadCnt
+                inputData.getTotalHeadcnt(),
+                null,
+                null,
+                false,
+                false
+        );
     }
 }

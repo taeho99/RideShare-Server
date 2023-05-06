@@ -1,9 +1,11 @@
 package com.rideshare.party.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
+@AllArgsConstructor
 @Builder
 public class Party {
     private int p_id;
@@ -17,10 +19,10 @@ public class Party {
     private String endPoint;
     private int currentHeadcnt;
     private int totalHeadcnt;
-    private boolean isConfirm;
-    private boolean isFinish;
     private String carNumber;
     private String content;
+    private boolean isConfirm;
+    private boolean isFinish;
 
 //    // 날짜 반환
 //    public String getStartDateStr() {
