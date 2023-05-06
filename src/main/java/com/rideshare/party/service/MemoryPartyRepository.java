@@ -1,5 +1,6 @@
 package com.rideshare.party.service;
 
+import com.rideshare.party.domain.CarpoolDTO;
 import com.rideshare.party.domain.Party;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
@@ -60,20 +61,20 @@ public class MemoryPartyRepository implements PartyRepository {
     }
 
     @Override
-    public Party updateById(int p_id, Map<String, String> inputData) {
+    public Party updateById(int p_id, CarpoolDTO inputData) {
         if(!store.containsKey(p_id))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No Data");
         Party party = store.get(p_id);
-        party.setStartPoint(inputData.get("startPoint"));
-        party.setStartLat(inputData.get("startLat"));
-        party.setStartLng(inputData.get("startLng"));
-        party.setEndPoint(inputData.get("endPoint"));
-        party.setTotalHeadcnt(Integer.parseInt(inputData.get("totalHeadcnt")));
-        party.setStartDate(inputData.get("startDate"));
-        party.setStartTime(inputData.get("startTime"));
+        party.setStartPoint(inputData.getStartPoint());
+        party.setStartLat(inputData.getStartLat());
+        party.setStartLng(inputData.getStartLng());
+        party.setEndPoint(inputData.getEndPoint());
+        party.setTotalHeadcnt(inputData.getTotalHeadcnt());
+        party.setStartDate(inputData.getStartDate());
+        party.setStartTime(inputData.getStartTime());
         if (party.getP_type().equals("카풀")) {
-            party.setCarNumber(inputData.get("carNumber"));
-            party.setContent(inputData.get("content"));
+            party.setCarNumber(inputData.getCarNumber());
+            party.setContent(inputData.getContent());
         }
         return party;
     }

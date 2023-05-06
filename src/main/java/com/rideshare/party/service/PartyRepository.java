@@ -1,9 +1,9 @@
 package com.rideshare.party.service;
 
+import com.rideshare.party.domain.CarpoolDTO;
 import com.rideshare.party.domain.Party;
 
 import java.util.List;
-import java.util.Map;
 
 public interface PartyRepository {
     Party save(Party party);
@@ -18,5 +18,5 @@ public interface PartyRepository {
 
     void deleteById(int p_id);
 
-    Party updateById(int p_id, Map<String, String> inputData);
+    Party updateById(int p_id, CarpoolDTO inputData);
 }

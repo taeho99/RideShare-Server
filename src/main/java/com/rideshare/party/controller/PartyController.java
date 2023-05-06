@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestController
@@ -55,7 +54,7 @@ public class PartyController {
     }
 
     @PutMapping("/{p_id}")
-    public Party edit(@PathVariable int p_id, @RequestBody Map<String, String> inputData) {
+    public Party edit(@PathVariable int p_id, @RequestBody CarpoolDTO inputData) {
         return partyRepository.updateById(p_id, inputData);
     }
 
