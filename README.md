@@ -267,6 +267,36 @@ PUT /parties/{pId}
 }
 ```
 
+- - -
+### 파티 현재 인원 수 1 증가시키기
+- **파티의 current_headcnt 값을 1증가 시키는 기능입니다.**
+```http request
+PUT /parties/{pId}/current-headcnt
+```
+**성공**: 200 OK <br>
+
+**응답 예시(TEXT) (1 -> 2로 증가시킨 경우)**
+```json
+2
+```
+  
+- - -
+### 파티 확정 완료하기
+- **파티의 is_confirm 값을 true로 변경하는 기능입니다.**
+```http request
+PUT /parties/{pId}/confirm
+```
+**성공**: 200 OK <br>
+  
+- - -
+### 파티 종료하기
+- **파티의 is_finish 값을 true로 변경하는 기능입니다.**
+```http request
+PUT /parties/{pId}/finish
+```
+**성공**: 200 OK <br>
+
+
 ## TODO
 - 로그인 방식 JWT 토큰 공부
 - MySQL 데이터베이스 깃허브에 공유하는법 찾아보기
