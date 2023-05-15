@@ -1,7 +1,9 @@
 # RideShare-Server
 ## 실행방법(인텔리제이 기준) 
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
-## 초기설정
+## 데이터베이스 초기설정 및 테스트 데이터 주입
+프로젝트의 `Database` 폴더 -> `dbinit.sql` 파일의 SQL 문장을 **MySQL Workbench**에서 모두 실행해주세요.
+## 인텔리제이 초기설정
 1. file->settings->Build, Execution, Deployment-> Compiler -> Annotation Processors에서 enable annotation processing를 체크표시 해주세요.
 ![캡처](https://user-images.githubusercontent.com/70526479/229042932-646348cf-5152-410a-bdce-9fdc85a1b695.PNG)
 2. RideshareApplication 파일의 main() 메서드를 실행하면 됩니다.<br>
