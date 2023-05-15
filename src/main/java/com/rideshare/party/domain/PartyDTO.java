@@ -1,12 +1,11 @@
 package com.rideshare.party.domain;
 
-import lombok.AccessLevel;
 import lombok.Data;
-import lombok.Setter;
 
 @Data
-@Setter(AccessLevel.NONE)
-public class CarpoolDTO {
+public class PartyDTO {
+    private int pId;
+    private String type;
     private String startPoint;
     private String startLat;
     private String startLng;

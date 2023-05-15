@@ -1,9 +1,9 @@
 package com.rideshare.party.controller;
 
-import com.rideshare.party.domain.CarpoolDTO;
+import com.rideshare.party.domain.PartyDTO;
 import com.rideshare.party.domain.Party;
-import com.rideshare.party.domain.TaxiDTO;
-import com.rideshare.party.service.PartyRepository;
+import com.rideshare.party.domain.ScrollDTO;
+import com.rideshare.party.service.PartyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,83 +17,50 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PartyController {
 
-    private final PartyRepository partyRepository;
+    private final PartyService partyService;
 
-    @GetMapping("/taxis") //모든 택시 리스트 반환
-    public List<Party> taxiParties() {
-        return partyRepository.taxiFindAll();
+    @GetMapping //택시, 카풀 리스트 반환
+    public List<Party> taxiList(@RequestBody ScrollDTO scrollDTO) {
+        return partyService.listPage(scrollDTO);
     }
 
-    @GetMapping("/carpools") //모든 카풀 리스트 반환
-    public List<Party> carpoolParties() {
-        return partyRepository.carpoolFindAll();
-    }
-
-    @GetMapping("/{p_id}") //id로 택시+카풀 조회하기
-    public Party allSearch(@PathVariable int p_id) {
-        return partyRepository.findById(p_id);
+    @GetMapping("/{pId}") //id로 택시, 카풀 조회하기
+    public Party allSearch(@PathVariable int pId) {
+        log.info("call PartyController.allSearch");
+        return partyService.findById(pId);
     }
 
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/taxis")
-    public Party addTaxi(@RequestBody TaxiDTO inputData) {
-        Party addItem = addTaxiItem(inputData);
-        return partyRepository.save(addItem);
+    @PostMapping
+    public Party addParty(@RequestBody PartyDTO inputData) {
+        log.info("{}", inputData);
+        return partyService.partySave(inputData);
     }
 
-    @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping("/carpools")
-    public Party addCarpool(@RequestBody CarpoolDTO inputData) {
-        Party addItem = addCarpoolItem(inputData);
-        return partyRepository.save(addItem);
+    @DeleteMapping("/{pId}")
+    public void remove(@PathVariable int pId) {
+        partyService.deleteById(pId);
     }
 
-    @DeleteMapping("/{p_id}")
-    public void remove(@PathVariable int p_id) {
-        partyRepository.deleteById(p_id);
+    @PutMapping("/{pId}")
+    public Party edit(@PathVariable int pId, @RequestBody PartyDTO inputData) {
+        inputData.setPId(pId);
+        return partyService.updateById(inputData);
     }
 
-    @PutMapping("/{p_id}")
-    public Party edit(@PathVariable int p_id, @RequestBody CarpoolDTO inputData) {
-        return partyRepository.updateById(p_id, inputData);
+    @PutMapping("/{pId}/current-headcnt")
+    public String increaseCurrentHeadcnt(@PathVariable int pId) {
+        return partyService.increaseCurrentHeadcnt(pId);
     }
 
-
-    private Party addTaxiItem(TaxiDTO inputData) {
-        return new Party(
-                0,
-                "택시",
-                inputData.getStartDate(),
-                inputData.getStartTime(),
-                inputData.getStartPoint(),
-                inputData.getStartLat(),
-                inputData.getStartLng(),
-                inputData.getEndPoint(),
-                1, // currentHeadCnt
-                inputData.getTotalHeadcnt(),
-                null,
-                null,
-                false,
-                false
-        );
+    @PutMapping("/{pId}/confirm")
+    public void onConfirm(@PathVariable int pId) {
+        partyService.onConfirm(pId);
     }
 
-    private Party addCarpoolItem(CarpoolDTO inputData) {
-        return new Party(
-                0,
-                "카풀",
-                inputData.getStartDate(),
-                inputData.getStartTime(),
-                inputData.getStartPoint(),
-                inputData.getStartLat(),
-                inputData.getStartLng(),
-                inputData.getEndPoint(),
-                1, // currentHeadCnt
-                inputData.getTotalHeadcnt(),
-                inputData.getCarNumber(),
-                inputData.getContent(),
-                false,
-                false
-        );
+    @PutMapping("/{pId}/finish")
+    public void onFinish(@PathVariable int pId) {
+        partyService.onFinish(pId);
     }
+
 }

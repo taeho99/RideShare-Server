@@ -1,11 +1,12 @@
+/*
 package com.rideshare;
 
 import com.rideshare.party.domain.Party;
-import com.rideshare.party.service.PartyRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.Date;
 
 @Component
@@ -14,10 +15,9 @@ public class TestDataInit {
     private final PartyRepository partyRepository;
     private final DateFormatter df;
 
-    /**
-     * 테스트용 데이터
-     */
-    @PostConstruct
+
+
+    @EventListener(ApplicationReadyEvent.class)
     public void init() {
         partyRepository.save(createTaxiParty("기숙사", "남춘천역", "37.865506537056945", "127.7428865998153"));
         partyRepository.save(createTaxiParty("후문", "남춘천역", "37.87254023957852", "127.7428865998153"));
@@ -44,7 +44,7 @@ public class TestDataInit {
 
     private Party createTaxiParty(String start, String end, String lat, String lng) {
         return Party.builder()
-                .p_type("택시")
+                .type("택시")
                 .startDate(df.dateToDateStr(new Date()))
                 .startTime(df.dateToTimeStr(new Date()))
                 .startPoint(start)
@@ -60,7 +60,7 @@ public class TestDataInit {
 
     private Party createCarpoolParty(String start, String end, String lat, String lng) {
         return Party.builder()
-                .p_type("카풀")
+                .type("카풀")
                 .startDate(df.dateToDateStr(new Date()))
                 .startTime(df.dateToTimeStr(new Date()))
                 .startPoint(start)
@@ -76,3 +76,4 @@ public class TestDataInit {
                 .build();
     }
 }
+*/

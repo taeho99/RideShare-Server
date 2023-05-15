@@ -5,6 +5,7 @@ import lombok.*;
 @Data
 @Setter(AccessLevel.NONE)
 public class TaxiDTO {
+    private int pId;
     private String startPoint;
     private String startLat;
     private String startLng;
