@@ -7,51 +7,82 @@
 2. RideshareApplication 파일의 main() 메서드를 실행하면 됩니다.<br>
 ![캡처2](https://user-images.githubusercontent.com/70526479/229047097-cf8ed5c7-6415-4326-bfbe-928179b7b0c3.PNG)
 ## ERD
-![TTaMpsp2EsLXFTaWY](https://user-images.githubusercontent.com/70526479/230904515-2c816dc1-79c1-4003-9212-42f37ab6133e.png)
-https://www.erdcloud.com/d/TTaMpsp2EsLXFTaWY
+![erd](https://github.com/KNUCSE23-Capston-Design/RideShare-Server/assets/70526479/d84dba09-f380-4b1c-a866-7f35d1a90562)
 ## REST API Guide
-### 모든 택시/카풀 리스트 반환
+### 택시/카풀 리스트 반환 및 검색
+- **lastId 보다 작은 값의 레코드들을 amount개 반환합니다.**
 ```http
-GET /parties/taxis
-```
-```http
-GET /parties/carpools
+GET /parties
 ```
 **성공**: 200 OK <br><br>
+**요청 필드**
+|Path|Type|Description|
+|------|---|---|
+|`lastId`|`int`|마지막으로 호출 된 id|
+|`amount`|`int`|한번에 호출 할 레코드 개수|
+|`type`|`String`|`"택시"` or `"카풀"`|
+|`keyword`|`String`|검색할 키워드(출발지) (빈칸이면 모두 출력)|
+
+**요청 예시(JSON)**
+```json
+{
+  "lastId": 35,
+  "amount": 3,
+  "type": "카풀",
+  "keyword": ""
+}
+```
+
 **응답 예시(JSON)**
 ```json
 [
     {
-        "p_id": 1,
-        "p_type": "택시",
-        "startDate": "2023-04-04",
-        "startTime": "오후 02:27",
-        "startPoint": "기숙사",
-        "startLat": "37.865506537056945",
-        "startLng": "127.7428865998153",
-        "endPoint": "남춘천역",
-        "currentHeadcnt": 2,
+        "type": "카풀",
+        "startDate": "2023-05-14",
+        "startTime": "오전 11:20",
+        "startPoint": "춘천시외버스터미널",
+        "startLat": "37.86288933799438",
+        "startLng": "127.71893919844631",
+        "endPoint": "천지관",
+        "currentHeadcnt": 1,
         "totalHeadcnt": 4,
-        "carNumber": null,
-        "content": null,
-        "confirm": false,
-        "finish": false
+        "isConfirm": false,
+        "isFinish": false,
+        "carNumber": "32고9831",
+        "content": "컨텐츠내용 테스트 예제",
+        "pid": 34
     },
     {
-        "p_id": 2,
-        "p_type": "택시",
-        "startDate": "2023-04-04",
-        "startTime": "오후 02:27",
-        "startPoint": "후문",
-        "startLat": "37.87254023957852",
-        "startLng": "127.7428865998153",
-        "endPoint": "남춘천역",
-        "currentHeadcnt": 2,
+        "type": "카풀",
+        "startDate": "2023-05-13",
+        "startTime": "오전 11:20",
+        "startPoint": "남춘천역",
+        "startLat": "37.86369763697937",
+        "startLng": "127.72376542374549",
+        "endPoint": "강원대정문",
+        "currentHeadcnt": 3,
         "totalHeadcnt": 4,
-        "carNumber": null,
-        "content": null,
-        "confirm": false,
-        "finish": false
+        "isConfirm": false,
+        "isFinish": false,
+        "carNumber": "48거4812",
+        "content": "컨텐츠내용 테스트 예제",
+        "pid": 33
+    },
+    {
+        "type": "카풀",
+        "startDate": "2023-05-12",
+        "startTime": "오전 11:20",
+        "startPoint": "남춘천역",
+        "startLat": "37.86369763697937",
+        "startLng": "127.72376542374549",
+        "endPoint": "백록관",
+        "currentHeadcnt": 1,
+        "totalHeadcnt": 4,
+        "isConfirm": false,
+        "isFinish": false,
+        "carNumber": "122더4925",
+        "content": "컨텐츠내용 테스트 예제",
+        "pid": 32
     }
 ]
 ```
@@ -65,20 +96,20 @@ GET /parties/{p_id}
 **응답 예시(JSON)**
 ```json
 {
-    "p_id": 3,
-    "p_type": "택시",
-    "startDate": "2023-04-04",
-    "startTime": "오후 02:27",
-    "startPoint": "천지관",
-    "startLat": "37.87120749003905",
-    "startLng": "127.7431938775162",
-    "endPoint": "남춘천역",
-    "currentHeadcnt": 2,
+    "type": "카풀",
+    "startDate": "2023-05-20",
+    "startTime": "오전 11:20",
+    "startPoint": "남춘천역",
+    "startLat": "37.86369763697937",
+    "startLng": "127.72376542374549",
+    "endPoint": "동문",
+    "currentHeadcnt": 1,
     "totalHeadcnt": 4,
-    "carNumber": null,
-    "content": null,
-    "confirm": false,
-    "finish": false
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": "237더1028",
+    "content": "컨텐츠내용 테스트 예제",
+    "pid": 40
 }
 ```
 - - -
@@ -102,8 +133,7 @@ POST /parties/taxis
 **응답 예시(JSON)**
 ```json
 {
-    "p_id": 21,
-    "p_type": "택시",
+    "type": "택시",
     "startDate": "2023-04-04",
     "startTime": "오후 02:30",
     "startPoint": "기숙사",
@@ -112,10 +142,11 @@ POST /parties/taxis
     "endPoint": "남춘천역",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
+    "isConfirm": false,
+    "isFinish": false,
     "carNumber": null,
     "content": null,
-    "confirm": false,
-    "finish": false
+    "pid": 43
 }
 ```
 - - -
@@ -127,34 +158,34 @@ POST /parties/carpools
 **요청 예시(JSON)**
 ```json
 {
-  "startPoint": "기숙사",
+  "startPoint": "글로벌경영관",
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
   "totalHeadcnt": 4,
-  "startDate": "2023-03-31",
-  "startTime": "오후 04:08",
-  "carNumber": "12가3456",
+  "startDate": "2023-04-19",
+  "startTime": "오후 09:10",
+  "carNumber": "98가7654",
   "content": "카풀내용수정테스트asdfgh"
 }
 ```
 **응답 예시(JSON)**
 ```json
 {
-    "p_id": 22,
-    "p_type": "카풀",
-    "startDate": "2023-03-31",
-    "startTime": "오후 04:08",
-    "startPoint": "기숙사",
+    "type": "카풀",
+    "startDate": "2023-04-19",
+    "startTime": "오후 09:10",
+    "startPoint": "글로벌경영관",
     "startLat": "37.87120749003905",
     "startLng": "127.7431938775162",
     "endPoint": "남춘천역",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
-    "carNumber": "12가3456",
-    "content": "카풀내용예제테스트asdfgh",
-    "confirm": false,
-    "finish": false
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": "98가7654",
+    "content": "카풀내용수정테스트asdfgh",
+    "pid": 44
 }
 ```
 
@@ -246,7 +277,8 @@ PUT /parties/{p_id}
 - 로그인 공통관심사 처리
 - 커서 기반 페이지네이션 공부하기
 - 통합검색 <택시>, <카풀> 라디오버튼 추가?? 검색하면 타입에 맞는 글 목록 페이지로 이동하고 결과 출력
-
+- ID로 검색 실패시 404 반환하게 수정
+    
 ## 참고
 - 주소 -> 위도/경도 변환
     https://developers.kakao.com/docs/latest/ko/local/dev-guide#address-coord-request
