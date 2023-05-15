@@ -11,12 +11,13 @@
 ## REST API Guide
 ### 택시/카풀 리스트 반환 및 검색
 - **lastId 보다 작은 값의 레코드들을 amount개 반환합니다.**
+- **keyword 필드를 추가하면 원하는 출발지를 검색할 수 있습니다.**
 ```http
 GET /parties
 ```
 **성공**: 200 OK <br><br>
 **요청 필드**
-|Path|Type|Description|
+|Field|Type|Description|
 |------|---|---|
 |`lastId`|`int`|마지막으로 호출 된 id|
 |`amount`|`int`|한번에 호출 할 레코드 개수|
@@ -89,7 +90,7 @@ GET /parties
 - - -
 ### 택시/카풀 ID로 조회
 ```http request
-GET /parties/{p_id}
+GET /parties/{pId}
 ```
 **성공**: 200 OK <br>
 **실패**: 404 NOT_FOUND <BR><br>
@@ -113,14 +114,31 @@ GET /parties/{p_id}
 }
 ```
 - - -
-### 택시 파티 등록
+### 파티 등록
 ```http request
-POST /parties/taxis
+POST /parties
 ```
 **성공**: 201 CREATED <br><BR>
-**요청 예시(JSON)**
+
+**요청 필드**
+|Field|Type|Description|
+|------|---|---|
+|`type`|`String`|`"택시"` or `"카풀"`|
+|`startPoint`|`String`|출발지|
+|`startLat`|`String`|출발지 위도|
+|`startLng`|`String`|출발지 경도|
+|`endPoint`|`String`|도착지|
+|`totalHeadcnt`|`int`|전체 인원 수|
+|`startDate`|`String`|출발 날짜|
+|`startTime`|`String`|출발 시각|
+|`carNumber`|`String`|차량 번호(only 카풀)|
+|`content`|`String`|글 내용(only 카풀)|
+
+
+**택시 등록 요청 예시(JSON)**
 ```json
 {
+  "type": "택시",
   "startPoint": "기숙사",
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
@@ -130,7 +148,7 @@ POST /parties/taxis
   "startTime": "오후 02:30"
 }
 ```
-**응답 예시(JSON)**
+**택시 등록 응답 예시(JSON)**
 ```json
 {
     "type": "택시",
@@ -146,18 +164,13 @@ POST /parties/taxis
     "isFinish": false,
     "carNumber": null,
     "content": null,
-    "pid": 43
+    "pid": 48
 }
 ```
-- - -
-### 카풀 파티 등록
-```http request
-POST /parties/carpools
-```
-**성공**: 201 CREATED <br><BR>
-**요청 예시(JSON)**
+**카풀 등록 요청 예시(JSON)**
 ```json
 {
+  "type": "카풀",
   "startPoint": "글로벌경영관",
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
@@ -169,7 +182,7 @@ POST /parties/carpools
   "content": "카풀내용수정테스트asdfgh"
 }
 ```
-**응답 예시(JSON)**
+**카풀 등록 응답 예시(JSON)**
 ```json
 {
     "type": "카풀",
@@ -185,89 +198,72 @@ POST /parties/carpools
     "isFinish": false,
     "carNumber": "98가7654",
     "content": "카풀내용수정테스트asdfgh",
-    "pid": 44
+    "pid": 49
 }
 ```
-
 - - -
 ### 파티 삭제
 ```http request
-DELETE /parties/{p_id}
+DELETE /parties/{pId}
 ```
 **성공**: 200 OK <br>
 **실패**: 404 NOT_FOUND <br><BR>
 
 - - -
 ### 파티 수정
-**택시와 카풀 수정은 HTTP 요청 주소는 동일하나 요청하는 JSON에 차이가 있습니다.**<br>
-**카풀의 경우 "carNumber"와 "content"를 추가하여 요청해야 합니다.**
+- 택시 <-> 카풀 간 수정도 가능합니다. 예시를 참고해주세요.
 ```http request
-PUT /parties/{p_id}
+PUT /parties/{pId}
 ```
 **성공**: 200 OK <br>
 **실패**: 404 NOT_FOUND <br><BR>
-**택시 요청 예시(JSON)**
+
+**요청 필드**
+|Field|Type|Description|
+|------|---|---|
+|`type`|`String`|`"택시"` or `"카풀"`|
+|`startPoint`|`String`|출발지|
+|`startLat`|`String`|출발지 위도|
+|`startLng`|`String`|출발지 경도|
+|`endPoint`|`String`|도착지|
+|`totalHeadcnt`|`int`|전체 인원 수|
+|`startDate`|`String`|출발 날짜|
+|`startTime`|`String`|출발 시각|
+|`carNumber`|`String`|차량 번호(only 카풀)|
+|`content`|`String`|글 내용(only 카풀)|
+  
+**택시 -> 카풀 수정 요청 예시(JSON)**
 ```json
 {
+  "type": "카풀",
   "startPoint": "기숙사",
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
   "totalHeadcnt": 4,
-  "startDate": "2023-04-19",
-  "startTime": "오후 09:10"
+  "startDate": "2023-04-04",
+  "startTime": "오후 02:30",
+  "carNumber": "123고4567",
+  "content": "카풀 내용 수정 테스트입니다."
 }
 ```
-**택시 응답 예시(JSON)**
+**택시 -> 카풀 수정 응답 예시(JSON)**
 ```json
 {
-    "p_id": 1,
-    "p_type": "택시",
-    "startDate": "2023-04-19",
-    "startTime": "오후 09:10",
+    "type": "카풀",
+    "startDate": "2023-04-04",
+    "startTime": "오후 02:30",
     "startPoint": "기숙사",
     "startLat": "37.87120749003905",
     "startLng": "127.7431938775162",
     "endPoint": "남춘천역",
-    "currentHeadcnt": 2,
+    "currentHeadcnt": 1,
     "totalHeadcnt": 4,
-    "carNumber": null,
-    "content": null,
-    "finish": false,
-    "confirm": false
-}
-```
-**카풀 요청 예시(JSON)**
-```json
-{
-  "startPoint": "기숙사",
-  "startLat": "37.87120749003905",
-  "startLng": "127.7431938775162",
-  "endPoint": "남춘천역",
-  "totalHeadcnt": 4,
-  "startDate": "2023-04-19",
-  "startTime": "오후 09:10",
-  "carNumber": "98가7654",
-  "content": "카풀내용수정테스트asdfgh"
-}
-```
-**카풀 응답 예시(JSON)**
-```json
-{
-    "p_id": 11,
-    "p_type": "카풀",
-    "startDate": "2023-04-19",
-    "startTime": "오후 09:10",
-    "startPoint": "기숙사",
-    "startLat": "37.87120749003905",
-    "startLng": "127.7431938775162",
-    "endPoint": "남춘천역",
-    "currentHeadcnt": 4,
-    "totalHeadcnt": 4,
-    "carNumber": "98가7654",
-    "content": "카풀내용수정테스트asdfgh",
-    "finish": true,
-    "confirm": true
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": "123고4567",
+    "content": "카풀 내용 수정 테스트입니다.",
+    "pid": 48
 }
 ```
 
