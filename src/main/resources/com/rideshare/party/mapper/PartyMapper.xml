@@ -2,12 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.rideshare.party.mapper.PartyMapper">
-    <insert id="taxiSave" useGeneratedKeys="true" keyProperty="pId">
-        insert into party
-            (type, start_date, start_time, start_point, start_lat, start_lng, end_point, total_headcnt)
-        values
-            ('택시', #{startDate}, #{startTime}, #{startPoint}, #{startLat}, #{startLng}, #{endPoint}, #{totalHeadcnt})
-    </insert>
 
     <insert id="partySave" useGeneratedKeys="true" keyProperty="pId">
         insert into party

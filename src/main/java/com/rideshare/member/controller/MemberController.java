@@ -1,5 +1,6 @@
 package com.rideshare.member.controller;
 
+import com.rideshare.member.domain.AuthDTO;
 import com.rideshare.member.domain.MemberJoinDTO;
 import com.rideshare.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +24,8 @@ public class MemberController {
     }
 
     @GetMapping("/auth")
-    public void auth(@RequestParam String email, @RequestParam String authCode) {
-        log.info("email={}, authCode={}", email, authCode);
+    public String auth(@ModelAttribute AuthDTO inputData) {
+        log.info("email={}, authCode={}", inputData.getId(), inputData.getAuthCode());
+        return memberService.auth(inputData);
     }
 }

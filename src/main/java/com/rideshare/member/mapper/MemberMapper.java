@@ -6,4 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MemberMapper {
     void join(Member inputData);
+
+    Integer findAuthCodeById(String id);
+
+    void updateAuthStatus(String id);
+
 }

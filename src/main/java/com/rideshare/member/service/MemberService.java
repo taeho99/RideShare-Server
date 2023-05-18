@@ -1,5 +1,6 @@
 package com.rideshare.member.service;
 
+import com.rideshare.member.domain.AuthDTO;
 import com.rideshare.member.domain.Member;
 import com.rideshare.member.domain.MemberJoinDTO;
 import com.rideshare.member.mapper.MemberMapper;
@@ -32,7 +33,7 @@ public class MemberService {
         String fromMail = "knu.rideshare@gmail.com"; //email-config에 설정한 자신의 이메일 주소(보내는 사람)
         String toMail = member.getEmail(); //받는 사람
         String title = "RideShare 회원가입 인증 링크"; //제목
-        String authLink = "http://localhost:8080/members/auth?email=" + toMail + "&authCode=" + member.getAuthCode();
+        String authLink = "http://localhost:8080/members/auth?id=" + member.getId() + "&authCode=" + member.getAuthCode();
         String text =
                 "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -58,5 +59,16 @@ public class MemberService {
         message.setText(text, "utf-8", "html");
 
         javaMailSender.send(message);
+    }
+
+    public String auth(AuthDTO inputData) {
+        log.info("AuthDTO={}", inputData);
+        Integer dbAuthCode = memberMapper.findAuthCodeById(inputData.getId()); //데이터베이스에 저장된 authCode
+        if (dbAuthCode == null || inputData.getAuthCode() != dbAuthCode) {
+            return "failure";
+        } else {
+            memberMapper.updateAuthStatus(inputData.getId());
+            return "success";
+        }
     }
 }
