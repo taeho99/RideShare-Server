@@ -1,13 +1,12 @@
 package com.rideshare.member.domain;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
-@Setter(AccessLevel.NONE)
+@NoArgsConstructor
+@Setter
+@Builder
 public class Member {
     private int mId;
     private String id;
@@ -16,4 +15,6 @@ public class Member {
     private String email;
     private int authCode;
     private Boolean authStatus;
+    private Authority authority;
+
 }

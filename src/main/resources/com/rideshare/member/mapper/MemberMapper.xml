@@ -4,9 +4,9 @@
 <mapper namespace="com.rideshare.member.mapper.MemberMapper">
     <insert id="join" useGeneratedKeys="true" keyProperty="mId">
         insert into member
-            (id, pw, nickname, email, auth_code, auth_status)
+            (id, pw, nickname, email, auth_code, auth_status, authority)
         values
-            (#{id}, #{pw}, #{nickname}, #{email}, #{authCode}, #{authStatus})
+            (#{id}, #{pw}, #{nickname}, #{email}, #{authCode}, #{authStatus}, #{authority})
     </insert>
 
     <select id="findAuthCodeById" resultType="int">
@@ -17,4 +17,28 @@
     <update id="updateAuthStatus">
         update member set auth_status=true where id=#{id}
     </update>
+
+    <select id="findMemberById" resultType="com.rideshare.member.domain.Member">
+        select m_id, id, pw, nickname, email, auth_code, auth_status, authority from member
+        where id=#{id}
+    </select>
+
+    <select id="findMemberByMId" resultType="com.rideshare.member.domain.Member">
+        select m_id, id, pw, nickname, email, auth_code, auth_status, authority from member
+        where m_id=#{mId}
+    </select>
+
+    <select id="idCheck" resultType="boolean">
+        select exists(select 1 from member where id=#{id});
+    </select>
+
+    <select id="emailCheck" resultType="boolean">
+        select exists(select 1 from member where email=#{email});
+    </select>
+
+    <select id="nicknameCheck" resultType="boolean">
+        select exists(select 1 from member where nickname=#{nickname});
+    </select>
+
+
 </mapper>

@@ -1,5 +1,6 @@
 package com.rideshare.party.service;
 
+import com.rideshare.member.util.SecurityUtil;
 import com.rideshare.party.domain.PartyDTO;
 import com.rideshare.party.domain.Party;
 import com.rideshare.party.domain.ScrollDTO;
@@ -23,6 +24,7 @@ public class PartyService {
     }
 
     public List<Party> listPage(ScrollDTO scrollDTO) {
+        log.info("SecurityUtil.getCurrentMemberId()={}", SecurityUtil.getCurrentMemberId());
         return partyMapper.listPage(scrollDTO);
     }
 
