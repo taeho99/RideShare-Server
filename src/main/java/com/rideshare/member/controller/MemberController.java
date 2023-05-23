@@ -41,7 +41,7 @@ public class MemberController {
         return memberService.reissue(inputData);
     }
 
-    @GetMapping("/me") //현재 로그인 세션 반환
+    @GetMapping("/me") // 마이페이지
     public ResponseEntity<Member> findMemberByMId() {
         return ResponseEntity.ok(memberService.findMemberByMId(SecurityUtil.getCurrentMemberId()));
     }
