@@ -20,12 +20,11 @@ public class RideshareApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:8080")
-						.allowedMethods(HttpMethod.GET.name(),
-								HttpMethod.HEAD.name(),
-								HttpMethod.POST.name(),
-								HttpMethod.PUT.name(),
-								HttpMethod.DELETE.name());
+						.allowedOriginPatterns("*")
+						.allowedMethods("*")
+						.allowedHeaders("X-AUTH-TOKEN", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+						.exposedHeaders("Content-Disposition", "X-AUTH-TOKEN", "Authorization", "Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+						.allowCredentials(true);
 			}
 		};
 	}
