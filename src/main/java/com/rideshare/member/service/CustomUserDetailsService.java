@@ -33,6 +33,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     // DB 에 User 값이 존재한다면 UserDetails 객체로 만들어서 리턴
     private UserDetails createUserDetails(Member member) {
+        if (!member.getAuthStatus()) {
+            throw new RuntimeException("메일인증을 완료하지 않았습니다.");
+        }
+
         log.info("call createUserDetails, member={}", member);
         GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getAuthority().toString());
 

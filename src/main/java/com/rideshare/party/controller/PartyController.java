@@ -26,7 +26,6 @@ public class PartyController {
 
     @GetMapping("/{pId}") //id로 택시, 카풀 조회하기
     public Party allSearch(@PathVariable int pId) {
-        log.info("call PartyController.allSearch");
         return partyService.findById(pId);
     }
 
