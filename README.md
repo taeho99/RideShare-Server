@@ -5,16 +5,21 @@
 - [인텔리제이 초기설정](#인텔리제이-초기설정)
 - [ERD](#erd)
 - [REST API Guide](#rest-api-guide)
-  * [택시/카풀 리스트 반환 및 검색](#택시카풀-리스트-반환-및-검색)
-  * [택시/카풀 ID로 조회](#택시카풀-ID로-조회)
-  * [파티 등록](#파티-등록)
-  * [파티 삭제](#파티-삭제)
-  * [파티 수정](#파티-수정)
-  * [파티 현재 인원 수 1 증가시키기](#파티-현재-인원-수-1-증가시키기)
-  * [파티 확정 완료하기](#파티-확정-완료하기)
-  * [파티 종료하기](#파티-종료하기)
-- [TODO](#todo)
-- [참고](#참고)
+  * 파티 관련
+    - [택시/카풀 리스트 반환 및 검색](#택시카풀-리스트-반환-및-검색)
+    - [택시/카풀 ID로 조회](#택시카풀-ID로-조회)
+    - [파티 등록](#파티-등록)
+    - [파티 삭제](#파티-삭제)
+    - [파티 수정](#파티-수정)
+    - [파티 현재 인원 수 1 증가시키기](#파티-현재-인원-수-1-증가시키기)
+    - [파티 확정 완료하기](#파티-확정-완료하기)
+    - [파티 종료하기](#파티-종료하기)
+  * 멤버 관련
+    - [아이디/이메일/닉네임 중복 확인](#아이디이메일닉네임-중복-확인)
+    - [회원가입](#회원가입)
+    - [로그인](#로그인)
+    - [Refresh Token 재발급](#refresh-token-재발급)
+    - [마이페이지](#마이페이지)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -35,7 +40,7 @@ GET /parties
 ```
 **성공**: 200 OK <br><br>
 **요청 파라미터**
-|필수|Field|Type|Description|
+|필수|Params|Type|Description|
 |:---:|------|---|---|
 |X|`lastId`|`Integer`| 마지막으로 호출 된 id (미입력시 최근 id부터 출력)|
 |O|`amount`|`Integer`| 한번에 호출 할 레코드 개수|
@@ -309,13 +314,196 @@ PUT /parties/{pId}/finish
 ```
 **성공**: 200 OK <br>
 
+- - -
+### 아이디/이메일/닉네임 중복 확인
+- **아이디와 이메일, 닉네임의 중복여부를 확인하는 기능입니다.**
+- **GET 요청 파라미터로 아이디, 이메일, 닉네임 중 하나를 포함하야 전송해야 합니다.**
+```http request
+GET /members/check
+```
+**요청 파라미터**
+|필수|Params|Type|Description|
+|:---:|------|---|---|
+|X|`id`|`String`| 중복여부 확인할 아이디|
+|X|`email`|`String`| 중복여부 확인할 이메일|
+|X|`nickname`|`String`| 중복여부 확인할 닉네임|
+
+**요청 예시 (ID 중복여부)**
+```http request
+GET /members/check?id=test1
+```
+
+**응답 예시, 중복인 경우(TEXT)**
+```TEXT
+exist
+```
+
+**응답 예시, 중복 아닌 경우(TEXT)**
+```TEXT
+non-exist
+```
+
+- - -
+### 회원가입
+- **신규 회원 정보를 입력받고 회원가입 요청을 보내는 기능입니다.**
+- **입력했던 이메일로 회원인증 링크를 전송합니다.**
+```http request
+POST /members/join
+```
+**성공**: 200 OK <br>
+
+**요청 필드**
+|필수|Field|Type|Description|
+|:---:|------|---|---|
+|O|`id`|`String`|아이디(최대 15자)|
+|O|`pw`|`String`|비밀번호|
+|O|`email`|`String`|이메일(현재는 @kangwon.ac.kr 아니여도 가능)|
+|O|`nickname`|`String`|닉네임(최대 15자)|
+
+**요청 예시(JSON)**
+```json
+{
+  "id": "test1",
+  "pw": "1q2w3e4r",
+  "email": "testmail1@kangwon.ac.kr",
+  "nickname": "test1_nick"
+}
+```
+
+- - -
+### 로그인
+- **아이디와 비밀번호로 로그인을 하고 Access Token과 Refresh Token을 반환받는 기능입니다.**
+- **회원가입 완료 후 이메일 인증을 한 사용자만 로그인이 가능합니다.**
+```http request
+POST /members/login
+```
+**성공**: 200 OK <br>
+**실패**: 401 Unauthorized <br>
+
+**요청 필드**
+|필수|Field|Type|Description|
+|:---:|------|---|---|
+|O|`id`|`String`|아이디|
+|O|`pw`|`String`|비밀번호|
+
+**응답 필드**
+|Field|Type|Description|
+|------|---|---|
+|`grantType`|`String`|인증타입 (JWT는 `Bearer`)|
+|`accessToken`|`String`|Access Token (현재 유효기간 30분으로 설정)|
+|`refreshToken`|`String`|Refresh Token (현재 유효기간 7일로 설정)|
+|`accessTokenExpiresIn`|`String`|Access Token 유효기간(현재시각+30분)|
+
+**요청 예시(JSON)**
+```json
+{
+  "id": "test1",
+  "pw": "1q2w3e4r"
+}
+```
+
+**응답 예시(JSON)**
+```json
+{
+    "grantType": "Bearer",
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTIwNn0.d0B2AXhmqUO_XIHYfuTVw_yKc-pj3puDV2XGwn8C-SF1yDes39ZZviYk4hBF5b-S2NZUHlmwg9oMnV_uiZBf3Q",
+    "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzIyMDZ9.dWnu2y-JoiggvhqbDbjuB1ir-KvqN00F-fXbX7p3vGdTvuOgFwL6U9t0oimwtkZ3MoYPhlskdxd7UkfUxt2lZw",
+    "accessTokenExpiresIn": 1684929206327
+}
+```
+
+- - -
+### Refresh Token 재발급
+- **Refresh Token의 유효기간이 만료되면 재발급 받는 기능입니다.**
+```http
+POST /members/reissue
+```
+**성공**: 200 OK <br>
+**실패**: 401 Unauthorized <br>
+
+**요청 필드**
+|Field|Type|Description|
+|------|---|---|
+|`accessToken`|`String`|Access Token(현재 유효기간 30분으로 설정)|
+|`refreshToken`|`String`|Refresh Token(현재 유효기간 7일로 설정)|
+
+**응답 필드**
+|Field|Type|Description|
+|------|---|---|
+|`grantType`|`String`|인증타입 (JWT는 `Bearer`)|
+|`accessToken`|`String`|Access Token (현재 유효기간 30분으로 설정)|
+|`refreshToken`|`String`|Refresh Token (현재 유효기간 7일로 설정)|
+|`accessTokenExpiresIn`|`String`|Access Token 유효기간(현재시각+30분)|
+
+**요청 예시(JSON)**
+```json
+{
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTIwNn0.d0B2AXhmqUO_XIHYfuTVw_yKc-pj3puDV2XGwn8C-SF1yDes39ZZviYk4hBF5b-S2NZUHlmwg9oMnV_uiZBf3Q",
+    "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzIyMDZ9.dWnu2y-JoiggvhqbDbjuB1ir-KvqN00F-fXbX7p3vGdTvuOgFwL6U9t0oimwtkZ3MoYPhlskdxd7UkfUxt2lZw"
+}
+```
+
+**응답 예시(JSON)**
+```json
+{
+    "grantType": "Bearer",
+    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTcyOH0.dimTO0aPhXQhPGr6X_9CS6DxcO9eLVwyuYr7olzZfugbcfF4sKLruS113sD_fSUAnZN4UEoeTsL1Lm4P7kRcvA",
+    "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzI3Mjh9.ZGCwZIvmZMAg23DQFbiEDV500D2LInxmGo3Smw_Q2qo4VVPRWAI_nMIZt-vooKvOyQ-9dBn-jVpRXCBIXWnO-Q",
+    "accessTokenExpiresIn": 1684929728723
+}
+```
+
+- - -
+### 마이페이지
+- **내 정보를 반환받는 기능입니다.**
+- **HTTP 헤더**의 **Authorization 필드**에 Access Token을 포함하여 전송해야 합니다.
+- **꼭 파라미터나 HTTP BODY가 아닌 HTTP 헤더에 토큰을 전송해야 합니다.**
+```http
+GET /members/me
+```
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**응답 필드**
+|Field|Type|Description|
+|------|---|---|
+|`id`|`String`|아이디|
+|`pw`|`String`|비밀번호|
+|`nickname`|`String`|닉네임|
+|`email`|`String`|이메일|
+|`authCode`|`Integer`|인증코드(6자리 랜덤숫자)|
+|`authStatus`|`String`|인증상태(인증완료: true, 인증미완료: false)|
+|`authority`|`String`|권한(ROLE_USER / ROLE_ADMIN)|
+|`mid`|`Integer`|멤버ID (DB 기본키)|
+
+**요청 예시**
+```http
+GET /members/me
+```
+```http header
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTcyOH0.dimTO0aPhXQhPGr6X_9CS6DxcO9eLVwyuYr7olzZfugbcfF4sKLruS113sD_fSUAnZN4UEoeTsL1Lm4P7kRcvA
+```
+
+**응답 예시(JSON)**
+```json
+{
+    "id": "test1",
+    "pw": "$2a$10$KSAzA388kbsSZNvgLc1enO.EXAlKlBn/XmbNPd.xKC5f3ONXyIQrK",
+    "nickname": "test1_nick",
+    "email": "testmail1@kangwon.ac.kr",
+    "authCode": 915897,
+    "authStatus": true,
+    "authority": "ROLE_USER",
+    "mid": 4
+}
+```
+
 
 ## TODO
-- 로그인 방식 JWT 토큰 공부
-- MySQL 데이터베이스 깃허브에 공유하는법 찾아보기
-- 로그인 공통관심사 처리
-- 커서 기반 페이지네이션 공부하기
-- 통합검색 <택시>, <카풀> 라디오버튼 추가?? 검색하면 타입에 맞는 글 목록 페이지로 이동하고 결과 출력
 - ID로 검색 실패시 404 반환하게 수정
 
 ## 참고
