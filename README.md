@@ -34,22 +34,17 @@
 GET /parties
 ```
 **성공**: 200 OK <br><br>
-**요청 필드**
-|Field|Type|Description|
-|------|---|---|
-|`lastId`|`int`|마지막으로 호출 된 id|
-|`amount`|`int`|한번에 호출 할 레코드 개수|
-|`type`|`String`|`"택시"` or `"카풀"`|
-|`keyword`|`String`|검색할 키워드(출발지) (빈칸이면 모두 출력)|
+**요청 파라미터**
+|필수|Field|Type|Description|
+|:---:|------|---|---|
+|X|`lastId`|`Integer`| 마지막으로 호출 된 id (미입력시 최근 id부터 출력)|
+|O|`amount`|`Integer`| 한번에 호출 할 레코드 개수|
+|O|`type`|`String`| `"택시"` or `"카풀"`|
+|X|`keyword`|`String`| 검색할 키워드(출발지) (미입력시 모두 출력)|
 
-**요청 예시(JSON)**
-```json
-{
-  "lastId": 35,
-  "amount": 3,
-  "type": "카풀",
-  "keyword": ""
-}
+**요청 예시**
+```http
+GET /parties?lastId=35&amount=3&type=카풀
 ```
 
 **응답 예시(JSON)**
@@ -139,18 +134,18 @@ POST /parties
 **성공**: 201 CREATED <br><BR>
 
 **요청 필드**
-|Field|Type|Description|
-|------|---|---|
-|`type`|`String`|`"택시"` or `"카풀"`|
-|`startPoint`|`String`|출발지|
-|`startLat`|`String`|출발지 위도|
-|`startLng`|`String`|출발지 경도|
-|`endPoint`|`String`|도착지|
-|`totalHeadcnt`|`int`|전체 인원 수|
-|`startDate`|`String`|출발 날짜|
-|`startTime`|`String`|출발 시각|
-|`carNumber`|`String`|차량 번호(only 카풀)|
-|`content`|`String`|글 내용(only 카풀)|
+|필수|Field|Type|Description|
+|:---:|------|---|---|
+|O|`type`|`String`|`"택시"` or `"카풀"`|
+|O|`startPoint`|`String`|출발지|
+|O|`startLat`|`String`|출발지 위도|
+|O|`startLng`|`String`|출발지 경도|
+|O|`endPoint`|`String`|도착지|
+|O|`totalHeadcnt`|`int`|전체 인원 수|
+|O|`startDate`|`String`|출발 날짜|
+|O|`startTime`|`String`|출발 시각|
+|X|`carNumber`|`String`|차량 번호(only 카풀)|
+|X|`content`|`String`|글 내용(only 카풀)|
 
 
 **택시 등록 요청 예시(JSON)**
@@ -237,18 +232,18 @@ PUT /parties/{pId}
 **실패**: 404 NOT_FOUND <br><BR>
 
 **요청 필드**
-|Field|Type|Description|
-|------|---|---|
-|`type`|`String`|`"택시"` or `"카풀"`|
-|`startPoint`|`String`|출발지|
-|`startLat`|`String`|출발지 위도|
-|`startLng`|`String`|출발지 경도|
-|`endPoint`|`String`|도착지|
-|`totalHeadcnt`|`int`|전체 인원 수|
-|`startDate`|`String`|출발 날짜|
-|`startTime`|`String`|출발 시각|
-|`carNumber`|`String`|차량 번호(only 카풀)|
-|`content`|`String`|글 내용(only 카풀)|
+|필수|Field|Type|Description|
+|:---:|------|---|---|
+|O|`type`|`String`|`"택시"` or `"카풀"`|
+|O|`startPoint`|`String`|출발지|
+|O|`startLat`|`String`|출발지 위도|
+|O|`startLng`|`String`|출발지 경도|
+|O|`endPoint`|`String`|도착지|
+|O|`totalHeadcnt`|`int`|전체 인원 수|
+|O|`startDate`|`String`|출발 날짜|
+|O|`startTime`|`String`|출발 시각|
+|X|`carNumber`|`String`|차량 번호(only 카풀)|
+|X|`content`|`String`|글 내용(only 카풀)|
 
 **택시 -> 카풀 수정 요청 예시(JSON)**
 ```json
@@ -268,20 +263,20 @@ PUT /parties/{pId}
 **택시 -> 카풀 수정 응답 예시(JSON)**
 ```json
 {
-    "type": "카풀",
-    "startDate": "2023-04-04",
-    "startTime": "오후 02:30",
-    "startPoint": "기숙사",
-    "startLat": "37.87120749003905",
-    "startLng": "127.7431938775162",
-    "endPoint": "남춘천역",
-    "currentHeadcnt": 1,
-    "totalHeadcnt": 4,
-    "isConfirm": false,
-    "isFinish": false,
-    "carNumber": "123고4567",
-    "content": "카풀 내용 수정 테스트입니다.",
-    "pid": 48
+  "type": "카풀",
+  "startDate": "2023-04-04",
+  "startTime": "오후 02:30",
+  "startPoint": "기숙사",
+  "startLat": "37.87120749003905",
+  "startLng": "127.7431938775162",
+  "endPoint": "남춘천역",
+  "currentHeadcnt": 1,
+  "totalHeadcnt": 4,
+  "isConfirm": false,
+  "isFinish": false,
+  "carNumber": "123고4567",
+  "content": "카풀 내용 수정 테스트입니다.",
+  "pid": 48
 }
 ```
 
