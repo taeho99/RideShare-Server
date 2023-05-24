@@ -40,7 +40,7 @@ public class MemberService {
         }
         Member member = inputData.toMember(passwordEncoder);
         memberMapper.join(member);
-//        sendMail(member);
+        sendMail(member);
         log.info("member = {}", member);
     }
 

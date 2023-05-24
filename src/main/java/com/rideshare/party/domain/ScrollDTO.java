@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class ScrollDTO {
-    private int lastId, amount;
+    private Integer lastId, amount;
     private String type, keyword;
 }
