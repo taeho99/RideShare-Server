@@ -19,7 +19,7 @@
         <where>
             <if test="type == '택시'.toString()">and type = '택시'</if>
             <if test="type == '카풀'.toString()">and type = '카풀'</if>
-            <if test="lastId != 0">and p_id &lt; #{lastId}</if>
+            <if test="lastId != null and lastId != 0">and p_id &lt; #{lastId}</if>
             <if test="keyword != null and keyword != ''">and start_point like concat('%', #{keyword}, '%')</if>
         </where>
         order by p_id desc limit 0, #{amount}

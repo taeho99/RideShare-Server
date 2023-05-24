@@ -20,7 +20,7 @@ public class PartyController {
     private final PartyService partyService;
 
     @GetMapping //택시, 카풀 리스트 반환
-    public List<Party> taxiList(@RequestBody ScrollDTO scrollDTO) {
+    public List<Party> taxiList(@ModelAttribute ScrollDTO scrollDTO) {
         return partyService.listPage(scrollDTO);
     }
 
