@@ -48,16 +48,19 @@ public class PartyController {
         return partyService.updateById(inputData);
     }
 
-    @PutMapping("/{pId}/current-headcnt")
-    public String increaseCurrentHeadcnt(@PathVariable int pId) {
-        return partyService.increaseCurrentHeadcnt(pId);
+
+    @PutMapping("/{pId}/participate")
+    public void participate(@PathVariable int pId) {
+        partyService.participate(pId);
     }
 
+    //파티의 작성자와 현재 getCurrentMId 같은지 확인 후 confirm 가능하게
     @PutMapping("/{pId}/confirm")
     public void onConfirm(@PathVariable int pId) {
         partyService.onConfirm(pId);
     }
 
+    //파티의 작성자와 현재 getCurrentMId 같은지 확인 후 finish 가능하게
     @PutMapping("/{pId}/finish")
     public void onFinish(@PathVariable int pId) {
         partyService.onFinish(pId);

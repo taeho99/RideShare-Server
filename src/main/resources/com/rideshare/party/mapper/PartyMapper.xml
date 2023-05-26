@@ -14,6 +14,11 @@
              <if test="type == '카풀'.toString()">, #{carNumber}, #{content}</if>)
     </insert>
 
+    <insert id="insertMemberHasParty" useGeneratedKeys="true" keyProperty="jId">
+        insert into member_has_party (m_id, p_id, is_writer)
+        values (#{mId}, #{pId}, #{isWriter})
+    </insert>
+
     <select id="listPage" resultType="com.rideshare.party.domain.Party">
         select * from party
         <where>
@@ -25,8 +30,8 @@
         order by p_id desc limit 0, #{amount}
     </select>
 
-    <select id="carpoolListPage" resultType="com.rideshare.party.domain.Party">
-
+    <select id="findPeopleInParty" resultType="java.lang.String">
+        select nickname from member where m_id in (select m_id from member_has_party where p_id=#{pId})
     </select>
 
     <select id="findById" resultType="com.rideshare.party.domain.Party">
@@ -35,6 +40,14 @@
 
     <delete id="deleteById">
         delete from party where p_id=#{pId}
+    </delete>
+
+    <select id="selectMemberHasPartyById" resultType="com.rideshare.party.domain.MemberHasPartyDTO">
+        select member_has_party where p_id=#{pId} and is_writer=true
+    </select>
+
+    <delete id="deleteMemberHasPartyById">
+        delete from member_has_party where p_id=#{pId}
     </delete>
 
     <update id="updateById" >
