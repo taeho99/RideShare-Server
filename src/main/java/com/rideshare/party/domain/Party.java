@@ -3,6 +3,7 @@ package com.rideshare.party.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+
 @Data
 @AllArgsConstructor
 public class Party {
@@ -20,6 +21,7 @@ public class Party {
     private Boolean isFinish;
     private String carNumber;
     private String content;
+//    private List<String> people;
 
 //    // 날짜 반환
 //    public String getStartDateStr() {

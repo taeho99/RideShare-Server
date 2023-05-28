@@ -30,9 +30,25 @@
         order by p_id desc limit 0, #{amount}
     </select>
 
-    <select id="findPeopleInParty" resultType="java.lang.String">
-        select nickname from member where m_id in (select m_id from member_has_party where p_id=#{pId})
-    </select>
+    <!--<resultMap id="PartyAndPeople" type="com.rideshare.party.domain.Party">
+        <id column="p_id" property="pId"/>
+        <result column="type" property="type"/>
+        <result column="start_date" property="startDate"/>
+        <result column="start_time" property="startTime"/>
+        <result column="start_point" property="startPoint"/>
+        <result column="start_lat" property="startLat"/>
+        <result column="start_lng" property="startLng"/>
+        <result column="end_point" property="endPoint"/>
+        <result column="current_headcnt" property="currentHeadcnt"/>
+        <result column="total_headcnt" property="totalHeadcnt"/>
+        <result column="is_confirm" property="isConfirm"/>
+        <result column="is_finish" property="isFinish"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="content" property="content"/>
+        <collection property="people" ofType="java.lang.String">
+            <result column="m_"
+        </collection>
+    </resultMap>-->
 
     <select id="findById" resultType="com.rideshare.party.domain.Party">
         select * from party where p_id=#{pId}
