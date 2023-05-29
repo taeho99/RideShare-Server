@@ -30,7 +30,7 @@
 2. RideshareApplication 파일의 main() 메서드를 실행하면 됩니다.<br>
    ![캡처2](https://user-images.githubusercontent.com/70526479/229047097-cf8ed5c7-6415-4326-bfbe-928179b7b0c3.PNG)
 ## ERD
-![erd](https://github.com/KNUCSE23-Capston-Design/RideShare-Server/assets/70526479/d84dba09-f380-4b1c-a866-7f35d1a90562)
+![erd](https://github.com/KNUCSE23-Capston-Design/RideShare-Server/assets/70526479/75583b02-58f3-4c0b-893f-09b9e3d97d88)
 ## REST API Guide
 ### 택시/카풀 리스트 반환 및 검색
 - **lastId 보다 작은 값의 레코드들을 amount개 반환합니다.**
@@ -39,6 +39,12 @@
 GET /parties
 ```
 **성공**: 200 OK <br><br>
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
 **요청 파라미터**
 |필수|Params|Type|Description|
 |:---:|------|---|---|
@@ -112,6 +118,12 @@ GET /parties/{pId}
 ```
 **성공**: 200 OK <br>
 **실패**: 404 NOT_FOUND <BR><br>
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
 **응답 예시(JSON)**
 ```json
 {
@@ -137,6 +149,11 @@ GET /parties/{pId}
 POST /parties
 ```
 **성공**: 201 CREATED <br><BR>
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
 
 **요청 필드**
 |필수|Field|Type|Description|
@@ -221,20 +238,32 @@ POST /parties
 ```
 - - -
 ### 파티 삭제
+- **글 작성자만 파티를 삭제할 수 있습니다.**
 ```http request
 DELETE /parties/{pId}
 ```
 **성공**: 200 OK <br>
 **실패**: 404 NOT_FOUND <br><BR>
 
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
 - - -
 ### 파티 수정
-- 택시 <-> 카풀 간 수정도 가능합니다. 예시를 참고해주세요.
+- **택시 <-> 카풀 간 수정도 가능합니다. 예시를 참고해주세요.**
+- **글 작성자만 파티를 수정할 수 있습니다.**
 ```http request
 PUT /parties/{pId}
 ```
 **성공**: 200 OK <br>
 **실패**: 404 NOT_FOUND <br><BR>
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
 
 **요청 필드**
 |필수|Field|Type|Description|
@@ -286,14 +315,21 @@ PUT /parties/{pId}
 ```
 
 - - -
-### 파티 현재 인원 수 1 증가시키기
-- **파티의 current_headcnt 값을 1증가 시키는 기능입니다.**
+### 파티 참여하기
+- **원하는 파티에 참여하는 기능입니다.**
+- **파티의 최대 인원수를 초과하는 경우 오류 메시지를 반환합니다.**
+- **파티 참여에 성공한다면 현재 인원수를 반환합니다.**
 ```http request
-PUT /parties/{pId}/current-headcnt
+PUT /parties/{pId}/participate
 ```
 **성공**: 200 OK <br>
 
-**응답 예시(TEXT) (1 -> 2로 증가시킨 경우)**
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**응답 예시(TEXT) (참여 후 현재 인원이 2인 경우)**
 ```json
 2
 ```
@@ -301,18 +337,30 @@ PUT /parties/{pId}/current-headcnt
 - - -
 ### 파티 확정 완료하기
 - **파티의 is_confirm 값을 true로 변경하는 기능입니다.**
+- **글 작성자만 파티 확정 완료가 가능합니다.**
 ```http request
 PUT /parties/{pId}/confirm
 ```
 **성공**: 200 OK <br>
 
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
 - - -
 ### 파티 종료하기
 - **파티의 is_finish 값을 true로 변경하는 기능입니다.**
+- **글 작성자만 파티 종료가 가능합니다.**
 ```http request
 PUT /parties/{pId}/finish
 ```
 **성공**: 200 OK <br>
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
 
 - - -
 ### 아이디/이메일/닉네임 중복 확인
@@ -484,21 +532,20 @@ GET /members/me
 GET /members/me
 ```
 ```http header
-Content-Type: application/json;charset=UTF-8
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTcyOH0.dimTO0aPhXQhPGr6X_9CS6DxcO9eLVwyuYr7olzZfugbcfF4sKLruS113sD_fSUAnZN4UEoeTsL1Lm4P7kRcvA
 ```
 
 **응답 예시(JSON)**
 ```json
 {
-    "id": "test1",
-    "pw": "$2a$10$KSAzA388kbsSZNvgLc1enO.EXAlKlBn/XmbNPd.xKC5f3ONXyIQrK",
-    "nickname": "test1_nick",
-    "email": "testmail1@kangwon.ac.kr",
-    "authCode": 915897,
-    "authStatus": true,
-    "authority": "ROLE_USER",
-    "mid": 4
+  "id": "test1",
+  "pw": "$2a$10$KSAzA388kbsSZNvgLc1enO.EXAlKlBn/XmbNPd.xKC5f3ONXyIQrK",
+  "nickname": "test1_nick",
+  "email": "testmail1@kangwon.ac.kr",
+  "authCode": 915897,
+  "authStatus": true,
+  "authority": "ROLE_USER",
+  "mid": 4
 }
 ```
 
@@ -513,3 +560,4 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFU
   https://developers.kakao.com/docs/latest/ko/local/dev-guide#coord-to-address
 - 위도/경도 찾기
   https://apis.map.kakao.com/web/sample/addMapClickEventWithMarker/
+- JWT 설명 https://github.com/ParkJiwoon/PrivateStudy/blob/master/web/jwt.md

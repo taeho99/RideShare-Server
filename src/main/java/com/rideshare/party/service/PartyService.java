@@ -35,15 +35,13 @@ public class PartyService {
         return partyMapper.findById(pId);
     }
 
-    public void clearAllStore() {
-        partyMapper.clearAllStore();
-    }
-
+    //글 작성자만 DELETE 할 수 있게 수정해야함
     public void deleteById(int pId) {
         partyMapper.deleteMemberHasPartyById(pId);
         partyMapper.deleteById(pId);
     }
 
+    //글 작성자만 UPDATE 할 수 있게 수정해야함
     public Party updateById(PartyDTO inputData) {
         partyMapper.updateById(inputData);
         return partyMapper.findById(inputData.getPId());
