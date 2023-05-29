@@ -67,15 +67,16 @@ public class PartyService {
         partyMapper.onFinish(pId);
     }
 
-    public void participate(int pId) {
+    public Integer participate(int pId) {
         int totalHeadcnt = partyMapper.findById(pId).getTotalHeadcnt();
         int currentHeadcnt = partyMapper.findById(pId).getCurrentHeadcnt();
         if (currentHeadcnt + 1 > totalHeadcnt) {
             throw new RuntimeException("파티 정원 초과");
         }
 
+        partyMapper.increaseCurrentHeadcnt(pId);
         int currentMemberId = SecurityUtil.getCurrentMemberId();
         partyMapper.insertMemberHasParty(new MemberHasPartyDTO(currentMemberId, pId, false));
-
+        return currentHeadcnt + 1;
     }
 }

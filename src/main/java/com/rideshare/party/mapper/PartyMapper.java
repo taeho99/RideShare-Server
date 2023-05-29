@@ -18,8 +18,6 @@ public interface PartyMapper {
 
     Party findById(int pId);
 
-    void clearAllStore();
-
     void deleteById(int pId);
 
     MemberHasPartyDTO selectMemberHasPartyById(int pId);
@@ -31,4 +29,6 @@ public interface PartyMapper {
     void onConfirm(int pId);
 
     void onFinish(int pId);
+
+    void increaseCurrentHeadcnt(int pId);
 }

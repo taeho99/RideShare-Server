@@ -3,6 +3,8 @@ package com.rideshare.party.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 
 @Data
 @AllArgsConstructor

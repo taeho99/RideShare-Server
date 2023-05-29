@@ -50,8 +50,8 @@ public class PartyController {
 
 
     @PutMapping("/{pId}/participate")
-    public void participate(@PathVariable int pId) {
-        partyService.participate(pId);
+    public Integer participate(@PathVariable int pId) {
+        return partyService.participate(pId);
     }
 
     //파티의 작성자와 현재 getCurrentMId 같은지 확인 후 confirm 가능하게
