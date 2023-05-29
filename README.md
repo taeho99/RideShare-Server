@@ -57,6 +57,9 @@ GET /parties
 ```http
 GET /parties?lastId=35&amount=3&type=카풀
 ```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 
 **응답 예시(JSON)**
 ```json
@@ -124,6 +127,14 @@ GET /parties/{pId}
 |---|---|
 |`Authorization`|`Bearer` + `JWT Access Token`|
 
+**요청 예시**
+```http
+GET /parties/40
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
 **응답 예시(JSON)**
 ```json
 {
@@ -169,8 +180,13 @@ POST /parties
 |X|`carNumber`|`String`|차량 번호(only 카풀)|
 |X|`content`|`String`|글 내용(only 카풀)|
 
-
 **택시 등록 요청 예시(JSON)**
+```http
+POST /parties
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 ```json
 {
   "type": "택시",
@@ -203,6 +219,12 @@ POST /parties
 }
 ```
 **카풀 등록 요청 예시(JSON)**
+```http
+POST /parties
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 ```json
 {
   "type": "카풀",
@@ -250,6 +272,14 @@ DELETE /parties/{pId}
 |---|---|
 |`Authorization`|`Bearer` + `JWT Access Token`|
 
+**요청 예시**
+```http
+DELETE /parties/40
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
 - - -
 ### 파티 수정
 - **택시 <-> 카풀 간 수정도 가능합니다. 예시를 참고해주세요.**
@@ -280,6 +310,12 @@ PUT /parties/{pId}
 |X|`content`|`String`|글 내용(only 카풀)|
 
 **택시 -> 카풀 수정 요청 예시(JSON)**
+```http
+PUT /parties/48
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 ```json
 {
   "type": "카풀",
@@ -329,6 +365,13 @@ PUT /parties/{pId}/participate
 |---|---|
 |`Authorization`|`Bearer` + `JWT Access Token`|
 
+**요청 예시**
+```http
+PUT /parties/40/participate
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 **응답 예시(TEXT) (참여 후 현재 인원이 2인 경우)**
 ```json
 2
@@ -348,6 +391,13 @@ PUT /parties/{pId}/confirm
 |---|---|
 |`Authorization`|`Bearer` + `JWT Access Token`|
 
+**요청 예시**
+```http
+PUT /parties/40/confirm
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 - - -
 ### 파티 종료하기
 - **파티의 is_finish 값을 true로 변경하는 기능입니다.**
@@ -362,6 +412,13 @@ PUT /parties/{pId}/finish
 |---|---|
 |`Authorization`|`Bearer` + `JWT Access Token`|
 
+**요청 예시**
+```http
+PUT /parties/40/finish
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 - - -
 ### 아이디/이메일/닉네임 중복 확인
 - **아이디와 이메일, 닉네임의 중복여부를 확인하는 기능입니다.**
@@ -532,7 +589,7 @@ GET /members/me
 GET /members/me
 ```
 ```http header
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTcyOH0.dimTO0aPhXQhPGr6X_9CS6DxcO9eLVwyuYr7olzZfugbcfF4sKLruS113sD_fSUAnZN4UEoeTsL1Lm4P7kRcvA
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
 
 **응답 예시(JSON)**
