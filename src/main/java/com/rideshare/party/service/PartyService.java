@@ -16,7 +16,6 @@ public class PartyService {
 
     private final PartyMapper partyMapper;
 
-    // MEMBER has PARTY 에서도 INSERT 필요
     public Party partySave(PartyDTO party) {
         partyMapper.partySave(party);
         int currentMemberId = SecurityUtil.getCurrentMemberId();
@@ -26,7 +25,7 @@ public class PartyService {
     }
 
     public List<Party> listPage(ScrollDTO scrollDTO) {
-        log.info("SecurityUtil.getCurrentMemberId()={}", SecurityUtil.getCurrentMemberId());
+        log.info("scrollDTO={}", scrollDTO);
         return partyMapper.listPage(scrollDTO);
     }
 

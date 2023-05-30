@@ -19,18 +19,20 @@
         values (#{mId}, #{pId}, #{isWriter})
     </insert>
 
-    <select id="listPage" resultType="com.rideshare.party.domain.Party">
-        select * from party
+    <select id="listPage" resultMap="partyAndPeople">
+        select party.*, member.nickname from party
+            join member_has_party on party.p_id=member_has_party.p_id
+            join member on member_has_party.m_id=member.m_id
         <where>
-            <if test="type == '택시'.toString()">and type = '택시'</if>
-            <if test="type == '카풀'.toString()">and type = '카풀'</if>
-            <if test="lastId != null and lastId != 0">and p_id &lt; #{lastId}</if>
-            <if test="keyword != null and keyword != ''">and start_point like concat('%', #{keyword}, '%')</if>
+            <if test="type == '택시'.toString()">and party.type = '택시'</if>
+            <if test="type == '카풀'.toString()">and party.type = '카풀'</if>
+            <if test="lastId != null and lastId != 0">and party.p_id &lt; #{lastId}</if>
+            <if test="keyword != null and keyword != ''">and party.start_point like concat('%', #{keyword}, '%')</if>
         </where>
-        order by p_id desc limit 0, #{amount}
+        order by party.p_id desc limit 0, #{amount}
     </select>
 
-    <resultMap id="PartyAndPeople" type="com.rideshare.party.domain.Party">
+    <resultMap id="partyAndPeople" type="com.rideshare.party.domain.Party">
         <id column="p_id" property="pId"/>
         <result column="type" property="type"/>
         <result column="start_date" property="startDate"/>
@@ -45,12 +47,16 @@
         <result column="is_finish" property="isFinish"/>
         <result column="car_number" property="carNumber"/>
         <result column="content" property="content"/>
-        <collection property="people" ofType="java.lang.String">
+        <collection property="people" ofType="java.lang.String" javaType="list">
+            <result column="nickname"/>
         </collection>
     </resultMap>
 
-    <select id="findById" resultType="com.rideshare.party.domain.Party">
-        select * from party where p_id=#{pId}
+    <select id="findById" resultMap="partyAndPeople">
+        select party.*, member.nickname from party
+            join member_has_party on party.p_id = member_has_party.p_id
+            join member on member_has_party.m_id=member.m_id
+            and party.p_id=#{pId}
     </select>
 
     <delete id="deleteById">
