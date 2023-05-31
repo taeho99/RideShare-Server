@@ -609,7 +609,6 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 
 ## TODO
 - ID로 검색 실패시 404 반환하게 수정
-- listPage 에서 amount 안되는거 수정하기 (mysql에서 돌려보기)
 
 ## 참고
 - 주소 -> 위도/경도 변환
