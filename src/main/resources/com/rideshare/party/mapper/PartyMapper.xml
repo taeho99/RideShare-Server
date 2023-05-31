@@ -28,7 +28,7 @@
             <if test="keyword != null and keyword != ''">and party.start_point like concat('%', #{keyword}, '%')</if>
         </where> order by p_id desc limit 0, #{amount}) party
         join member_has_party on party.p_id=member_has_party.p_id
-        join member on member_has_party.m_id=member.m_id;
+        join member on member_has_party.m_id=member.m_id
     </select>
 
     <resultMap id="partyAndPeople" type="com.rideshare.party.domain.Party">
