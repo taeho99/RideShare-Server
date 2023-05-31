@@ -29,7 +29,6 @@ public class PartyService {
         return partyMapper.listPage(scrollDTO);
     }
 
-    //참여자목록도 반환해야 됨 (새로운 메서드로 만들까 아니면 여기에 추가?)
     public Party findById(int pId) {
         return partyMapper.findById(pId);
     }

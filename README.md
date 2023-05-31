@@ -55,7 +55,7 @@ GET /parties
 
 **요청 예시**
 ```http
-GET /parties?lastId=35&amount=3&type=카풀
+GET /parties?lastId=41&amount=3&type=카풀
 ```
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
@@ -64,54 +64,66 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 **응답 예시(JSON)**
 ```json
 [
-    {
-        "type": "카풀",
-        "startDate": "2023-05-14",
-        "startTime": "오전 11:20",
-        "startPoint": "춘천시외버스터미널",
-        "startLat": "37.86288933799438",
-        "startLng": "127.71893919844631",
-        "endPoint": "천지관",
-        "currentHeadcnt": 1,
-        "totalHeadcnt": 4,
-        "isConfirm": false,
-        "isFinish": false,
-        "carNumber": "32고9831",
-        "content": "컨텐츠내용 테스트 예제",
-        "pid": 34
-    },
-    {
-        "type": "카풀",
-        "startDate": "2023-05-13",
-        "startTime": "오전 11:20",
-        "startPoint": "남춘천역",
-        "startLat": "37.86369763697937",
-        "startLng": "127.72376542374549",
-        "endPoint": "강원대정문",
-        "currentHeadcnt": 3,
-        "totalHeadcnt": 4,
-        "isConfirm": false,
-        "isFinish": false,
-        "carNumber": "48거4812",
-        "content": "컨텐츠내용 테스트 예제",
-        "pid": 33
-    },
-    {
-        "type": "카풀",
-        "startDate": "2023-05-12",
-        "startTime": "오전 11:20",
-        "startPoint": "남춘천역",
-        "startLat": "37.86369763697937",
-        "startLng": "127.72376542374549",
-        "endPoint": "백록관",
-        "currentHeadcnt": 1,
-        "totalHeadcnt": 4,
-        "isConfirm": false,
-        "isFinish": false,
-        "carNumber": "122더4925",
-        "content": "컨텐츠내용 테스트 예제",
-        "pid": 32
-    }
+  {
+    "type": "카풀",
+    "startDate": "2023-05-20",
+    "startTime": "오전 11:20",
+    "startPoint": "남춘천역",
+    "startLat": "37.86369763697937",
+    "startLng": "127.72376542374549",
+    "endPoint": "동문",
+    "currentHeadcnt": 1,
+    "totalHeadcnt": 4,
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": "237더1028",
+    "content": "컨텐츠내용 테스트 예제",
+    "people": [
+      "test5_nick",
+      "test1_nick",
+      "test2_nick",
+      "test3_nick"
+    ],
+    "pid": 40
+  },
+  {
+    "type": "카풀",
+    "startDate": "2023-05-19",
+    "startTime": "오전 11:20",
+    "startPoint": "남춘천역",
+    "startLat": "37.86369763697937",
+    "startLng": "127.72376542374549",
+    "endPoint": "미래도서관",
+    "currentHeadcnt": 1,
+    "totalHeadcnt": 4,
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": "23우1283",
+    "content": "컨텐츠내용 테스트 예제",
+    "people": [
+      "test4_nick"
+    ],
+    "pid": 39
+  },
+  {
+    "type": "카풀",
+    "startDate": "2023-05-18",
+    "startTime": "오전 11:20",
+    "startPoint": "남춘천역",
+    "startLat": "37.86369763697937",
+    "startLng": "127.72376542374549",
+    "endPoint": "강원대후문",
+    "currentHeadcnt": 4,
+    "totalHeadcnt": 4,
+    "isConfirm": true,
+    "isFinish": false,
+    "carNumber": "48가9125",
+    "content": "컨텐츠내용 테스트 예제",
+    "people": [
+      "test3_nick"
+    ],
+    "pid": 38
+  }
 ]
 ```
 - - -
@@ -138,20 +150,26 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 **응답 예시(JSON)**
 ```json
 {
-    "type": "카풀",
-    "startDate": "2023-05-20",
-    "startTime": "오전 11:20",
-    "startPoint": "남춘천역",
-    "startLat": "37.86369763697937",
-    "startLng": "127.72376542374549",
-    "endPoint": "동문",
-    "currentHeadcnt": 1,
-    "totalHeadcnt": 4,
-    "isConfirm": false,
-    "isFinish": false,
-    "carNumber": "237더1028",
-    "content": "컨텐츠내용 테스트 예제",
-    "pid": 40
+  "type": "카풀",
+  "startDate": "2023-05-20",
+  "startTime": "오전 11:20",
+  "startPoint": "남춘천역",
+  "startLat": "37.86369763697937",
+  "startLng": "127.72376542374549",
+  "endPoint": "동문",
+  "currentHeadcnt": 1,
+  "totalHeadcnt": 4,
+  "isConfirm": false,
+  "isFinish": false,
+  "carNumber": "237더1028",
+  "content": "컨텐츠내용 테스트 예제",
+  "people": [
+    "test5_nick",
+    "test1_nick",
+    "test2_nick",
+    "test3_nick"
+  ],
+  "pid": 40
 }
 ```
 - - -
@@ -202,20 +220,23 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 **택시 등록 응답 예시(JSON)**
 ```json
 {
-    "type": "택시",
-    "startDate": "2023-04-04",
-    "startTime": "오후 02:30",
-    "startPoint": "기숙사",
-    "startLat": "37.87120749003905",
-    "startLng": "127.7431938775162",
-    "endPoint": "남춘천역",
-    "currentHeadcnt": 1,
-    "totalHeadcnt": 4,
-    "isConfirm": false,
-    "isFinish": false,
-    "carNumber": null,
-    "content": null,
-    "pid": 48
+  "type": "택시",
+  "startDate": "2023-04-04",
+  "startTime": "오후 02:30",
+  "startPoint": "기숙사",
+  "startLat": "37.87120749003905",
+  "startLng": "127.7431938775162",
+  "endPoint": "남춘천역",
+  "currentHeadcnt": 1,
+  "totalHeadcnt": 4,
+  "isConfirm": false,
+  "isFinish": false,
+  "carNumber": null,
+  "content": null,
+  "people": [
+    "test1_nick"
+  ],
+  "pid": 41
 }
 ```
 **카풀 등록 요청 예시(JSON)**
@@ -242,20 +263,23 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 **카풀 등록 응답 예시(JSON)**
 ```json
 {
-    "type": "카풀",
-    "startDate": "2023-04-19",
-    "startTime": "오후 09:10",
-    "startPoint": "글로벌경영관",
-    "startLat": "37.87120749003905",
-    "startLng": "127.7431938775162",
-    "endPoint": "남춘천역",
-    "currentHeadcnt": 1,
-    "totalHeadcnt": 4,
-    "isConfirm": false,
-    "isFinish": false,
-    "carNumber": "98가7654",
-    "content": "카풀내용수정테스트asdfgh",
-    "pid": 49
+  "type": "카풀",
+  "startDate": "2023-04-19",
+  "startTime": "오후 09:10",
+  "startPoint": "글로벌경영관",
+  "startLat": "37.87120749003905",
+  "startLng": "127.7431938775162",
+  "endPoint": "남춘천역",
+  "currentHeadcnt": 1,
+  "totalHeadcnt": 4,
+  "isConfirm": false,
+  "isFinish": false,
+  "carNumber": "98가7654",
+  "content": "카풀내용수정테스트asdfgh",
+  "people": [
+    "test1_nick"
+  ],
+  "pid": 42
 }
 ```
 - - -
@@ -311,7 +335,7 @@ PUT /parties/{pId}
 
 **택시 -> 카풀 수정 요청 예시(JSON)**
 ```http
-PUT /parties/48
+PUT /parties/41
 ```
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
@@ -346,7 +370,10 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "isFinish": false,
   "carNumber": "123고4567",
   "content": "카풀 내용 수정 테스트입니다.",
-  "pid": 48
+  "people": [
+    "test1_nick"
+  ],
+  "pid": 41
 }
 ```
 
@@ -609,6 +636,9 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 
 ## TODO
 - ID로 검색 실패시 404 반환하게 수정
+- findById 로 조회시 참여자 목록이 0명인 경우 조회가 안되는 오류 수정하기
+- 카풀 / 택시 별개로 총 아이템 갯수 반환하는 메서드 만들기
+- UPDATE / DELETE 할 때도 참여자 목록 반환하게 수정
 
 ## 참고
 - 주소 -> 위도/경도 변환
