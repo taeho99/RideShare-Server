@@ -6,6 +6,7 @@
 - [ERD](#erd)
 - [REST API Guide](#rest-api-guide)
   * 파티 관련
+    - [택시/카풀 총 개수 조회](#택시카풀-총-개수-조회)
     - [택시/카풀 리스트 반환 및 검색](#택시카풀-리스트-반환-및-검색)
     - [택시/카풀 ID로 조회](#택시카풀-ID로-조회)
     - [파티 등록](#파티-등록)
@@ -32,6 +33,36 @@
 ## ERD
 ![erd](https://github.com/KNUCSE23-Capston-Design/RideShare-Server/assets/70526479/75583b02-58f3-4c0b-893f-09b9e3d97d88)
 ## REST API Guide
+### 택시/카풀 총 개수 조회
+- **택시/카풀 리스트의 총 아이템 개수를 반환합니다.**
+```http
+GET /parties/count
+```
+**성공**: 200 OK <br><br>
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 파라미터**
+|필수|Params|Type|Description|
+|:---:|------|---|---|
+|O|`type`|`String`| `"택시"` or `"카풀"`|
+
+**요청 예시**
+```http
+GET /parties/count?type=택시
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시(TEXT)**
+```text
+20
+```
+- - -
 ### 택시/카풀 리스트 반환 및 검색
 - **lastId 보다 작은 값의 레코드들을 amount개 반환합니다.**
 - **keyword 필드를 추가하면 원하는 출발지를 검색할 수 있습니다.**
@@ -537,10 +568,10 @@ POST /members/login
 **응답 예시(JSON)**
 ```json
 {
-    "grantType": "Bearer",
-    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTIwNn0.d0B2AXhmqUO_XIHYfuTVw_yKc-pj3puDV2XGwn8C-SF1yDes39ZZviYk4hBF5b-S2NZUHlmwg9oMnV_uiZBf3Q",
-    "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzIyMDZ9.dWnu2y-JoiggvhqbDbjuB1ir-KvqN00F-fXbX7p3vGdTvuOgFwL6U9t0oimwtkZ3MoYPhlskdxd7UkfUxt2lZw",
-    "accessTokenExpiresIn": 1684929206327
+  "grantType": "Bearer",
+  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTIwNn0.d0B2AXhmqUO_XIHYfuTVw_yKc-pj3puDV2XGwn8C-SF1yDes39ZZviYk4hBF5b-S2NZUHlmwg9oMnV_uiZBf3Q",
+  "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzIyMDZ9.dWnu2y-JoiggvhqbDbjuB1ir-KvqN00F-fXbX7p3vGdTvuOgFwL6U9t0oimwtkZ3MoYPhlskdxd7UkfUxt2lZw",
+  "accessTokenExpiresIn": 1684929206327
 }
 ```
 
@@ -570,18 +601,18 @@ POST /members/reissue
 **요청 예시(JSON)**
 ```json
 {
-    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTIwNn0.d0B2AXhmqUO_XIHYfuTVw_yKc-pj3puDV2XGwn8C-SF1yDes39ZZviYk4hBF5b-S2NZUHlmwg9oMnV_uiZBf3Q",
-    "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzIyMDZ9.dWnu2y-JoiggvhqbDbjuB1ir-KvqN00F-fXbX7p3vGdTvuOgFwL6U9t0oimwtkZ3MoYPhlskdxd7UkfUxt2lZw"
+  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTIwNn0.d0B2AXhmqUO_XIHYfuTVw_yKc-pj3puDV2XGwn8C-SF1yDes39ZZviYk4hBF5b-S2NZUHlmwg9oMnV_uiZBf3Q",
+  "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzIyMDZ9.dWnu2y-JoiggvhqbDbjuB1ir-KvqN00F-fXbX7p3vGdTvuOgFwL6U9t0oimwtkZ3MoYPhlskdxd7UkfUxt2lZw"
 }
 ```
 
 **응답 예시(JSON)**
 ```json
 {
-    "grantType": "Bearer",
-    "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTcyOH0.dimTO0aPhXQhPGr6X_9CS6DxcO9eLVwyuYr7olzZfugbcfF4sKLruS113sD_fSUAnZN4UEoeTsL1Lm4P7kRcvA",
-    "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzI3Mjh9.ZGCwZIvmZMAg23DQFbiEDV500D2LInxmGo3Smw_Q2qo4VVPRWAI_nMIZt-vooKvOyQ-9dBn-jVpRXCBIXWnO-Q",
-    "accessTokenExpiresIn": 1684929728723
+  "grantType": "Bearer",
+  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPTEVfVVNFUiIsImV4cCI6MTY4NDkyOTcyOH0.dimTO0aPhXQhPGr6X_9CS6DxcO9eLVwyuYr7olzZfugbcfF4sKLruS113sD_fSUAnZN4UEoeTsL1Lm4P7kRcvA",
+  "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2ODU1MzI3Mjh9.ZGCwZIvmZMAg23DQFbiEDV500D2LInxmGo3Smw_Q2qo4VVPRWAI_nMIZt-vooKvOyQ-9dBn-jVpRXCBIXWnO-Q",
+  "accessTokenExpiresIn": 1684929728723
 }
 ```
 
@@ -607,7 +638,7 @@ GET /members/me
 |`nickname`|`String`|닉네임|
 |`email`|`String`|이메일|
 |`authCode`|`Integer`|인증코드(6자리 랜덤숫자)|
-|`authStatus`|`String`|인증상태(인증완료: true, 인증미완료: false)|
+|`authStatus`|`Boolean`|인증상태(인증완료: true, 인증미완료: false)|
 |`authority`|`String`|권한(ROLE_USER / ROLE_ADMIN)|
 |`mid`|`Integer`|멤버ID (DB 기본키)|
 
@@ -636,9 +667,6 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 
 ## TODO
 - ID로 검색 실패시 404 반환하게 수정
-- findById 로 조회시 참여자 목록이 0명인 경우 조회가 안되는 오류 수정하기
-- 카풀 / 택시 별개로 총 아이템 갯수 반환하는 메서드 만들기
-- UPDATE / DELETE 할 때도 참여자 목록 반환하게 수정
 
 ## 참고
 - 주소 -> 위도/경도 변환

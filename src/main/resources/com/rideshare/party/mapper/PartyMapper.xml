@@ -116,4 +116,8 @@
     <select id="checkCurrentHeadcnt" resultType="string">
         select current_headcnt from party where p_id=#{pId}
     </select>
+
+    <select id="getCount" resultType="Integer">
+        select count(*) from party where type=#{type}
+    </select>
 </mapper>

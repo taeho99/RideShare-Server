@@ -31,4 +31,6 @@ public interface PartyMapper {
     void onFinish(int pId);
 
     void increaseCurrentHeadcnt(int pId);
+
+    Integer getCount(String type);
 }

@@ -77,4 +77,8 @@ public class PartyService {
         partyMapper.insertMemberHasParty(new MemberHasPartyDTO(currentMemberId, pId, false));
         return currentHeadcnt + 1;
     }
+
+    public Integer getCount(String type) {
+        return partyMapper.getCount(type);
+    }
 }

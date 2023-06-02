@@ -66,4 +66,8 @@ public class PartyController {
         partyService.onFinish(pId);
     }
 
+    @GetMapping("/count")
+    public Integer count(@RequestParam("type") String type) {
+        return partyService.getCount(type);
+    }
 }
