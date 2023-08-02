@@ -541,7 +541,11 @@ POST /members/join
 POST /members/login
 ```
 **성공**: 200 OK <br>
-**실패**: 401 Unauthorized <br>
+**실패**
+|Code|Message|Description|
+|------|---|---|
+|`401`|`자격 증명에 실패하였습니다.`|아이디 또는 비밀번호 오류|
+|`401`|`메일인증을 완료하지 않았습니다.`|이메일 인증 미완료 오류|
 
 **요청 필드**
 |필수|Field|Type|Description|
@@ -582,7 +586,16 @@ POST /members/login
 POST /members/reissue
 ```
 **성공**: 200 OK <br>
-**실패**: 401 Unauthorized <br>
+**실패**
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Refresh Token이 유효하지 않습니다.`|잘못된 형식의 Refresh Token이 입력된 경우|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않는 경우|
+|`401`|`Refresh Token이 일치하지 않거나 만료되었습니다.`|올바른 형식의 Refresh Token이지만 DB 테이블의 Refresh Token 값과 다른 경우|
+|`500`|`JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.`|Access Token의 Signature부분 위조|
+|`500`|`Unable to read JSON value: ...(이하생략)`|Access Token의 Header부분이 잘못된 경우|
+|`500`|`Unsupported signature algorithm ...(이하생략)`|Access Token의 Header부분이 잘못된 경우|
+
 
 **요청 필드**
 |Field|Type|Description|
