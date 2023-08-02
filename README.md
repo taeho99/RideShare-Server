@@ -19,7 +19,7 @@
     - [아이디/이메일/닉네임 중복 확인](#아이디이메일닉네임-중복-확인)
     - [회원가입](#회원가입)
     - [로그인](#로그인)
-    - [Refresh Token 재발급](#refresh-token-재발급)
+    - [토큰 재발급](#토큰-재발급)
     - [마이페이지](#마이페이지)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
@@ -576,8 +576,8 @@ POST /members/login
 ```
 
 - - -
-### Refresh Token 재발급
-- **Refresh Token의 유효기간이 만료되면 재발급 받는 기능입니다.**
+### 토큰 재발급
+- **토큰의 유효기간이 만료되면 재발급 받는 기능입니다.**
 ```http
 POST /members/reissue
 ```
