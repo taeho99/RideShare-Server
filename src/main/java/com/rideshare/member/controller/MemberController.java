@@ -3,12 +3,15 @@ package com.rideshare.member.controller;
 import com.rideshare.member.domain.*;
 import com.rideshare.member.service.MemberService;
 import com.rideshare.member.util.SecurityUtil;
+import com.rideshare.party.domain.Party;
+import com.rideshare.party.domain.ScrollDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/members")
@@ -72,4 +75,8 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/notice-list")
+    public List<Party> myNoticeList() {
+        return memberService.getNoticeList(SecurityUtil.getCurrentMemberId());
+    }
 }

@@ -4,6 +4,7 @@ import com.rideshare.member.domain.*;
 import com.rideshare.member.jwt.TokenProvider;
 import com.rideshare.member.mapper.MemberMapper;
 import com.rideshare.member.mapper.RefreshTokenMapper;
+import com.rideshare.party.domain.Party;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -184,5 +186,9 @@ public class MemberService {
 
     public boolean nicknameCheck(String nickname) {
         return memberMapper.nicknameCheck(nickname);
+    }
+
+    public List<Party> getNoticeList(int mId) {
+        return memberMapper.getNoticeList(mId);
     }
 }

@@ -40,5 +40,32 @@
         select exists(select 1 from member where nickname=#{nickname});
     </select>
 
+    <select id="getNoticeList" resultMap="partyAndPeople">
+        select party.*, member.nickname from (
+                select * from member_has_party where p_id in (
+                    select p_id from member_has_party where m_id=#{mId} and is_writer=true)
+                                               order by p_id desc) member_has_party
+        join party on party.p_id=member_has_party.p_id
+        join member on member_has_party.m_id=member.m_id
+    </select>
 
+    <resultMap id="partyAndPeople" type="com.rideshare.party.domain.Party">
+        <id column="p_id" property="pId"/>
+        <result column="type" property="type"/>
+        <result column="start_date" property="startDate"/>
+        <result column="start_time" property="startTime"/>
+        <result column="start_point" property="startPoint"/>
+        <result column="start_lat" property="startLat"/>
+        <result column="start_lng" property="startLng"/>
+        <result column="end_point" property="endPoint"/>
+        <result column="current_headcnt" property="currentHeadcnt"/>
+        <result column="total_headcnt" property="totalHeadcnt"/>
+        <result column="is_confirm" property="isConfirm"/>
+        <result column="is_finish" property="isFinish"/>
+        <result column="car_number" property="carNumber"/>
+        <result column="content" property="content"/>
+        <collection property="people" ofType="java.lang.String" javaType="list">
+            <result column="nickname"/>
+        </collection>
+    </resultMap>
 </mapper>

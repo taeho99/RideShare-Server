@@ -22,6 +22,7 @@
     - [토큰 재발급](#토큰-재발급)
     - [마이페이지](#마이페이지)
     - [로그아웃](#로그아웃)
+    - [작성글 내역 조회](#작성글-내역-조회)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -701,7 +702,70 @@ POST /members/logout
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
+- - -
+### 작성글 내역 조회
+- **로그인한 사용자가 개설한 파티를 조회합니다.**
+```http
+GET /members/notice-list
+```
+**성공**: 200 OK <br><br>
 
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 예시**
+```http
+GET /members/notice-list
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시(JSON)**
+```json
+[
+  {
+    "type": "택시",
+    "startDate": "2023-04-01",
+    "startTime": "오전 11:20",
+    "startPoint": "백록관",
+    "startLat": "37.868442369510475",
+    "startLng": "127.7409329182267",
+    "endPoint": "남춘천역",
+    "currentHeadcnt": 1,
+    "totalHeadcnt": 4,
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": null,
+    "content": null,
+    "people": [
+      "test1_nick"
+    ],
+    "pid": 1
+  },
+  {
+    "type": "택시",
+    "startDate": "2023-04-06",
+    "startTime": "오전 11:20",
+    "startPoint": "천지관",
+    "startLat": "37.87119862478267",
+    "startLng": "127.74317105800883",
+    "endPoint": "남춘천역",
+    "currentHeadcnt": 1,
+    "totalHeadcnt": 4,
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": null,
+    "content": null,
+    "people": [
+      "test1_nick"
+    ],
+    "pid": 6
+  }
+]
+```
 
 ## TODO
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
