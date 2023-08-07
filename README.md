@@ -21,6 +21,7 @@
     - [로그인](#로그인)
     - [토큰 재발급](#토큰-재발급)
     - [마이페이지](#마이페이지)
+    - [로그아웃](#로그아웃)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -676,10 +677,34 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "mid": 4
 }
 ```
+- - -
+### 로그아웃
+- **로그아웃 요청이 들어오면 Refresh Token을 삭제하는 기능입니다.**
+```http request
+POST /members/logout
+```
+**성공**: 200 OK <br>
+**실패**
+|Code|Message|Description|
+|------|---|---|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않는 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 예시(JSON)**
+```http
+POST /members/logout
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
 
 
 ## TODO
-- ID로 검색 실패시 404 반환하게 수정
+- 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
 
 ## 참고
 - 주소 -> 위도/경도 변환

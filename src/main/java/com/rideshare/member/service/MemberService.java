@@ -37,7 +37,7 @@ public class MemberService {
         if (memberMapper.idCheck(inputData.getId())
            || memberMapper.nicknameCheck(inputData.getNickname())
            || memberMapper.emailCheck(inputData.getEmail())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 가입되어 있는 유저입니다.");
         }
         Member member = inputData.toMember(passwordEncoder);
         memberMapper.join(member);
@@ -116,6 +116,18 @@ public class MemberService {
         return tokenDto;
     }
     /* ===== 로그인 관련 메서드 끝 ===== */
+
+    /* ===== 로그아웃 관련 메서드 시작 ==== */
+    @Transactional
+    public void logout(String mId) {
+        refreshTokenMapper.findByKey(mId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED,
+                        "로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다."));
+        refreshTokenMapper.delete(mId);
+    }
+    /* ===== 로그아웃 관련 메서드 끝 ==== */
+
+    // TODO 로그아웃 됐는데 왜 마이페이지 조회됨? 해결해야함
 
     /* ===== Refresh_Token 재발급 관련 메서드 시작 ===== */
     @Transactional

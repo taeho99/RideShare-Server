@@ -36,6 +36,12 @@ public class MemberController {
         return memberService.login(inputData);
     }
 
+    @PostMapping("/logout")
+    public void logout() {
+        memberService.logout(String.valueOf(SecurityUtil.getCurrentMemberId()));
+//        memberService.logout("112");
+    }
+
     @PostMapping("/reissue")
     public TokenDTO reissue(@RequestBody TokenRequestDTO inputData) {
         return memberService.reissue(inputData);
