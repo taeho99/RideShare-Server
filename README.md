@@ -42,6 +42,10 @@
 GET /parties/count
 ```
 **성공**: 200 OK <br><br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -72,7 +76,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ```http
 GET /parties
 ```
-**성공**: 200 OK <br><br>
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -166,7 +174,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 GET /parties/{pId}
 ```
 **성공**: 200 OK <br>
-**실패**: 404 NOT_FOUND <BR><br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+|`404`|``|파티 ID가 존재하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -211,7 +223,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ```http request
 POST /parties
 ```
-**성공**: 201 CREATED <br><BR>
+**성공**: 201 CREATED <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -323,7 +339,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 DELETE /parties/{pId}
 ```
 **성공**: 200 OK <br>
-**실패**: 404 NOT_FOUND <br><BR>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+|`404`|``|파티 ID가 존재하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -346,7 +366,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 PUT /parties/{pId}
 ```
 **성공**: 200 OK <br>
-**실패**: 404 NOT_FOUND <br><BR>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+|`404`|``|파티 ID가 존재하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -420,6 +444,10 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 PUT /parties/{pId}/participate
 ```
 **성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -446,6 +474,10 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 PUT /parties/{pId}/confirm
 ```
 **성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -467,6 +499,10 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 PUT /parties/{pId}/finish
 ```
 **성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -544,7 +580,7 @@ POST /members/join
 POST /members/login
 ```
 **성공**: 200 OK <br>
-**실패**
+**실패**:
 |Code|Message|Description|
 |------|---|---|
 |`401`|`자격 증명에 실패하였습니다.`|아이디 또는 비밀번호 오류|
@@ -589,11 +625,11 @@ POST /members/login
 POST /members/reissue
 ```
 **성공**: 200 OK <br>
-**실패**
+**실패**:
 |Code|Message|Description|
 |------|---|---|
 |`401`|`Refresh Token이 유효하지 않습니다.`|잘못된 형식의 Refresh Token이 입력된 경우|
-|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않는 경우|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
 |`401`|`Refresh Token이 일치하지 않거나 만료되었습니다.`|올바른 형식의 Refresh Token이지만 DB 테이블의 Refresh Token 값과 다른 경우|
 |`500`|`JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.`|Access Token의 Signature부분 위조|
 |`500`|`Unable to read JSON value: ...(이하생략)`|Access Token의 Header부분이 잘못된 경우|
@@ -640,6 +676,11 @@ POST /members/reissue
 ```http
 GET /members/me
 ```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -686,10 +727,10 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 POST /members/logout
 ```
 **성공**: 200 OK <br>
-**실패**
+**실패**:
 |Code|Message|Description|
 |------|---|---|
-|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않는 경우|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -709,7 +750,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ```http
 GET /members/notice-list
 ```
-**성공**: 200 OK <br><br>
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -774,7 +819,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ```http
 GET /members/notice-list
 ```
-**성공**: 200 OK <br><br>
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
