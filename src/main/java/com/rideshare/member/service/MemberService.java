@@ -191,4 +191,8 @@ public class MemberService {
     public List<Party> getNoticeList(int mId) {
         return memberMapper.getNoticeList(mId);
     }
+
+    public List<Party> getPaticipationList(int mId) {
+        return memberMapper.getParticipationList(mId);
+    }
 }

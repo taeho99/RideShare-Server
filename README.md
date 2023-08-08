@@ -23,6 +23,7 @@
     - [마이페이지](#마이페이지)
     - [로그아웃](#로그아웃)
     - [작성글 내역 조회](#작성글-내역-조회)
+    - [파티-참여내역-조회](#파티-참여내역-조회)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -763,6 +764,55 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
       "test1_nick"
     ],
     "pid": 6
+  }
+]
+```
+- - -
+### 파티 참여내역 조회
+- **로그인한 사용자가 참여한 파티를 조회합니다.**
+- **직접 개설한 파티는 조회되지 않으며 다른 이용자가 개설한 파티에 참여한 경우만 조회됩니다.**
+```http
+GET /members/notice-list
+```
+**성공**: 200 OK <br><br>
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 예시**
+```http
+GET /members/participation-list
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시(JSON)**
+```json
+[
+  {
+    "type": "카풀",
+    "startDate": "2023-05-20",
+    "startTime": "오전 11:20",
+    "startPoint": "남춘천역",
+    "startLat": "37.86369763697937",
+    "startLng": "127.72376542374549",
+    "endPoint": "동문",
+    "currentHeadcnt": 1,
+    "totalHeadcnt": 4,
+    "isConfirm": false,
+    "isFinish": false,
+    "carNumber": "237더1028",
+    "content": "컨텐츠내용 테스트 예제",
+    "people": [
+      "test5_nick",
+      "test1_nick",
+      "test2_nick",
+      "test3_nick"
+    ],
+    "pid": 40
   }
 ]
 ```

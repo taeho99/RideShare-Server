@@ -26,4 +26,6 @@ public interface MemberMapper {
     boolean nicknameCheck(String nickname);
 
     List<Party> getNoticeList(int mId);
+
+    List<Party> getParticipationList(int mId);
 }

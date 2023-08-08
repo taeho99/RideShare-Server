@@ -49,6 +49,16 @@
         join member on member_has_party.m_id=member.m_id
     </select>
 
+    <select id="getParticipationList" resultMap="partyAndPeople">
+        select party.*, member.nickname from (
+            select * from member_has_party where p_id in (
+                select p_id from member_has_party where m_id=#{mId} and is_writer=false) order by p_id desc) member_has_party
+        join party on party.p_id=member_has_party.p_id
+        join member on member_has_party.m_id=member.m_id
+    </select>
+
+
+
     <resultMap id="partyAndPeople" type="com.rideshare.party.domain.Party">
         <id column="p_id" property="pId"/>
         <result column="type" property="type"/>

@@ -4,7 +4,6 @@ import com.rideshare.member.domain.*;
 import com.rideshare.member.service.MemberService;
 import com.rideshare.member.util.SecurityUtil;
 import com.rideshare.party.domain.Party;
-import com.rideshare.party.domain.ScrollDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -78,5 +77,10 @@ public class MemberController {
     @GetMapping("/notice-list")
     public List<Party> myNoticeList() {
         return memberService.getNoticeList(SecurityUtil.getCurrentMemberId());
+    }
+
+    @GetMapping("/participation-list")
+    public List<Party> myParticipationList() {
+        return memberService.getPaticipationList(SecurityUtil.getCurrentMemberId());
     }
 }
