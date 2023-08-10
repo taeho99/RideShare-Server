@@ -195,4 +195,8 @@ public class MemberService {
     public List<Party> getPaticipationList(int mId) {
         return memberMapper.getParticipationList(mId);
     }
+
+    public void changeNickname(int mId, String nickname) {
+        memberMapper.changeNickname(mId, nickname);
+    }
 }

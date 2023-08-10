@@ -83,4 +83,9 @@ public class MemberController {
     public List<Party> myParticipationList() {
         return memberService.getPaticipationList(SecurityUtil.getCurrentMemberId());
     }
+
+    @PutMapping("/nickname")
+    public void changeNewNickname(@RequestBody NicknameDTO nicknameDTO) {
+        memberService.changeNickname(SecurityUtil.getCurrentMemberId(), nicknameDTO.nickname);
+    }
 }

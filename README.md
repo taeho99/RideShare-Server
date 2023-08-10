@@ -24,6 +24,7 @@
     - [로그아웃](#로그아웃)
     - [작성글 내역 조회](#작성글-내역-조회)
     - [파티 참여내역 조회](#파티-참여내역-조회)
+    - [닉네임 변경](#닉네임-변경)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -865,9 +866,49 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   }
 ]
 ```
+- - -
+### 닉네임 변경
+- **사용자의 닉네임을 변경하는 기능입니다.**
+- **닉네임의 중복 체크는 /members/check 를 이용하면 됩니다.**
+```http
+PUT /members/nickname
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 필드**
+|필수|Field|Type|Description|
+|:---:|------|---|---|
+|O|`nickname`|`String`|변경할 새로운 닉네임|
+
+**요청 예시**
+```http
+PUT /members/nickname
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**요청 예시(JSON)**
+```json
+{
+  "nickname": "newNick1"
+}
+```
 
 ## TODO
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
+- 파티 참여내역 조회 - 특정 시간(종료 후 24시간) 후 자동삭제 되게끔 설정 (이 시간안에 리뷰작성)
+- 계정 정보 수정(닉네임, 비밀번호, 프로필)
+- 리뷰 기능 개발
 
 ## 참고
 - 주소 -> 위도/경도 변환

@@ -3,6 +3,7 @@ package com.rideshare.member.mapper;
 import com.rideshare.member.domain.Member;
 import com.rideshare.party.domain.Party;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +29,6 @@ public interface MemberMapper {
     List<Party> getNoticeList(int mId);
 
     List<Party> getParticipationList(int mId);
+
+    void changeNickname(@Param("mId") int mId, @Param("nickname") String nickname);
 }
