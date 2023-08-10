@@ -23,7 +23,7 @@
     - [마이페이지](#마이페이지)
     - [로그아웃](#로그아웃)
     - [작성글 내역 조회](#작성글-내역-조회)
-    - [파티-참여내역-조회](#파티-참여내역-조회)
+    - [파티 참여내역 조회](#파티-참여내역-조회)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -817,7 +817,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 - **로그인한 사용자가 참여한 파티를 조회합니다.**
 - **직접 개설한 파티는 조회되지 않으며 다른 이용자가 개설한 파티에 참여한 경우만 조회됩니다.**
 ```http
-GET /members/notice-list
+GET /members/participation-list
 ```
 **성공**: 200 OK <br>
 **실패**:
