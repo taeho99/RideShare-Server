@@ -6,8 +6,10 @@ import com.rideshare.member.util.SecurityUtil;
 import com.rideshare.party.domain.Party;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.mail.MessagingException;
 import java.util.List;
@@ -60,17 +62,20 @@ public class MemberController {
     }
 
     @GetMapping("/check")
-    public String validDuplicate(@RequestParam(required = false) String id,
+    public void validDuplicate(@RequestParam(required = false) String id,
                                  @RequestParam(required = false) String email,
                                  @RequestParam(required = false) String nickname) {
         if (id != null && id.length() != 0) {
-            return memberService.idCheck(id) ? "exist" : "non-exist";
+            if (memberService.idCheck(id))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID 중복");
         } else if (email != null && email.length() != 0) {
-            return memberService.emailCheck(email) ? "exist" : "non-exist";
+            if (memberService.emailCheck(email))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이메일 중복");
         } else if (nickname != null && nickname.length() != 0) {
-            return memberService.nicknameCheck(nickname) ? "exist" : "non-exist";
+            if (memberService.nicknameCheck(nickname))
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "닉네임 중복");
         } else {
-            throw new RuntimeException("파라미터 에러");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "파라미터 에러");
         }
     }
 

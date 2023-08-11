@@ -525,6 +525,15 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ```http request
 GET /members/check
 ```
+**성공**: 200 OK (중복 없음) <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`400`|`ID 중복`|ID가 중복된 경우|
+|`400`|`이메일 중복`|이메일이 중복된 경우|
+|`400`|`닉네임 중복`|닉네임 중복된 경우|
+|`400`|`파라미터 에러`|올바르지 않은 요청 파라미터가 전송된 경우|
+
 **요청 파라미터**
 |필수|Params|Type|Description|
 |:---:|------|---|---|
@@ -535,16 +544,6 @@ GET /members/check
 **요청 예시 (ID 중복여부)**
 ```http request
 GET /members/check?id=test1
-```
-
-**응답 예시, 중복인 경우(TEXT)**
-```TEXT
-exist
-```
-
-**응답 예시, 중복 아닌 경우(TEXT)**
-```TEXT
-non-exist
 ```
 
 - - -
