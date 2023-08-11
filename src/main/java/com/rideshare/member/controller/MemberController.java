@@ -86,6 +86,11 @@ public class MemberController {
 
     @PutMapping("/nickname")
     public void changeNewNickname(@RequestBody NicknameDTO nicknameDTO) {
-        memberService.changeNickname(SecurityUtil.getCurrentMemberId(), nicknameDTO.nickname);
+        memberService.changeNickname(SecurityUtil.getCurrentMemberId(), nicknameDTO.getNickname());
+    }
+
+    @PutMapping("/password")
+    public void changeNewPassword(@RequestBody PasswordDTO passwordDTO) {
+        memberService.changePassword(SecurityUtil.getCurrentMemberId(), passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
     }
 }

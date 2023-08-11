@@ -199,4 +199,16 @@ public class MemberService {
     public void changeNickname(int mId, String nickname) {
         memberMapper.changeNickname(mId, nickname);
     }
+
+    public void changePassword(int mId, String oldPassword, String newPassword) {
+        LoginDTO loginDTO = new LoginDTO(findMemberByMId(mId).getId(), oldPassword);
+        UsernamePasswordAuthenticationToken authenticationToken = loginDTO.toAuthentication();
+        authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
+        //자격 증명에 성공하면 아래 단계 실행
+        memberMapper.changePassword(mId, passwordEncoder.encode(newPassword));
+
+        //로그아웃 처리
+        logout(String.valueOf(mId));
+    }
 }

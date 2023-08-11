@@ -25,6 +25,7 @@
     - [작성글 내역 조회](#작성글-내역-조회)
     - [파티 참여내역 조회](#파티-참여내역-조회)
     - [닉네임 변경](#닉네임-변경)
+    - [비밀번호 변경](#비밀번호-변경)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -584,7 +585,7 @@ POST /members/login
 **실패**:
 |Code|Message|Description|
 |------|---|---|
-|`401`|`자격 증명에 실패하였습니다.`|아이디 또는 비밀번호 오류|
+|`401`|`Access Token이 만료되었습니다.`|아이디 또는 비밀번호 오류|
 |`401`|`메일인증을 완료하지 않았습니다.`|이메일 인증 미완료 오류|
 
 **요청 필드**
@@ -681,7 +682,7 @@ GET /members/me
 **실패**:
 |Code|Message|Description|
 |------|---|---|
-|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -755,7 +756,7 @@ GET /members/notice-list
 **실패**:
 |Code|Message|Description|
 |------|---|---|
-|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -824,7 +825,7 @@ GET /members/participation-list
 **실패**:
 |Code|Message|Description|
 |------|---|---|
-|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -877,7 +878,7 @@ PUT /members/nickname
 **실패**:
 |Code|Message|Description|
 |------|---|---|
-|`401`|`로그아웃된 사용자입니다. Refresh Token이 존재하지 않습니다.`|DB 테이블에 Refresh Token이 존재하지 않은 경우|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -903,11 +904,51 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "nickname": "newNick1"
 }
 ```
+- - -
+### 비밀번호 변경
+- **사용자의 비밀번호를 변경하는 기능입니다.**
+- **비밀번호 변경 후에는 로그아웃 처리 됩니다.**
+```http
+PUT /members/password
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+||또는 기존 비밀번호가 잘못 입력된 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 필드**
+|필수|Field|Type|Description|
+|:---:|------|---|---|
+|O|`oldPassword`|`String`|기존 비밀번호|
+|O|`newPassword`|`String`|새로운 비밀번호|
+
+**요청 예시**
+```http
+PUT /members/password
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**요청 예시(JSON)**
+```json
+{
+  "oldPassword": "1q2w3e4r",
+  "newPassword": "1q2w3e"
+}
+```
 
 ## TODO
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
 - 파티 참여내역 조회 - 특정 시간(종료 후 24시간) 후 자동삭제 되게끔 설정 (이 시간안에 리뷰작성)
-- 계정 정보 수정(닉네임, 비밀번호, 프로필)
+- 프로필 이미지?
 - 리뷰 기능 개발
 
 ## 참고

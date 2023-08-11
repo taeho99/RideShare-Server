@@ -30,5 +30,7 @@ public interface MemberMapper {
 
     List<Party> getParticipationList(int mId);
 
-    void changeNickname(@Param("mId") int mId, @Param("nickname") String nickname);
+    void changeNickname(@Param("mId") int mId, @Param("newNickname") String newNickname);
+
+    void changePassword(@Param("mId") int mId, @Param("newPassword") String newPassword);
 }

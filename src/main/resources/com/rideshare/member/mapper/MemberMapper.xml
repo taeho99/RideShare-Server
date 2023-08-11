@@ -80,6 +80,10 @@
     </resultMap>
 
     <update id="changeNickname" parameterType="map">
-        update member set nickname=#{nickname} where m_id=#{mId}
+        update member set nickname=#{newNickname} where m_id=#{mId}
+    </update>
+
+    <update id="changePassword" parameterType="map">
+        update member set pw=#{newPassword} where m_id=#{mId}
     </update>
 </mapper>
