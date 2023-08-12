@@ -62,6 +62,7 @@
         delete from party where p_id=#{pId}
     </delete>
 
+<!--    TODO 아래 SQL문 수정하기 에러-->
     <select id="selectMemberHasPartyById" resultType="com.rideshare.party.domain.MemberHasPartyDTO">
         select member_has_party where p_id=#{pId} and is_writer=true
     </select>

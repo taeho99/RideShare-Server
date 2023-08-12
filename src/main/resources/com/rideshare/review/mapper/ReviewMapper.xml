@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rideshare.review.mapper.ReviewMapper">
+    <select id="getScoreByMId" resultType="com.rideshare.review.domain.ScoreDTO">
+        select member.m_id, member.id, member.nickname, AVG(review.score) score from member
+            left join review on member.m_id = review.m_id where member.m_id=#{mId} group by m_id
+    </select>
+
+    <select id="getScoreById" resultType="com.rideshare.review.domain.ScoreDTO">
+        select member.m_id, member.id, member.nickname, AVG(review.score) score from member
+             left join review on member.m_id = review.m_id where member.id=#{id} group by m_id
+    </select>
+
+    <select id="getScoreByPId" resultType="com.rideshare.review.domain.ScoreDTO">
+        select member.m_id, member.id, member.nickname, AVG(review.score) score from member
+            left join review on member.m_id = review.m_id
+        where member.m_id=(select m_id from member_has_party where is_writer=true and p_id=#{pid}) group by m_id
+    </select>
+</mapper>

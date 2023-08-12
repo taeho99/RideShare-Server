@@ -26,6 +26,9 @@
     - [파티 참여내역 조회](#파티-참여내역-조회)
     - [닉네임 변경](#닉네임-변경)
     - [비밀번호 변경](#비밀번호-변경)
+  * 리뷰 관련
+    - [나의 점수 조회](#나의-점수-조회)
+    - [다른 사용자의 점수 조회](#다른-사용자의-점수-조회)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -943,11 +946,140 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "newPassword": "1q2w3e"
 }
 ```
+- - -
+### 나의 점수 조회
+- **나의 리뷰 점수를 확인하는 기능입니다.**
+- **점수는 100점 만점이며 평균값을 반올림하여 반환합니다.**
+```http
+GET /review
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**응답 필드**
+|Field|Type|Description|
+|------|---|---|
+|`mid`|`Integer`|멤버 ID (DB 기본키)|
+|`id`|`String`|아이디|
+|`nickname`|`String`|닉네임|
+|`score`|`Integer`|리뷰 점수|
+
+**요청 예시**
+```http
+GET /review
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시(JSON)**
+```json
+{
+  "mid": 1,
+  "id": "test1",
+  "nickname": "newNick1",
+  "score": 62
+}
+```
+### 다른 사용자의 점수 조회
+- **mid, id, pid를 이용하여 다른 사용자의 리뷰 점수를 확인하는 기능입니다.**
+- **pid(파티 ID)를 이용하여 점수 조회시 파티장(글쓴이)의 리뷰 점수를 반환합니다.**
+- **점수는 100점 만점이며 평균값을 반올림하여 반환합니다.**
+- **만약 리뷰가 1건도 존재하지 않으면 score 필드에 null 값을 반환합니다.**
+```http
+GET /review/mid/{mid}
+```
+```http
+GET /review/id/{id}
+```
+```http
+GET /review/pid/{pid}
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**응답 필드**
+|Field|Type|Description|
+|------|---|---|
+|`mid`|`Integer`|멤버 ID (DB 기본키)|
+|`id`|`String`|아이디|
+|`nickname`|`String`|닉네임|
+|`score`|`Integer`|리뷰 점수|
+
+**요청 예시(mid로 조회)**
+```http
+GET /review/mid/1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시(JSON)**
+```json
+{
+  "mid": 1,
+  "id": "test1",
+  "nickname": "newNick1",
+  "score": 62
+}
+```
+
+**요청 예시(id로 조회)**
+```http
+GET /review/id/test1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시(JSON)**
+```json
+{
+  "mid": 1,
+  "id": "test1",
+  "nickname": "newNick1",
+  "score": 62
+}
+```
+
+**요청 예시(pid로 조회)**
+```http
+GET /review/pid/1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시(JSON)**
+```json
+{
+  "mid": 1,
+  "id": "test1",
+  "nickname": "newNick1",
+  "score": 62
+}
+```
 
 ## TODO
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
 - 파티 참여내역 조회 - 특정 시간(종료 후 24시간) 후 자동삭제 되게끔 설정 (이 시간안에 리뷰작성)
-- 프로필 이미지?
+- 프로필 이미지(MEMBER 테이블에 프로필 이미지 URL 저장하는 컬럼 추가하기)
 - 리뷰 기능 개발
 
 ## 참고
