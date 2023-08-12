@@ -21,6 +21,7 @@
     - [로그인](#로그인)
     - [토큰 재발급](#토큰-재발급)
     - [마이페이지](#마이페이지)
+    - [상대방 프로필 조회](#상대방-프로필-조회)
     - [로그아웃](#로그아웃)
     - [작성글 내역 조회](#작성글-내역-조회)
     - [파티 참여내역 조회](#파티-참여내역-조회)
@@ -714,6 +715,7 @@ GET /members/me
 |`authCode`|`Integer`|인증코드(6자리 랜덤숫자)|
 |`authStatus`|`Boolean`|인증상태(인증완료: true, 인증미완료: false)|
 |`authority`|`String`|권한(ROLE_USER / ROLE_ADMIN)|
+|`score`|`Integer`|리뷰 점수|
 |`mid`|`Integer`|멤버ID (DB 기본키)|
 
 **요청 예시**
@@ -734,6 +736,69 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "authCode": 915897,
   "authStatus": true,
   "authority": "ROLE_USER",
+  "score": 50,
+  "mid": 4
+}
+```
+- - -
+### 상대방 프로필 조회
+- **다른 이용자의 정보를 조회하는 기능입니다.**
+- **다른 이용자의 ID 또는 mId(DB 기본키)를 이용하여 정보를 조회할 수 있습니다.**
+```http
+GET /members/id/{id}
+```
+```http
+GET /members/mid/{mid}
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**응답 필드**
+|Field|Type|Description|
+|------|---|---|
+|`id`|`String`|아이디|
+|`pw`|`String`|비밀번호|
+|`nickname`|`String`|닉네임|
+|`email`|`String`|이메일|
+|`authCode`|`Integer`|인증코드(6자리 랜덤숫자)|
+|`authStatus`|`Boolean`|인증상태(인증완료: true, 인증미완료: false)|
+|`authority`|`String`|권한(ROLE_USER / ROLE_ADMIN)|
+|`score`|`Integer`|리뷰 점수|
+|`mid`|`Integer`|멤버ID (DB 기본키)|
+
+**요청 예시(id로 조회)**
+```http
+GET /members/id/test1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+**요청 예시(mid로 조회)**
+```http
+GET /members/mid/1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+**응답 예시(JSON)**
+```json
+{
+  "id": "test1",
+  "pw": "$2a$10$KSAzA388kbsSZNvgLc1enO.EXAlKlBn/XmbNPd.xKC5f3ONXyIQrK",
+  "nickname": "test1_nick",
+  "email": "testmail1@kangwon.ac.kr",
+  "authCode": 915897,
+  "authStatus": true,
+  "authority": "ROLE_USER",
+  "score": 50,
   "mid": 4
 }
 ```
@@ -964,6 +1029,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 - **나의 리뷰 점수를 확인하는 기능입니다.**
 - **점수는 100점 만점이며 평균값을 반올림하여 반환합니다.**
 - **만약 리뷰가 1건도 존재하지 않으면 score 필드에 null 값을 반환합니다.**
+- **(싫어요: 0점, 보통이에요: 50점, 좋아요: 100점)** 
 ```http
 GET /review
 ```
@@ -1009,6 +1075,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 - **pid(파티 ID)를 이용하여 점수 조회시 파티장(글쓴이)의 리뷰 점수를 반환합니다.**
 - **점수는 100점 만점이며 평균값을 반올림하여 반환합니다.**
 - **만약 리뷰가 1건도 존재하지 않으면 score 필드에 null 값을 반환합니다.**
+- **(싫어요: 0점, 보통이에요: 50점, 좋아요: 100점)**
 ```http
 GET /review/mid/{mid}
 ```

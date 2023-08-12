@@ -52,13 +52,18 @@ public class MemberController {
     }
 
     @GetMapping("/me") // 마이페이지
-    public ResponseEntity<Member> findMemberByMId() {
+    public ResponseEntity<Member> findMyPage() {
         return ResponseEntity.ok(memberService.findMemberByMId(SecurityUtil.getCurrentMemberId()));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public Member findMemberById(@PathVariable String id) {
         return memberService.findMemberById(id);
+    }
+
+    @GetMapping("/mid/{mid}")
+    public Member findMemberByMId(@PathVariable int mid) {
+        return memberService.findMemberByMId(mid);
     }
 
     @GetMapping("/check")

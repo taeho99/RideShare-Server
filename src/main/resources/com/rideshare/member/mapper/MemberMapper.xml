@@ -19,13 +19,13 @@
     </update>
 
     <select id="findMemberById" resultType="com.rideshare.member.domain.Member">
-        select m_id, id, pw, nickname, email, auth_code, auth_status, authority from member
-        where id=#{id}
+        select member.m_id, id, pw, nickname, email, auth_code, auth_status, authority, avg(score) score from member
+            left join review on member.m_id = review.m_id where member.id = #{id} group by review.m_id
     </select>
 
     <select id="findMemberByMId" resultType="com.rideshare.member.domain.Member">
-        select m_id, id, pw, nickname, email, auth_code, auth_status, authority from member
-        where m_id=#{mId}
+        select member.m_id, id, pw, nickname, email, auth_code, auth_status, authority, avg(score) score from member
+            left join review on member.m_id = review.m_id where member.m_id = #{mId} group by review.m_id
     </select>
 
     <select id="idCheck" resultType="boolean">

@@ -16,5 +16,6 @@ public class Member {
     private int authCode;
     private Boolean authStatus;
     private Authority authority;
+    private Integer score;
 
 }
