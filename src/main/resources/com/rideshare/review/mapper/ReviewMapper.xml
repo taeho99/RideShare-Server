@@ -17,4 +17,19 @@
             left join review on member.m_id = review.m_id
         where member.m_id=(select m_id from member_has_party where is_writer=true and p_id=#{pid}) group by m_id
     </select>
+
+    <insert id="setScoreById" keyProperty="rId" parameterType="map">
+        insert into review (m_id, score)
+        values ((select m_id from member where id=#{id}), #{score})
+    </insert>
+
+    <insert id="setScoreByMId" keyProperty="rId" parameterType="map">
+        insert into review (m_id, score) values (#{mid}, #{score})
+    </insert>
+
+    <insert id="setScoreByPId" keyProperty="rId" parameterType="map">
+        insert into review (m_id, score)
+        values ((select m_id from member_has_party where p_id=#{pid} and is_writer=true), #{score})
+    </insert>
+
 </mapper>

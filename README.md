@@ -29,6 +29,7 @@
   * 리뷰 관련
     - [나의 점수 조회](#나의-점수-조회)
     - [다른 사용자의 점수 조회](#다른-사용자의-점수-조회)
+    - [다른 사용자의 점수 입력](#다른-사용자의-점수-입력)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -566,6 +567,10 @@ POST /members/join
 |O|`email`|`String`|이메일(현재는 @kangwon.ac.kr 아니여도 가능)|
 |O|`nickname`|`String`|닉네임(최대 15자)|
 
+**요청 예시**
+```http request
+POST /members/join
+```
 **요청 예시(JSON)**
 ```json
 {
@@ -604,6 +609,10 @@ POST /members/login
 |`refreshToken`|`String`|Refresh Token (현재 유효기간 7일로 설정)|
 |`accessTokenExpiresIn`|`String`|Access Token 유효기간(현재시각+30분)|
 
+**요청 예시**
+```http request
+POST /members/login
+```
 **요청 예시(JSON)**
 ```json
 {
@@ -654,6 +663,10 @@ POST /members/reissue
 |`refreshToken`|`String`|Refresh Token (현재 유효기간 7일로 설정)|
 |`accessTokenExpiresIn`|`String`|Access Token 유효기간(현재시각+30분)|
 
+**요청 예시**
+```http
+POST /members/reissue
+```
 **요청 예시(JSON)**
 ```json
 {
@@ -741,7 +754,7 @@ POST /members/logout
 |---|---|
 |`Authorization`|`Bearer` + `JWT Access Token`|
 
-**요청 예시(JSON)**
+**요청 예시**
 ```http
 POST /members/logout
 ```
@@ -950,6 +963,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ### 나의 점수 조회
 - **나의 리뷰 점수를 확인하는 기능입니다.**
 - **점수는 100점 만점이며 평균값을 반올림하여 반환합니다.**
+- **만약 리뷰가 1건도 존재하지 않으면 score 필드에 null 값을 반환합니다.**
 ```http
 GET /review
 ```
@@ -1053,12 +1067,73 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "score": 62
 }
 ```
+- - -
+### 다른 사용자의 점수 입력
+- **mid, id, pid를 이용하여 다른 사용자의 리뷰 점수를 입력하는 기능입니다.**
+- **pid(파티 ID)를 이용하여 점수 입력시 파티장(글쓴이)의 리뷰 점수를 입력합니다.**
+- **점수는 100점 만점입니다. (싫어요: 0점, 보통이에요: 50점, 좋아요: 100점)**
+```http
+POST /review/mid/{mid}
+```
+```http
+POST /review/id/{id}
+```
+```http
+POST /review/pid/{pid}
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+|`400`|`파티가 종료되지 않았습니다.`|종료되지 않은 파티의 파티장을 평가한 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 예시(mid로 평가)**
+```http
+POST /review/mid/1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+```json
+{
+    "score": 100
+}
+```
+**요청 예시(id로 평가)**
+```http
+POST /review/id/test1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+```json
+{
+    "score": 100
+}
+```
+**요청 예시(pid로 평가)**
+```http
+POST /review/pid/1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+```json
+{
+    "score": 100
+}
+```
 
 ## TODO
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
 - 파티 참여내역 조회 - 특정 시간(종료 후 24시간) 후 자동삭제 되게끔 설정 (이 시간안에 리뷰작성)
 - 프로필 이미지(MEMBER 테이블에 프로필 이미지 URL 저장하는 컬럼 추가하기)
-- 리뷰 기능 개발
 
 ## 참고
 - 주소 -> 위도/경도 변환

@@ -64,7 +64,7 @@
 
 <!--    TODO 아래 SQL문 수정하기 에러-->
     <select id="selectMemberHasPartyById" resultType="com.rideshare.party.domain.MemberHasPartyDTO">
-        select member_has_party where p_id=#{pId} and is_writer=true
+        select j_id, m_id, p_id, is_writer from member_has_party where p_id=#{pId} and is_writer=true
     </select>
 
     <delete id="deleteMemberHasPartyById">
