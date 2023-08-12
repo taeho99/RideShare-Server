@@ -989,6 +989,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "score": 62
 }
 ```
+- - -
 ### 다른 사용자의 점수 조회
 - **mid, id, pid를 이용하여 다른 사용자의 리뷰 점수를 확인하는 기능입니다.**
 - **pid(파티 ID)를 이용하여 점수 조회시 파티장(글쓴이)의 리뷰 점수를 반환합니다.**
