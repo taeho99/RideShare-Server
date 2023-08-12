@@ -1030,17 +1030,6 @@ GET /review/mid/1
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
-
-**응답 예시(JSON)**
-```json
-{
-  "mid": 1,
-  "id": "test1",
-  "nickname": "newNick1",
-  "score": 62
-}
-```
-
 **요청 예시(id로 조회)**
 ```http
 GET /review/id/test1
@@ -1048,17 +1037,6 @@ GET /review/id/test1
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
-
-**응답 예시(JSON)**
-```json
-{
-  "mid": 1,
-  "id": "test1",
-  "nickname": "newNick1",
-  "score": 62
-}
-```
-
 **요청 예시(pid로 조회)**
 ```http
 GET /review/pid/1
@@ -1066,7 +1044,6 @@ GET /review/pid/1
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
-
 **응답 예시(JSON)**
 ```json
 {
