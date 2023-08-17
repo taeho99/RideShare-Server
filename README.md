@@ -996,7 +996,8 @@ PUT /members/password
 |Code|Message|Description|
 |------|---|---|
 |`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
-||또는 기존 비밀번호가 잘못 입력된 경우|
+|상동|상동|또는 기존 비밀번호가 잘못 입력된 경우|
+|`400`|`기존 비밀번호와 일치합니다.`|새로운 비밀번호와 기존 비밀번호가 일치한 경우|
 
 **요청 헤더**
 |Name|Description|

@@ -101,6 +101,9 @@ public class MemberController {
 
     @PutMapping("/password")
     public void changeNewPassword(@RequestBody PasswordDTO passwordDTO) {
+        if (passwordDTO.getOldPassword().equals(passwordDTO.getNewPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "기존 비밀번호와 일치합니다.");
+        }
         memberService.changePassword(SecurityUtil.getCurrentMemberId(), passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
     }
 }
