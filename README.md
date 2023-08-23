@@ -12,7 +12,7 @@
     - [파티 등록](#파티-등록)
     - [파티 삭제](#파티-삭제)
     - [파티 수정](#파티-수정)
-    - [파티 현재 인원 수 1 증가시키기](#파티-현재-인원-수-1-증가시키기)
+    - [파티 참여하기](#파티-참여하기)
     - [파티 확정 완료하기](#파티-확정-완료하기)
     - [파티 종료하기](#파티-종료하기)
   * 멤버 관련
@@ -36,7 +36,7 @@
     - [메시지 발행](#메시지-발행)
     - [메시지 구독](#메시지-구독)
     - [본인의 채팅방 조회](#채팅방-조회)
-    - [채팅방 입장시 기존 채팅내역 불러오기](#기존-채팅내역-불러오기)
+    - [기존 채팅내역 불러오기](#기존-채팅내역-불러오기)
 ## 실행방법
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
 
@@ -1302,10 +1302,192 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ```
 </details>
 
+### 웹소켓 접속 방법
+<details>
+<summary>더보기</summary>
+
+- **로그인 시 웹소켓과 커넥션을 맺어야 합니다.**
+- **웹소켓 접속 URL은 아래와 같습니다.**
+```http
+ws://localhost:8080/stomp
+```
+</details>
+
+### 메시지 발행
+<details>
+<summary>더보기</summary>
+
+- **아래 URI로 메시지를 발행(송신)할 수 있습니다.**
+- **`roomId`는 `pId`와 동일합니다.**
+```http
+/pub/chat/room/{roomId}
+```
+**메시지 발행 예시**
+```json
+{
+  "message": "안녕하세요?",
+  "sender": "사용자1"
+}
+```
+</details>
+
+### 메시지 구독
+<details>
+<summary>더보기</summary>
+
+- **아래 URI로 발행된 메시지를 구독(수신)할 수 있습니다.**
+- **`roomId`는 `pId`와 동일합니다.**
+```http
+/sub/chat/room/{roomId}
+```
+**메시지 구독 예시**
+```json
+{
+  "chatId": 36,
+  "sender": "사용자1",
+  "message": "안녕하세요?",
+  "time": "2023-08-23 19:11:17",
+  "roomId": 1
+}
+```
+</details>
+
+### 본인의 채팅방 조회
+<details>
+<summary>더보기</summary>
+
+- **로그인한 사용자가 참여중인 채팅방(파티)을 조회합니다.**
+- **반환되는 데이터는 파티내역 조회와 일치합니다.**
+```http
+GET /chat/rooms
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 예시**
+```http
+GET /chat/rooms
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시**
+```json
+[
+    {
+        "type": "택시",
+        "startDate": "2023-04-02",
+        "startTime": "오전 11:20",
+        "startPoint": "글로벌경영관",
+        "startLat": "37.8695401263153",
+        "startLng": "127.74543307476856",
+        "endPoint": "남춘천역",
+        "currentHeadcnt": 1,
+        "totalHeadcnt": 4,
+        "isConfirm": false,
+        "isFinish": false,
+        "carNumber": null,
+        "content": null,
+        "people": [
+            "test2_nick"
+        ],
+        "pid": 2
+    },
+    {
+        "type": "택시",
+        "startDate": "2023-04-07",
+        "startTime": "오전 11:20",
+        "startPoint": "중앙도서관",
+        "startLat": "37.87083174292327",
+        "startLng": "127.74420160286947",
+        "endPoint": "남춘천역",
+        "currentHeadcnt": 1,
+        "totalHeadcnt": 4,
+        "isConfirm": false,
+        "isFinish": false,
+        "carNumber": null,
+        "content": null,
+        "people": [
+            "test2_nick"
+        ],
+        "pid": 7
+    }
+]
+```
+</details>
+
+### 기존 채팅내역 불러오기
+<details>
+<summary>더보기</summary>
+
+- **사용자가 보낸 채팅은 채팅방을 나가면 (뷰가 전환되면) 삭제되기 때문에 기존 채팅내역을 불러오는 기능입니다.**
+- **`roomId`를 URL에 포함하여 전달하면 해당 채팅방의 모든 과거 채팅내역들을 반환합니다.**
+- **과거순부터 차례대로 데이터를 반환합니다.**
+
+```http
+GET /chat/list/{roomId}
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 예시**
+```http
+GET /chat/room/1
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
+```
+
+**응답 예시**
+```json
+[
+  {
+    "chatId": 17,
+    "sender": "사용자1",
+    "message": "안녕하세요?",
+    "time": "2023-08-18 21:37:43",
+    "roomId": 1
+  },
+  {
+    "chatId": 30,
+    "sender": "사용자2",
+    "message": "반갑습니다.",
+    "time": "2023-08-22 20:08:29",
+    "roomId": 1
+  },
+  {
+    "chatId": 36,
+    "sender": "사용자1",
+    "message": "여기는 1번 파티의 채팅방입니다!",
+    "time": "2023-08-23 19:11:17",
+    "roomId": 1
+  }
+]
+```
+</details>
+
 ## TODO
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
 - 파티 참여내역 조회 - 특정 시간(종료 후 24시간) 후 자동삭제 되게끔 설정 (이 시간안에 리뷰작성)
 - 프로필 이미지(MEMBER 테이블에 프로필 이미지 URL 저장하는 컬럼 추가하기)
+- dbinit.sql 채팅 테이블 생성해서 업데이트하기
 
 ## 참고
 - 주소 -> 위도/경도 변환

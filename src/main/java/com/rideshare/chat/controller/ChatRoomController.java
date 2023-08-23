@@ -25,7 +25,7 @@ public class ChatRoomController {
 
 
     @GetMapping("/list/{roomId}")
-    public List<ChatMessage> loadChatList(@RequestParam int roomId) {
+    public List<ChatMessage> loadChatList(@PathVariable int roomId) {
         return chatService.getChatList(roomId);
     }
 
