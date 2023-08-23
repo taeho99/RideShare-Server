@@ -38,12 +38,7 @@
     - [본인의 채팅방 조회](#채팅방-조회)
     - [채팅방 입장시 기존 채팅내역 불러오기](#기존-채팅내역-불러오기)
 ## 실행방법
-<details>
-<summary>더보기</summary>
-
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
-
-</details>
 
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
 프로젝트의 `Database` 폴더 -> `dbinit.sql` 파일의 SQL 문장을 **MySQL Workbench**에서 모두 실행해주세요.
@@ -263,6 +258,9 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 </details>
 
 ### 파티 등록
+<details>
+<summary>더보기</summary>
+
 ```http request
 POST /parties
 ```
@@ -375,8 +373,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "pid": 42
 }
 ```
-- - -
+</details>
+
 ### 파티 삭제
+<details>
+<summary>더보기</summary>
+
 - **글 작성자만 파티를 삭제할 수 있습니다.**
 ```http request
 DELETE /parties/{pId}
@@ -400,9 +402,12 @@ DELETE /parties/40
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
+</details>
 
-- - -
 ### 파티 수정
+<details>
+<summary>더보기</summary>
+
 - **택시 <-> 카풀 간 수정도 가능합니다. 예시를 참고해주세요.**
 - **글 작성자만 파티를 수정할 수 있습니다.**
 ```http request
@@ -477,9 +482,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "pid": 41
 }
 ```
+</details>
 
-- - -
 ### 파티 참여하기
+<details>
+<summary>더보기</summary>
+
 - **원하는 파티에 참여하는 기능입니다.**
 - **파티의 최대 인원수를 초과하는 경우 오류 메시지를 반환합니다.**
 - **파티 참여에 성공한다면 현재 인원수를 반환합니다.**
@@ -508,9 +516,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ```json
 2
 ```
+</details>
 
-- - -
 ### 파티 확정 완료하기
+<details>
+<summary>더보기</summary>
+
 - **파티의 is_confirm 값을 true로 변경하는 기능입니다.**
 - **글 작성자만 파티 확정 완료가 가능합니다.**
 ```http request
@@ -534,8 +545,12 @@ PUT /parties/40/confirm
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
-- - -
+</details>
+
 ### 파티 종료하기
+<details>
+<summary>더보기</summary>
+
 - **파티의 is_finish 값을 true로 변경하는 기능입니다.**
 - **글 작성자만 파티 종료가 가능합니다.**
 ```http request
@@ -559,8 +574,12 @@ PUT /parties/40/finish
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
-- - -
+</details>
+
 ### 아이디/이메일/닉네임 중복 확인
+<details>
+<summary>더보기</summary>
+
 - **아이디와 이메일, 닉네임의 중복여부를 확인하는 기능입니다.**
 - **GET 요청 파라미터로 아이디, 이메일, 닉네임 중 하나를 포함하야 전송해야 합니다.**
 ```http request
@@ -586,9 +605,12 @@ GET /members/check
 ```http request
 GET /members/check?id=test1
 ```
+</details>
 
-- - -
 ### 회원가입
+<details>
+<summary>더보기</summary>
+
 - **신규 회원 정보를 입력받고 회원가입 요청을 보내는 기능입니다.**
 - **입력했던 이메일로 회원인증 링크를 전송합니다.**
 ```http request
@@ -617,9 +639,12 @@ POST /members/join
   "nickname": "test1_nick"
 }
 ```
+</details>
 
-- - -
 ### 로그인
+<details>
+<summary>더보기</summary>
+
 - **아이디와 비밀번호로 로그인을 하고 Access Token과 Refresh Token을 반환받는 기능입니다.**
 - **회원가입 완료 후 이메일 인증을 한 사용자만 로그인이 가능합니다.**
 ```http request
@@ -667,9 +692,12 @@ POST /members/login
   "accessTokenExpiresIn": 1684929206327
 }
 ```
+</details>
 
-- - -
 ### 토큰 재발급
+<details>
+<summary>더보기</summary>
+
 - **토큰의 유효기간이 만료되면 재발급 받는 기능입니다.**
 ```http
 POST /members/reissue
@@ -721,9 +749,12 @@ POST /members/reissue
   "accessTokenExpiresIn": 1684929728723
 }
 ```
+</details>
 
-- - -
 ### 마이페이지
+<details>
+<summary>더보기</summary>
+
 - **내 정보를 반환받는 기능입니다.**
 - **HTTP 헤더**의 **Authorization 필드**에 Access Token을 포함하여 전송해야 합니다.
 - **꼭 파라미터나 HTTP BODY가 아닌 HTTP 헤더에 토큰을 전송해야 합니다.**
@@ -776,8 +807,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "mid": 4
 }
 ```
-- - -
+</details>
+
 ### 상대방 프로필 조회
+<details>
+<summary>더보기</summary>
+
 - **다른 이용자의 정보를 조회하는 기능입니다.**
 - **다른 이용자의 ID 또는 mId(DB 기본키)를 이용하여 정보를 조회할 수 있습니다.**
 ```http
@@ -838,8 +873,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "mid": 4
 }
 ```
-- - -
+</details>
+
 ### 로그아웃
+<details>
+<summary>더보기</summary>
+
 - **로그아웃 요청이 들어오면 Refresh Token을 삭제하는 기능입니다.**
 ```http request
 POST /members/logout
@@ -862,8 +901,12 @@ POST /members/logout
 ```http header
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
-- - -
+</details>
+
 ### 작성글 내역 조회
+<details>
+<summary>더보기</summary>
+
 - **로그인한 사용자가 개설한 파티를 조회합니다.**
 ```http
 GET /members/notice-list
@@ -930,8 +973,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   }
 ]
 ```
-- - -
+</details>
+
 ### 파티 참여내역 조회
+<details>
+<summary>더보기</summary>
+
 - **로그인한 사용자가 참여한 파티를 조회합니다.**
 - **직접 개설한 파티는 조회되지 않으며 다른 이용자가 개설한 파티에 참여한 경우만 조회됩니다.**
 ```http
@@ -983,8 +1030,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   }
 ]
 ```
-- - -
+</details>
+
 ### 닉네임 변경
+<details>
+<summary>더보기</summary>
+
 - **사용자의 닉네임을 변경하는 기능입니다.**
 - **닉네임의 중복 체크는 /members/check 를 이용하면 됩니다.**
 ```http
@@ -1020,8 +1071,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "nickname": "newNick1"
 }
 ```
-- - -
+</details>
+
 ### 비밀번호 변경
+<details>
+<summary>더보기</summary>
+
 - **사용자의 비밀번호를 변경하는 기능입니다.**
 - **비밀번호 변경 후에는 로그아웃 처리 됩니다.**
 ```http
@@ -1061,8 +1116,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "newPassword": "1q2w3e"
 }
 ```
-- - -
+</details>
+
 ### 나의 점수 조회
+<details>
+<summary>더보기</summary>
+
 - **나의 리뷰 점수를 확인하는 기능입니다.**
 - **점수는 100점 만점이며 평균값을 반올림하여 반환합니다.**
 - **만약 리뷰가 1건도 존재하지 않으면 score 필드에 null 값을 반환합니다.**
@@ -1106,8 +1165,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "score": 62
 }
 ```
-- - -
+</details>
+
 ### 다른 사용자의 점수 조회
+<details>
+<summary>더보기</summary>
+
 - **mid, id, pid를 이용하여 다른 사용자의 리뷰 점수를 확인하는 기능입니다.**
 - **pid(파티 ID)를 이용하여 점수 조회시 파티장(글쓴이)의 리뷰 점수를 반환합니다.**
 - **점수는 100점 만점이며 평균값을 반올림하여 반환합니다.**
@@ -1171,8 +1234,12 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "score": 62
 }
 ```
-- - -
+</details>
+
 ### 다른 사용자의 점수 입력
+<details>
+<summary>더보기</summary>
+
 - **mid, id, pid를 이용하여 다른 사용자의 리뷰 점수를 입력하는 기능입니다.**
 - **pid(파티 ID)를 이용하여 점수 입력시 파티장(글쓴이)의 리뷰 점수를 입력합니다.**
 - **점수는 100점 만점입니다. (싫어요: 0점, 보통이에요: 50점, 좋아요: 100점)**
@@ -1233,6 +1300,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
     "score": 100
 }
 ```
+</details>
 
 ## TODO
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
