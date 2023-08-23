@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.*;
 
-@RequiredArgsConstructor
 @Configuration
 @EnableWebSocketMessageBroker
-@CrossOrigin(origins = "*")
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
@@ -23,7 +21,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws-stomp").setAllowedOrigins("*") // 왜 접속이 안될까..?
-                .withSockJS();
+        registry.addEndpoint("/stomp").setAllowedOriginPatterns("*");
     }
 }

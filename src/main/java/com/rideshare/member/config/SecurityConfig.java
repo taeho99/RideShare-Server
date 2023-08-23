@@ -20,7 +20,7 @@ public class SecurityConfig {
     private final TokenProvider tokenProvider;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-    private final String[] PERMITTED_URL = {"/members/join", "/members/login", "/members/check", "/members/reissue", "/members/auth", "/ws-stomp", "/chat/*"};
+    private final String[] PERMITTED_URL = {"/members/join", "/members/login", "/members/check", "/members/reissue", "/members/auth", "/stomp", "/chat/*"};
 
     @Bean
     public PasswordEncoder passwordEncoder() {

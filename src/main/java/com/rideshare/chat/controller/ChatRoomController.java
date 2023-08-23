@@ -1,9 +1,12 @@
 package com.rideshare.chat.controller;
 
+import com.rideshare.chat.Service.ChatService;
+import com.rideshare.chat.domain.ChatMessage;
 import com.rideshare.chat.domain.ChatRoom;
-import com.rideshare.chat.repository.ChatRoomRepository;
+import com.rideshare.chat.mapper.ChatMapper;
+import com.rideshare.member.util.SecurityUtil;
+import com.rideshare.party.domain.Party;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,17 +16,17 @@ import java.util.List;
 @RequestMapping("/chat")
 public class ChatRoomController {
 
-    private final ChatRoomRepository chatRoomRepository;
+    private final ChatService chatService;
 
-    @GetMapping("/rooms")
-    public List<ChatRoom> rooms() {
-        return chatRoomRepository.findAllRoom();
+    @GetMapping("/rooms") //사용자가 참여한 파티의 모든 채팅방을 반환
+    public List<Party> rooms() {
+        return chatService.findAllRoom(SecurityUtil.getCurrentMemberId());
     }
 
-    @PostMapping("/room")
-    public ChatRoom createRoom(@RequestParam String name) {
-        return chatRoomRepository.createChatRoom(name);
-    }
 
+    @GetMapping("/list/{roomId}")
+    public List<ChatMessage> loadChatList(@RequestParam int roomId) {
+        return chatService.getChatList(roomId);
+    }
 
 }

@@ -1,17 +1,25 @@
 package com.rideshare.chat.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+import java.math.BigInteger;
+import java.sql.Timestamp;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ChatMessage {
-    // 메시지 타입 : 입장, 채팅
-    public enum MessageType {
-        JOIN, TALK
-    }
-    private MessageType type; // 메시지 타입
-    private String roomId; // 방번호
+    private long chatId;
     private String sender; // 메시지 보낸사람
     private String message; // 메시지
+    private String time;
+    private int roomId;
+
+    public static ChatMessage createChatMessage(String sender, String message, int roomId) {
+        ChatMessage chatMessage = new ChatMessage();
+        chatMessage.sender = sender;
+        chatMessage.message = message;
+        chatMessage.roomId = roomId;
+        return chatMessage;
+    }
 }

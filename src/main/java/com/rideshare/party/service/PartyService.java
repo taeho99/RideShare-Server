@@ -1,5 +1,6 @@
 package com.rideshare.party.service;
 
+import com.rideshare.chat.controller.ChatController;
 import com.rideshare.member.util.SecurityUtil;
 import com.rideshare.party.domain.*;
 import com.rideshare.party.mapper.PartyMapper;
@@ -15,12 +16,14 @@ import java.util.List;
 public class PartyService {
 
     private final PartyMapper partyMapper;
+    private final ChatController chatController;
 
     public Party partySave(PartyDTO party) {
         partyMapper.partySave(party);
         int currentMemberId = SecurityUtil.getCurrentMemberId();
         int currPId = party.getPId();
         partyMapper.insertMemberHasParty(new MemberHasPartyDTO(currentMemberId, currPId, true));
+        chatController.enterChatRoom(currentMemberId, currPId);
         return partyMapper.findById(party.getPId());
     }
 
@@ -33,13 +36,13 @@ public class PartyService {
         return partyMapper.findById(pId);
     }
 
-    //글 작성자만 DELETE 할 수 있게 수정해야함
+    //TODO 글 작성자만 DELETE 할 수 있게 수정해야함
     public void deleteById(int pId) {
         partyMapper.deleteMemberHasPartyById(pId);
         partyMapper.deleteById(pId);
     }
 
-    //글 작성자만 UPDATE 할 수 있게 수정해야함
+    //TODO 글 작성자만 UPDATE 할 수 있게 수정해야함
     public Party updateById(PartyDTO inputData) {
         partyMapper.updateById(inputData);
         return partyMapper.findById(inputData.getPId());
@@ -75,6 +78,7 @@ public class PartyService {
         partyMapper.increaseCurrentHeadcnt(pId);
         int currentMemberId = SecurityUtil.getCurrentMemberId();
         partyMapper.insertMemberHasParty(new MemberHasPartyDTO(currentMemberId, pId, false));
+        chatController.enterChatRoom(currentMemberId, pId);
         return currentHeadcnt + 1;
     }
 
