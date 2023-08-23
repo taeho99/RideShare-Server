@@ -1497,3 +1497,13 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 - 위도/경도 찾기
   https://apis.map.kakao.com/web/sample/addMapClickEventWithMarker/
 - JWT 설명 https://github.com/ParkJiwoon/PrivateStudy/blob/master/web/jwt.md
+- [Spring 채팅앱 성능개선기 2] Cache를 이용한 속도향상
+  https://wans1027.tistory.com/23
+- [Spring+Stomp] Stomp를 활용한 웹소켓 구현
+  https://wans1027.tistory.com/21
+- https://blog.naver.com/qjawnswkd/222283176175
+- https://velog.io/@hellocdpa/220310-WebSocket-STOMP를-사용한-채팅기능-구현하기1-DB설계
+- https://terianp.tistory.com/154
+- https://dev-gorany.tistory.com/235
+- https://www.daddyprogrammer.org/post/4691/spring-websocket-chatting-server-stomp-server/
+- STOMP 테스트 도구 https://apic.app/online/#/tester
