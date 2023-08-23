@@ -40,7 +40,9 @@
 ## 실행방법
 <details>
 <summary>더보기</summary>
+
 [https://jojelly.tistory.com/86](https://jojelly.tistory.com/86)
+
 </details>
 
 ## 데이터베이스 초기설정 및 테스트 데이터 주입
@@ -48,22 +50,27 @@
 ## 인텔리제이 초기설정
 <details>
 <summary>더보기</summary>
+
 1. file->settings->Build, Execution, Deployment-> Compiler -> Annotation Processors에서 enable annotation processing를 체크표시 해주세요.
    ![캡처](https://user-images.githubusercontent.com/70526479/229042932-646348cf-5152-410a-bdce-9fdc85a1b695.PNG)
 2. RideshareApplication 파일의 main() 메서드를 실행하면 됩니다.<br>
    ![캡처2](https://user-images.githubusercontent.com/70526479/229047097-cf8ed5c7-6415-4326-bfbe-928179b7b0c3.PNG)
+
 </details>
 
 ## ERD
 <details>
 <summary>더보기</summary>
+
 ![erd](https://github.com/KNUCSE23-Capston-Design/RideShare-Server/assets/70526479/75583b02-58f3-4c0b-893f-09b9e3d97d88)
+
 </details>
 
 ## REST API Guide
 ### 택시/카풀 총 개수 조회
 <details>
 <summary>더보기</summary>
+
 - **택시/카풀 리스트의 총 아이템 개수를 반환합니다.**
 ```http
 GET /parties/count
@@ -101,6 +108,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 ### 택시/카풀 리스트 반환 및 검색
 <details>
 <summary>더보기</summary>
+
 - **lastId 보다 작은 값의 레코드들을 amount개 반환합니다.**
 - **keyword 필드를 추가하면 원하는 출발지를 검색할 수 있습니다.**
 ```http
@@ -201,9 +209,9 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 </details>
 
 ### 택시/카풀 ID로 조회
-
 <details>
 <summary>더보기</summary>
+
 ```http request
 GET /parties/{pId}
 ```
