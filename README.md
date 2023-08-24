@@ -1487,7 +1487,6 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 - 로그아웃 하고나서 마이페이지 조회 가능한 오류 수정
 - 파티 참여내역 조회 - 특정 시간(종료 후 24시간) 후 자동삭제 되게끔 설정 (이 시간안에 리뷰작성)
 - 프로필 이미지(MEMBER 테이블에 프로필 이미지 URL 저장하는 컬럼 추가하기)
-- dbinit.sql 채팅 테이블 생성해서 업데이트하기
 
 ## 참고
 - 주소 -> 위도/경도 변환
@@ -1507,3 +1506,4 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 - https://dev-gorany.tistory.com/235
 - https://www.daddyprogrammer.org/post/4691/spring-websocket-chatting-server-stomp-server/
 - STOMP 테스트 도구 https://apic.app/online/#/tester
+- https://fgh0296.tistory.com/24
