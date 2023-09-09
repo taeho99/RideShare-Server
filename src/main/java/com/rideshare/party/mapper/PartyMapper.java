@@ -15,7 +15,7 @@ public interface PartyMapper {
 
     void insertMemberHasParty(MemberHasPartyDTO memberHasPartyDTO);
 
-    List<Party> listPage(ScrollDTO scrollDTO);
+    List<Party> listPage(@Param("scroll") ScrollDTO scrollDTO, @Param("mId") int mId);
 
     Party findById(int pId);
 

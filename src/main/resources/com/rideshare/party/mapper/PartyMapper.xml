@@ -22,12 +22,13 @@
     <select id="listPage" resultMap="partyAndPeople">
         select party.*, member.nickname from (select * from party
         <where>
-            <if test="type == '택시'.toString()">and party.type = '택시'</if>
-            <if test="type == '카풀'.toString()">and party.type = '카풀'</if>
-            <if test="lastId != null and lastId != 0">and party.p_id &lt; #{lastId}</if>
-            <if test="keyword != null and keyword != ''">and party.start_point like concat('%', #{keyword}, '%')</if>
-        </where> order by p_id desc limit 0, #{amount}) party
+            <if test="scroll.type == '택시'.toString()">and party.type = '택시'</if>
+            <if test="scroll.type == '카풀'.toString()">and party.type = '카풀'</if>
+            <if test="scroll.lastId != null and scroll.lastId != 0">and party.p_id &lt; #{scroll.lastId}</if>
+            <if test="scroll.keyword != null and scroll.keyword != ''">and party.start_point like concat('%', #{scroll.keyword}, '%')</if>
+        </where> order by p_id desc limit 0, #{scroll.amount}) party
         join member_has_party on party.p_id=member_has_party.p_id
+        and party.p_id not in (select p_id from member_has_party where m_id=#{mId} and is_writer=true)
         join member on member_has_party.m_id=member.m_id
     </select>
 
@@ -122,7 +123,7 @@
         where p_id=#{pId}
     </update>
 
-    <update id="increaseCurrentHeadcnt">
+    <update id="decreaseCurrentHeadCnt">
         update party
         set current_headcnt=(
             select nowNum from (

@@ -31,7 +31,7 @@ public class PartyService {
 
     public List<Party> listPage(ScrollDTO scrollDTO) {
         log.info("scrollDTO={}", scrollDTO);
-        return partyMapper.listPage(scrollDTO);
+        return partyMapper.listPage(scrollDTO, SecurityUtil.getCurrentMemberId());
     }
 
     public Party findById(int pId) {
@@ -90,7 +90,7 @@ public class PartyService {
     public void leaveParty(int pId) {
         partyMapper.decreaseCurrentHeadCnt(pId);
         partyMapper.deleteMemberHasPartyByMidPid(SecurityUtil.getCurrentMemberId(), pId);
-        //챗컨트롤러 leaveChatRoom() 추가
+        // TODO 챗컨트롤러 leaveChatRoom() 추가
     }
 
     public Integer getCount(String type) {
