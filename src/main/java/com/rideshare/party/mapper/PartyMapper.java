@@ -38,4 +38,6 @@ public interface PartyMapper {
     Integer getCount(String type);
 
     boolean isExistUserInParty(@Param("mId") int mId, @Param("pId") int pId);
+
+    void decreaseCurrentHeadCnt(int pId);
 }

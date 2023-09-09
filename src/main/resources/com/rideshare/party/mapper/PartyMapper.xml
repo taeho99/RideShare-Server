@@ -122,6 +122,16 @@
         where p_id=#{pId}
     </update>
 
+    <update id="increaseCurrentHeadcnt">
+        update party
+        set current_headcnt=(
+            select nowNum from (
+                                   select current_headcnt-1 as nowNum from party where p_id=#{pId}
+                               ) as a
+        )
+        where p_id=#{pId}
+    </update>
+
     <select id="checkCurrentHeadcnt" resultType="string">
         select current_headcnt from party where p_id=#{pId}
     </select>
