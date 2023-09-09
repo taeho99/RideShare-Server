@@ -71,6 +71,10 @@
         delete from member_has_party where p_id=#{pId}
     </delete>
 
+    <delete id="deleteMemberHasPartyByMidPid">
+        delete from member_has_party where p_id=#{pId} and m_id=#{mId}
+    </delete>
+
     <update id="updateById" >
         update party
         set type=#{type},

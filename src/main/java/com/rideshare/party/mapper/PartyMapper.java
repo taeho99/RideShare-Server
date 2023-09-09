@@ -5,6 +5,7 @@ import com.rideshare.party.domain.PartyDTO;
 import com.rideshare.party.domain.Party;
 import com.rideshare.party.domain.ScrollDTO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,6 +24,8 @@ public interface PartyMapper {
     MemberHasPartyDTO selectMemberHasPartyById(int pId);
 
     void deleteMemberHasPartyById(int pId);
+
+    void deleteMemberHasPartyByMidPid(@Param("mId") int mId, @Param("pId") int pId);
 
     void updateById(PartyDTO inputData);
 

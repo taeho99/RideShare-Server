@@ -42,6 +42,10 @@ public class PartyService {
         partyMapper.deleteById(pId);
     }
 
+    public void leaveParty(int pId) {
+        partyMapper.deleteMemberHasPartyByMidPid(SecurityUtil.getCurrentMemberId(), pId);
+    }
+
     //TODO 글 작성자만 UPDATE 할 수 있게 수정해야함
     public Party updateById(PartyDTO inputData) {
         partyMapper.updateById(inputData);

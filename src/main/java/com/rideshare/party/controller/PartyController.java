@@ -42,6 +42,11 @@ public class PartyController {
         partyService.deleteById(pId);
     }
 
+    @PutMapping("/{pId}/leave")
+    public void leaveParty(@PathVariable int pId) {
+        partyService.leaveParty(pId);
+    }
+
     @PutMapping("/{pId}")
     public Party edit(@PathVariable int pId, @RequestBody PartyDTO inputData) {
         inputData.setPId(pId);

@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/members")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000")
 @Slf4j
 public class MemberController {
 

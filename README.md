@@ -13,6 +13,7 @@
     - [파티 삭제](#파티-삭제)
     - [파티 수정](#파티-수정)
     - [파티 참여하기](#파티-참여하기)
+    - [파티 나가기](#파티-나가기)
     - [파티 확정 완료하기](#파티-확정-완료하기)
     - [파티 종료하기](#파티-종료하기)
   * 멤버 관련
@@ -515,6 +516,34 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
 **응답 예시(TEXT) (참여 후 현재 인원이 2인 경우)**
 ```json
 2
+```
+</details>
+
+### 파티 나가기
+<details>
+<summary>더보기</summary>
+
+- **참여하고 있는 파티를 나가는 기능입니다.**
+```http request
+PUT /parties/{pId}/leave
+```
+**성공**: 200 OK <br>
+**실패**:
+|Code|Message|Description|
+|------|---|---|
+|`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+
+**요청 헤더**
+|Name|Description|
+|---|---|
+|`Authorization`|`Bearer` + `JWT Access Token`|
+
+**요청 예시**
+```http
+PUT /parties/40/leave
+```
+```http header
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이하 생략)
 ```
 </details>
 
