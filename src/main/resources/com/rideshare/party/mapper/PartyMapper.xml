@@ -75,6 +75,10 @@
         delete from member_has_party where p_id=#{pId} and m_id=#{mId}
     </delete>
 
+    <select id="isExistUserInParty" resultType="boolean">
+        select exists (select 1 from member_has_party where m_id=#{mId} and p_id=#{pId})
+    </select>
+
     <update id="updateById" >
         update party
         set type=#{type},

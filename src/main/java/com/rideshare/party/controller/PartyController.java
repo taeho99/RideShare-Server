@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -56,6 +57,10 @@ public class PartyController {
 
     @PutMapping("/{pId}/participate")
     public Integer participate(@PathVariable int pId) {
+        if (partyService.isExistUserInParty(pId)) {
+            log.info("이미 참여중인 파티입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 참여중인 파티");
+        }
         return partyService.participate(pId);
     }
 

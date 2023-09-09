@@ -6,7 +6,9 @@ import com.rideshare.party.domain.*;
 import com.rideshare.party.mapper.PartyMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -67,7 +69,8 @@ public class PartyService {
         int writerId = memberHasPartyDTO.getMId();
         int currentMemberId = SecurityUtil.getCurrentMemberId();
         if (writerId != currentMemberId) {
-            throw new RuntimeException("파티장이 아닙니다.");
+            log.info("파티장이 아닙니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "파티장이 아닙니다");
         }
         partyMapper.onFinish(pId);
     }
@@ -76,7 +79,8 @@ public class PartyService {
         int totalHeadcnt = partyMapper.findById(pId).getTotalHeadcnt();
         int currentHeadcnt = partyMapper.findById(pId).getCurrentHeadcnt();
         if (currentHeadcnt + 1 > totalHeadcnt) {
-            throw new RuntimeException("파티 정원 초과");
+            log.info("파티 정원을 초과하였습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "파티 정원 초과");
         }
 
         partyMapper.increaseCurrentHeadcnt(pId);
@@ -88,5 +92,9 @@ public class PartyService {
 
     public Integer getCount(String type) {
         return partyMapper.getCount(type);
+    }
+
+    public boolean isExistUserInParty(int pId) {
+        return partyMapper.isExistUserInParty(SecurityUtil.getCurrentMemberId(), pId);
     }
 }
