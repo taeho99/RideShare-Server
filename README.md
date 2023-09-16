@@ -148,6 +148,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
     "startLat": "37.86369763697937",
     "startLng": "127.72376542374549",
     "endPoint": "동문",
+    "endLat": "37.86546483861883",
+    "endLng": "127.7494661352292",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
     "isConfirm": false,
@@ -170,6 +172,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
     "startLat": "37.86369763697937",
     "startLng": "127.72376542374549",
     "endPoint": "미래도서관",
+    "endLat": "37.86546483861883",
+    "endLng": "127.7494661352292",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
     "isConfirm": false,
@@ -189,6 +193,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
     "startLat": "37.86369763697937",
     "startLng": "127.72376542374549",
     "endPoint": "강원대후문",
+    "endLat": "37.86546483861883",
+    "endLng": "127.7494661352292",
     "currentHeadcnt": 4,
     "totalHeadcnt": 4,
     "isConfirm": true,
@@ -241,6 +247,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "startLat": "37.86369763697937",
   "startLng": "127.72376542374549",
   "endPoint": "동문",
+  "endLat": "37.86546483861883",
+  "endLng": "127.7494661352292",
   "currentHeadcnt": 1,
   "totalHeadcnt": 4,
   "isConfirm": false,
@@ -284,6 +292,8 @@ POST /parties
 |O|`startLat`|`String`|출발지 위도|
 |O|`startLng`|`String`|출발지 경도|
 |O|`endPoint`|`String`|도착지|
+|O|`endLat`|`String`|도착지 위도|
+|O|`endLng`|`String`|도착지 경도|
 |O|`totalHeadcnt`|`int`|전체 인원 수|
 |O|`startDate`|`String`|출발 날짜|
 |O|`startTime`|`String`|출발 시각|
@@ -304,6 +314,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
+  "endLat": "37.86382292163636",
+  "endLng": "127.7239030183326",
   "totalHeadcnt": 4,
   "startDate": "2023-04-04",
   "startTime": "오후 02:30"
@@ -319,6 +331,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
+  "endLat": "37.86382292163636",
+  "endLng": "127.7239030183326",
   "currentHeadcnt": 1,
   "totalHeadcnt": 4,
   "isConfirm": false,
@@ -345,6 +359,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
+  "endLat": "37.86546483861883",
+  "endLng": "127.7494661352292",
   "totalHeadcnt": 4,
   "startDate": "2023-04-19",
   "startTime": "오후 09:10",
@@ -362,6 +378,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
+  "endLat": "37.86546483861883",
+  "endLng": "127.7494661352292",
   "currentHeadcnt": 1,
   "totalHeadcnt": 4,
   "isConfirm": false,
@@ -434,6 +452,8 @@ PUT /parties/{pId}
 |O|`startLat`|`String`|출발지 위도|
 |O|`startLng`|`String`|출발지 경도|
 |O|`endPoint`|`String`|도착지|
+|O|`endLat`|`String`|도착지 위도|
+|O|`endLng`|`String`|도착지 경도|
 |O|`totalHeadcnt`|`int`|전체 인원 수|
 |O|`startDate`|`String`|출발 날짜|
 |O|`startTime`|`String`|출발 시각|
@@ -454,6 +474,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
+  "endLat": "37.86546483861883",
+  "endLng": "127.7494661352292",
   "totalHeadcnt": 4,
   "startDate": "2023-04-04",
   "startTime": "오후 02:30",
@@ -471,6 +493,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
   "startLat": "37.87120749003905",
   "startLng": "127.7431938775162",
   "endPoint": "남춘천역",
+  "endLat": "37.86546483861883",
+  "endLng": "127.7494661352292",
   "currentHeadcnt": 1,
   "totalHeadcnt": 4,
   "isConfirm": false,
@@ -972,6 +996,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
     "startLat": "37.868442369510475",
     "startLng": "127.7409329182267",
     "endPoint": "남춘천역",
+    "endLat": "37.86546483861883",
+    "endLng": "127.7494661352292",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
     "isConfirm": false,
@@ -991,6 +1017,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
     "startLat": "37.87119862478267",
     "startLng": "127.74317105800883",
     "endPoint": "남춘천역",
+    "endLat": "37.86546483861883",
+    "endLng": "127.7494661352292",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
     "isConfirm": false,
@@ -1045,6 +1073,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
     "startLat": "37.86369763697937",
     "startLng": "127.72376542374549",
     "endPoint": "동문",
+    "endLat": "37.86546483861883",
+    "endLng": "127.7494661352292",
     "currentHeadcnt": 1,
     "totalHeadcnt": 4,
     "isConfirm": false,
@@ -1423,6 +1453,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
         "startLat": "37.8695401263153",
         "startLng": "127.74543307476856",
         "endPoint": "남춘천역",
+        "endLat": "37.86546483861883",
+        "endLng": "127.7494661352292",
         "currentHeadcnt": 1,
         "totalHeadcnt": 4,
         "isConfirm": false,
@@ -1442,6 +1474,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI0IiwiYXV0aCI6IlJPT...(이�
         "startLat": "37.87083174292327",
         "startLng": "127.74420160286947",
         "endPoint": "남춘천역",
+        "endLat": "37.86546483861883",
+        "endLng": "127.7494661352292",
         "currentHeadcnt": 1,
         "totalHeadcnt": 4,
         "isConfirm": false,

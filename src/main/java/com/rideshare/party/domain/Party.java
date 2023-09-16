@@ -19,6 +19,8 @@ public class Party {
     private String startLat;
     private String startLng;
     private String endPoint;
+    private String endLat;
+    private String endLng;
     private int currentHeadcnt;
     private int totalHeadcnt;
     private Boolean isConfirm;

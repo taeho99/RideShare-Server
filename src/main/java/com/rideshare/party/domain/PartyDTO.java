@@ -10,6 +10,8 @@ public class PartyDTO {
     private String startLat;
     private String startLng;
     private String endPoint;
+    private String endLat;
+    private String endLng;
     private int totalHeadcnt;
     private String startDate;
     private String startTime;

@@ -34,6 +34,8 @@
         <result column="start_lat" property="startLat"/>
         <result column="start_lng" property="startLng"/>
         <result column="end_point" property="endPoint"/>
+        <result column="end_lat" property="endLat"/>
+        <result column="end_lng" property="endLng"/>
         <result column="current_headcnt" property="currentHeadcnt"/>
         <result column="total_headcnt" property="totalHeadcnt"/>
         <result column="is_confirm" property="isConfirm"/>

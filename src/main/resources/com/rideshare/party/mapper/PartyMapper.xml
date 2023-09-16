@@ -5,12 +5,12 @@
 
     <insert id="partySave" useGeneratedKeys="true" keyProperty="pId">
         insert into party
-        (type, start_date, start_time, start_point, start_lat, start_lng, end_point, total_headcnt
+        (type, start_date, start_time, start_point, start_lat, start_lng, end_point, end_lat, end_lng, total_headcnt
         <if test="type == '카풀'.toString()">, car_number, content</if>)
         values
             (<if test="type == '택시'.toString()">'택시'</if>
              <if test="type == '카풀'.toString()">'카풀'</if>
-             , #{startDate}, #{startTime}, #{startPoint}, #{startLat}, #{startLng}, #{endPoint}, #{totalHeadcnt}
+             , #{startDate}, #{startTime}, #{startPoint}, #{startLat}, #{startLng}, #{endPoint}, #{endLat}, #{endLng}, #{totalHeadcnt}
              <if test="type == '카풀'.toString()">, #{carNumber}, #{content}</if>)
     </insert>
 
@@ -41,6 +41,8 @@
         <result column="start_lat" property="startLat"/>
         <result column="start_lng" property="startLng"/>
         <result column="end_point" property="endPoint"/>
+        <result column="end_lat" property="endLat"/>
+        <result column="end_lng" property="endLng"/>
         <result column="current_headcnt" property="currentHeadcnt"/>
         <result column="total_headcnt" property="totalHeadcnt"/>
         <result column="is_confirm" property="isConfirm"/>
@@ -87,6 +89,8 @@
             start_lat=#{startLat},
             start_lng=#{startLng},
             end_point=#{endPoint},
+            end_lat=#{endLat},
+            end_lng=#{endLng},
             total_headcnt=#{totalHeadcnt},
             start_date=#{startDate},
             start_time=#{startTime},
