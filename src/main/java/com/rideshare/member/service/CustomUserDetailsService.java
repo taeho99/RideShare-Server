@@ -4,6 +4,7 @@ import com.rideshare.member.domain.Member;
 import com.rideshare.member.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Collections;
 
@@ -34,7 +36,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     // DB 에 User 값이 존재한다면 UserDetails 객체로 만들어서 리턴
     private UserDetails createUserDetails(Member member) {
         if (!member.getAuthStatus()) {
-            throw new RuntimeException("메일인증을 완료하지 않았습니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "메일인증을 완료하지 않았습니다.");
         }
 
         log.info("call createUserDetails, member={}", member);

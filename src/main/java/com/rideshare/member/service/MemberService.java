@@ -32,6 +32,7 @@ public class MemberService {
     private final TokenProvider tokenProvider;
     private final RefreshTokenMapper refreshTokenMapper;
     private final JavaMailSender javaMailSender;
+    private final CustomUserDetailsService customUserDetailsService;
 
     /* ===== 회원가입 관련 메서드 시작 ===== */
     @Transactional
@@ -201,9 +202,10 @@ public class MemberService {
     }
 
     public void changePassword(int mId, String oldPassword, String newPassword) {
-        LoginDTO loginDTO = new LoginDTO(findMemberByMId(mId).getId(), oldPassword);
-        UsernamePasswordAuthenticationToken authenticationToken = loginDTO.toAuthentication();
-        authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
+        if (!passwordEncoder.matches(oldPassword, findMemberByMId(mId).getPw())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "기존 비밀번호가 일치하지 않습니다.");
+        }
 
         //자격 증명에 성공하면 아래 단계 실행
         memberMapper.changePassword(mId, passwordEncoder.encode(newPassword));
