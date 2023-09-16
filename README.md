@@ -58,7 +58,7 @@
 <details>
 <summary>더보기</summary>
 
-![erd](https://github.com/KNUCSE23-Capston-Design/RideShare-Server/assets/70526479/316a2592-b385-48f6-8fe3-ac6ab095cf5f)
+![erd](https://github.com/KNUCSE23-Capston-Design/RideShare-Server/assets/70526479/0861a45d-4c26-492e-87c7-e301a4dea30a)
 
 </details>
 
