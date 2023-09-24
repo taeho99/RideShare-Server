@@ -27,9 +27,9 @@
             <if test="scroll.lastId != null and scroll.lastId != 0">and party.p_id &lt; #{scroll.lastId}</if>
             <if test="scroll.keyword != null and scroll.keyword != ''">and party.start_point like concat('%', #{scroll.keyword}, '%')</if>
             <if test="mId != 0">and party.p_id not in (select p_id from member_has_party where m_id=#{mId})</if>
-        </where> order by p_id desc limit 0, #{scroll.amount}) party
+        </where> order by p_id desc<if test="scroll.amount != null and scroll.amount != 0"> limit 0, #{scroll.amount}</if>) party
         join member_has_party on party.p_id=member_has_party.p_id
-        join member on member_has_party.m_id=member.m_id
+        join member on member_has_party.m_id=member.m_id order by p_id desc
     </select>
 
     <resultMap id="partyAndPeople" type="com.rideshare.party.domain.Party">

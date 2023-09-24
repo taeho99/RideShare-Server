@@ -125,9 +125,9 @@ GET /parties
 |필수|Params|Type|Description|
 |:---:|------|---|---|
 |X|`lastId`|`Integer`| 마지막으로 호출 된 id (미입력시 최근 id부터 출력)|
-|O|`amount`|`Integer`| 한번에 호출 할 레코드 개수|
-|O|`type`|`String`| `"택시"` or `"카풀"`|
-|X|`keyword`|`String`| 검색할 키워드(출발지) (미입력시 모두 출력)|
+|X|`amount`|`Integer`| 한번에 호출 할 레코드 개수 (미입력시 전체 조회)|
+|X|`type`|`String`| `"택시"` or `"카풀"` (미입력시 전체 조회)|
+|X|`keyword`|`String`| 검색할 키워드(출발지) (미입력시 전체 조회)|
 
 **요청 예시**
 ```http
