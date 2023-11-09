@@ -75,6 +75,10 @@ public class PartyService {
     public Integer participate(int pId) {
         int totalHeadcnt = partyMapper.findById(pId).getTotalHeadcnt();
         int currentHeadcnt = partyMapper.findById(pId).getCurrentHeadcnt();
+        if (currentHeadcnt + 1 == totalHeadcnt) {
+            //파티확정
+            onConfirm(pId);
+        }
         if (currentHeadcnt + 1 > totalHeadcnt) {
             log.info("파티 정원을 초과하였습니다.");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "파티 정원 초과");
@@ -99,5 +103,13 @@ public class PartyService {
 
     public boolean isExistUserInParty(int pId) {
         return partyMapper.isExistUserInParty(SecurityUtil.getCurrentMemberId(), pId);
+    }
+
+    public boolean isFinish(int pId) {
+        return partyMapper.isFinish(pId);
+    }
+
+    public boolean isConfirm(int pId) {
+        return partyMapper.isConfirm(pId);
     }
 }

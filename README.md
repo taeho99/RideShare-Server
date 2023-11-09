@@ -526,6 +526,7 @@ PUT /parties/{pId}/participate
 |`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
 |`400`|`파티 정원 초과`|파티 정원이 초과되어 참여할 수 없는 경우|
 |`400`|`이미 참여중인 파티`|사용자가 이미 참여중인 파티이기 때문에 중복 참여가 안되는 경우|
+|`400`|`확정되거나 종료된 파티`|이미 확정되거나 종료된 파티를 참여하는 경우|
 
 **요청 헤더**
 |Name|Description|
@@ -558,6 +559,7 @@ PUT /parties/{pId}/leave
 |Code|Message|Description|
 |------|---|---|
 |`401`|`Access Token이 만료되었습니다.`|사용자의 Access Token이 만료되었거나 유효하지 않은 경우|
+|`400`|`종료된 파티`|종료된 파티를 나가려고 하는 경우|
 
 **요청 헤더**
 |Name|Description|

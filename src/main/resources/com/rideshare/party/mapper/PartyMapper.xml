@@ -144,4 +144,12 @@
     <select id="getCount" resultType="Integer">
         select count(*) from party where type=#{type}
     </select>
+
+    <select id="isFinish" resultType="boolean">
+        select is_finish from party where p_id=#{pId}
+    </select>
+
+    <select id="isConfirm" resultType="boolean">
+        select is_confirm from party where p_id=#{pId}
+    </select>
 </mapper>

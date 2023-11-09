@@ -40,4 +40,8 @@ public interface PartyMapper {
     boolean isExistUserInParty(@Param("mId") int mId, @Param("pId") int pId);
 
     void decreaseCurrentHeadCnt(int pId);
+
+    boolean isFinish(int pId);
+
+    boolean isConfirm(int pId);
 }

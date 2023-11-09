@@ -45,6 +45,10 @@ public class PartyController {
 
     @PutMapping("/{pId}/leave")
     public void leaveParty(@PathVariable int pId) {
+        if (partyService.isFinish(pId)) {
+            log.info("이미 종료된 파티입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "종료된 파티");
+        }
         partyService.leaveParty(pId);
     }
 
@@ -57,6 +61,10 @@ public class PartyController {
 
     @PutMapping("/{pId}/participate")
     public Integer participate(@PathVariable int pId) {
+        if (partyService.isFinish(pId) || partyService.isConfirm(pId)) {
+            log.info("종료되거나 확정된 파티입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "확정되거나 종료된 파티");
+        }
         if (partyService.isExistUserInParty(pId)) {
             log.info("이미 참여중인 파티입니다.");
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 참여중인 파티");
